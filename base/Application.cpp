@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "SafeDelete.h"
 
 Application* Application::app = nullptr;
 
@@ -26,8 +25,9 @@ Application::Application()
 {
 	window = Window::GetInstance();
 	dxCommon = DirectXCommon::GetInstance();
-	input = Input::GetInstance();
-	camera = Camera::GetInstance();
+
+	scene = new BaseScene(dxCommon, window);
+	scene->Application();
 }
 
 Application::~Application()
@@ -61,16 +61,11 @@ void Application::Initialize()
 	//DirectXCommon
 	dxCommon->Initialize(window);
 
-	//Input初期化
-	input->Initialize(window->GetHwnd());
-
 	//テクスチャ
 	TextureManager::GetInstance()->Initialize(dxCommon);
 	TextureManager::Load(0, "Texture.jpg");
 	TextureManager::Load(1, "white1x1.png");
-
-	//カメラ
-	camera->Initialize();
+	Sprite::StaticInitialize(dxCommon, window->GetWindowWidth(), window->GetWindowHeight());
 
 	//Geometry
 	GeometryObjectManager::GetInstance()->CreateBuffer();
@@ -82,39 +77,12 @@ void Application::Initialize()
 
 #pragma endregion
 
-#ifdef _DEBUG
-	//一時停止
-	sceneStopper = SceneStopper::GetInstance();
-
-#endif // _DEBUG
+	scene->Initialize();
 }
 
 void Application::Update()
 {
-#ifdef _DEBUG
-
-#pragma region 一時停止
-	//入力
-	if(input->Trigger(DIK_F1)){
-		if(!sceneStopper->GetIsSceneStop()){
-			sceneStopper->SetIsSceneStop(true);
-		}
-		else if(sceneStopper->GetInstance()){
-			sceneStopper->SetIsSceneStop(false);
-		}
-	}
-	//停止
-	if(sceneStopper->GetIsSceneStop()) return;
-#pragma endregion
-
-#endif // _DEBUG
-
-#pragma region 汎用機能更新
-	//入力情報更新
-	input->Update();
-	//カメラ
-	camera->Update();
-#pragma endregion
+	scene->Update();
 }
 
 void Application::Draw()
@@ -122,6 +90,8 @@ void Application::Draw()
 	//描画前処理
 	dxCommon->BeginDraw();
 
+	Sprite::SetPipelineState();
+	scene->Draw();
 
 	//描画後処理
 	dxCommon->EndDraw();
@@ -129,5 +99,14 @@ void Application::Draw()
 
 void Application::Finalize()
 {
+	scene->Finalize();
+	
+	FbxModelObject::StaticFinalize();
+	FbxLoader::GetInstance()->Finalize();
+
+	GeometryObject::StaticFinalize();
+
+	Sprite::StaticFinalize();
+
 	window->Finalize();
 }

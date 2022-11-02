@@ -1,15 +1,9 @@
 #pragma once
 #include "Window.h"
 #include "DirectXCommon.h"
-#include "Input.h"
-#include "SceneManager.h"
 
 #include "TextureManager.h"
 #include "Sprite.h"
-#include "PostEffect.h"
-
-#include "Camera.h"
-#include "WorldTransform.h"
 
 #include "GeometryObjectManager.h"
 #include "GeometryObject.h"
@@ -18,10 +12,10 @@
 #include "FbxModelManager.h"
 #include "FbxModelObject.h"
 
-#ifdef _DEBUG
-#include "SceneStopper.h"
-#endif // _DEBUG
+#include "BaseScene.h"
 
+
+#include "Sprite.h"
 
 
 
@@ -51,13 +45,8 @@ private:
 #pragma region ”Ä—p‹@”\
 	Window* window;
 	DirectXCommon* dxCommon;
-	Input* input;
-	Camera* camera = nullptr;
 #pragma endregion
 
+	BaseScene* scene = nullptr;
 
-
-#ifdef _DEBUG
-	SceneStopper* sceneStopper = nullptr;
-#endif // _DEBUG
 };

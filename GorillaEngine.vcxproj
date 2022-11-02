@@ -173,6 +173,7 @@
     <ClCompile Include="math\Vector2.cpp" />
     <ClCompile Include="math\Vector3.cpp" />
     <ClCompile Include="math\Vector4.cpp" />
+    <ClCompile Include="scene\BaseScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2D\PostEffect.h" />
@@ -185,7 +186,6 @@
     <ClInclude Include="base\DirectXCommon.h" />
     <ClInclude Include="base\FbxModelManager.h" />
     <ClInclude Include="base\GeometryObjectManager.h" />
-    <ClInclude Include="base\SafeDelete.h" />
     <ClInclude Include="base\TextureManager.h" />
     <ClInclude Include="base\Window.h" />
     <ClInclude Include="camera\Camera.h" />
@@ -196,6 +196,7 @@
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
+    <ClInclude Include="scene\BaseScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
