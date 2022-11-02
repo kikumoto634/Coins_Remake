@@ -1,5 +1,7 @@
 #include "Application.h"
 
+#include "PlayScene.h"
+
 Application* Application::app = nullptr;
 
 using namespace std;
@@ -26,7 +28,7 @@ Application::Application()
 	window = Window::GetInstance();
 	dxCommon = DirectXCommon::GetInstance();
 
-	scene = new BaseScene(dxCommon, window);
+	scene = make_unique<PlayScene>(dxCommon, window);
 	scene->Application();
 }
 

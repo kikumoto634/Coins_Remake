@@ -1,7 +1,5 @@
 #include "BaseScene.h"
 
-
-
 BaseScene::BaseScene(DirectXCommon* dxCommon, Window* window)
 {
 	this->dxCommon = dxCommon;
@@ -22,10 +20,6 @@ void BaseScene::Initialize()
 	//カメラ
 	camera->Initialize();
 
-	sp = Sprite::Create(0, Vector2(110,0));
-	sp->SetSize(Vector2(100,100));
-
-
 #ifdef _DEBUG
 	//一時停止
 	sceneStopper = SceneStopper::GetInstance();
@@ -34,7 +28,11 @@ void BaseScene::Initialize()
 
 void BaseScene::Update()
 {
-#ifdef _DEBUG
+}
+
+void BaseScene::EndUpdate()
+{
+	#ifdef _DEBUG
 #pragma region 一時停止
 	//入力
 	if(input->Trigger(DIK_F1)){
@@ -50,17 +48,6 @@ void BaseScene::Update()
 #pragma endregion
 #endif // _DEBUG
 
-#pragma region 入力処理
-
-	if(input->Push(DIK_SPACE)){
-		sp->SetColor({1,0,0,1});
-	}
-	else{
-		sp->SetColor({1,1,1,1});
-	}
-
-#pragma endregion
-
 #pragma region 汎用機能更新
 	//入力情報更新
 	input->Update();
@@ -71,11 +58,8 @@ void BaseScene::Update()
 
 void BaseScene::Draw()
 {
-	sp->Draw();
 }
 
 void BaseScene::Finalize()
 {
-	delete sp;
-	sp = nullptr;
 }

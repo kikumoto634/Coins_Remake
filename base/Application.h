@@ -47,6 +47,6 @@ private:
 	DirectXCommon* dxCommon;
 #pragma endregion
 
-	BaseScene* scene = nullptr;
+	std::unique_ptr<BaseScene> scene;
 
 };

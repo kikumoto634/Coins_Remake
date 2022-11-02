@@ -12,38 +12,42 @@
 
 class BaseScene
 {
+//メンバ関数
 public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
 	BaseScene(DirectXCommon* dxCommon, Window* window);
 
-//メンバ関数
-public:
 	/// <summary>
 	/// 起動時
 	/// </summary>
-	void Application();
+	virtual void Application();
 
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize();
+	virtual void Initialize();
 
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	virtual void Update();
+
+	/// <summary>
+	/// 後更新
+	/// </summary>
+	void EndUpdate();
 
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	virtual void Draw();
 
 	/// <summary>
 	/// 後処理
 	/// </summary>
-	void Finalize();
+	virtual void Finalize();
 
 //メンバ変数
 protected:
@@ -58,7 +62,6 @@ protected:
 	Camera* camera = nullptr;
 #pragma endregion
 
-	Sprite* sp = nullptr;
 
 #ifdef _DEBUG
 	SceneStopper* sceneStopper = nullptr;
