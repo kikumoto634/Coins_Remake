@@ -105,7 +105,7 @@ void FbxModelObject::Update(WorldTransform worldTransform, Camera* camera)
 
 	const XMMATRIX& matViewProjection = camera->GetViewProjectionMatrix();
 	const XMMATRIX& modelTranslation = model->GetModelTransform();
-	const XMMATRIX& modelshadow = XMMatrixShadow(XMLoadFloat4(&planeVec),-XMLoadFloat3(&paralleLightVec));
+	//const XMMATRIX& modelshadow = XMMatrixShadow(XMLoadFloat4(&planeVec),-XMLoadFloat3(&paralleLightVec));
 	const Vector3& cameraPos = camera->GetEye();
 
 	HRESULT result;
@@ -114,7 +114,7 @@ void FbxModelObject::Update(WorldTransform worldTransform, Camera* camera)
 	if(SUCCEEDED(result)){
 		constMap->viewproj = matViewProjection;
 		constMap->world = modelTranslation * worldTransform.matWorld;
-		constMap->shadow = modelshadow;
+		//constMap->shadow = modelshadow;
 		constMap->cameraPos = cameraPos;
 		constBufferTransform->Unmap(0, nullptr);
 	}

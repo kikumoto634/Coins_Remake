@@ -55,25 +55,7 @@ private:
 	Camera* camera = nullptr;
 #pragma endregion
 
-#pragma region スプライト関連
 
-	Sprite* sprite = nullptr;
-	PostEffect* postEffect = nullptr;
-
-#pragma endregion
-
-#pragma region オブジェクト関連
-	GeometryObject* object = nullptr;
-	WorldTransform worldTransform = {};
-
-	FbxModelManager* modelFbx = nullptr;
-	FbxModelObject* objectFbx = nullptr;
-	WorldTransform worldTransformFbx;
-#pragma endregion
-
-#pragma region カメラ関連
-
-#pragma endregion
 
 #ifdef _DEBUG
 	SceneStopper* sceneStopper = nullptr;

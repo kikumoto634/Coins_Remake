@@ -41,7 +41,7 @@ public:
 	struct ConstBufferDataTransform{
 		XMMATRIX viewproj;
 		XMMATRIX world;
-		XMMATRIX shadow;
+		//XMMATRIX shadow;
 		Vector3 cameraPos;
 	};
 
@@ -74,7 +74,7 @@ public:
 	void PlayAnimation();
 
 protected:
-	DirectX::XMFLOAT3 paralleLightVec = {1,-1,1};
+	//DirectX::XMFLOAT3 paralleLightVec = {1,-1,1};
 
 	ComPtr<ID3D12Resource> constBufferTransform;
 	//定数バッファ(スキン)
