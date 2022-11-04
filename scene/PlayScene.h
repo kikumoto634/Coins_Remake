@@ -41,6 +41,11 @@ public:
 
 private:
 
+	//プレイヤー
+	FbxModelManager* playerModel;
+	FbxModelObject* playerObject;
+	WorldTransform playerWorld;
+
 	//地面
 	FbxModelManager* groundModel;
 	FbxModelObject* groundObject[10];
