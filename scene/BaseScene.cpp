@@ -23,6 +23,10 @@ void BaseScene::Initialize()
 #ifdef _DEBUG
 	//ˆêŽž’âŽ~
 	sceneStopper = SceneStopper::GetInstance();
+		
+	debugText = std::make_unique<DebugText>();
+	debugText->Initialize(1);
+
 #endif // _DEBUG
 }
 

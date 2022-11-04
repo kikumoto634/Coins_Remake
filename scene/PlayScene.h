@@ -1,6 +1,11 @@
 #pragma once
 #include "BaseScene.h"
 
+#include "Sprite.h"
+#include "FbxModelManager.h"
+#include "FbxModelObject.h"
+#include "WorldTransform.h"
+
 class PlayScene : public BaseScene
 {
 public:
@@ -35,6 +40,14 @@ public:
 	void Finalize() override;
 
 private:
-	Sprite* sp = nullptr;
+
+	//ínñ 
+	FbxModelManager* groundModel;
+	FbxModelObject* groundObject[10];
+	WorldTransform groundWorld[10];
+
+	//ÉJÉÅÉâ
+	Vector3 eye{};
+	Vector3 target{};
 };
 

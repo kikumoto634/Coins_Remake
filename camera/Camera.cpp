@@ -15,8 +15,8 @@ void Camera::Initialize()
 	const float distance = 20.f;	//ƒJƒƒ‰‚Ì‹——£
 
 	//ƒJƒƒ‰
-	view.eye = {0, 0, -distance};
-	view.target = {0, 0, 0};
+	view.eye = {0, -45.f, -distance};
+	view.target = {0, -50.f, 0};
 	view.up = {0, 1, 0};
 
 

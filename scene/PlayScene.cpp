@@ -24,9 +24,22 @@ void PlayScene::Initialize()
 	BaseScene::Initialize();
 
 #pragma region 2D初期化
-	sp = Sprite::Create(0, Vector2(110,0));
-	sp->SetSize(Vector2(100,100));
 #pragma endregion 
+
+#pragma region 3D初期化
+	//地面
+	groundModel = FbxLoader::GetInstance()->LoadModeFromFile("ground");
+
+	for(int i = 0; i < 10; i++){
+		groundWorld[i].Initialize();
+		groundObject[i] = FbxModelObject::Create(groundModel);
+	}
+#pragma endregion
+
+#pragma region 汎用機能初期化
+	eye = camera->GetEye();
+	target = camera->GetTarget();
+#pragma endregion
 }
 
 void PlayScene::Update()
@@ -37,15 +50,46 @@ void PlayScene::Update()
 	BaseScene::Update();
 
 #pragma region 入力処理
-
-	if(input->Push(DIK_SPACE)){
-		sp->SetColor({1,0,0,1});
+	//カメラ
+	if(input->Push(DIK_DOWN)){
+		target.y -= XMConvertToRadians(4.f);
 	}
-	else{
-		sp->SetColor({1,1,1,1});
+	else if(input->Push(DIK_UP)){
+		target.y += XMConvertToRadians(4.f);
 	}
-
+	if(input->Push(DIK_S)){
+		target.y -= 1.f;
+		eye.y -= 1.f;
+	}
+	else if(input->Push(DIK_W)){
+		target.y += 1.f;
+		eye.y += 1.f;
+	}
 #pragma endregion
+
+#pragma region 2D更新
+#pragma endregion
+
+#pragma region 3D更新
+	//地面
+	for(int i = 0; i < 10; i++){
+		groundWorld[i].translation = {0,-150,(float)i*210};
+		groundWorld[i].UpdateMatrix();
+		groundObject[i]->Update(groundWorld[i], camera);
+	}
+#pragma endregion
+
+#pragma region 汎用機能更新
+	//カメラ
+	camera->SetEye(eye);
+	camera->SetTarget(target);
+#pragma endregion
+
+#ifdef _DEBUG
+	debugText->Printf(0,0,1.f,"Camera:Eye	 X:%f Y:%f Z:%f", camera->GetEye().x,camera->GetEye().y,camera->GetEye().z);
+	debugText->Printf(0,16,1.f,"Camera:Target X:%f Y:%f Z:%f", camera->GetTarget().x,camera->GetTarget().y,camera->GetTarget().z);
+#endif // _DEBUG
+
 
 	/// <summary>
 	/// シーンベース
@@ -60,9 +104,25 @@ void PlayScene::Draw()
 	/// </summary>
 	BaseScene::Draw();
 
-#pragma region 2D描画
-	sp->Draw();
+#pragma region 2D背景
+
+#pragma endregion
+
+#pragma region 3D描画
+	for(int i = 0; i < 10; i++){
+		groundObject[i]->Draw();
+	}
+#pragma endregion
+
+#pragma region 2D描画UI
+	Sprite::SetPipelineState();
+
 #pragma endregion 
+
+#ifdef _DEBUG
+	debugText->DrawAll();
+#endif // _DEBUG
+
 }
 
 void PlayScene::Finalize()
@@ -72,8 +132,19 @@ void PlayScene::Finalize()
 	/// </summary>
 	BaseScene::Finalize();
 
+#pragma region 3D後処理
+
+	for(int i = 0; i < 10; i++){
+		delete groundObject[i];
+		groundObject[i] = nullptr;
+		groundWorld[i] = {};
+	}
+	delete groundModel;
+	groundModel = nullptr;
+
+#pragma endregion
+
 #pragma region 2D後処理
-	delete sp;
-	sp = nullptr;
+
 #pragma endregion 
 }

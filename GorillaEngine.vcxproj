@@ -78,12 +78,12 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)DirectXTex;$(SolutionDir)base;$(SolutionDir)scene;$(SolutionDir)2D;$(SolutionDir)math;$(SolutionDir)input;$(SolutionDir)3D;$(SolutionDir)camera;$(SolutionDir)debugProcess;$(ProjectDir)lib\fbx_sdk\include;$(SolutionDir)loader;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)DirectXTex;$(SolutionDir)base;$(SolutionDir)scene;$(SolutionDir)2D;$(SolutionDir)math;$(SolutionDir)input;$(SolutionDir)3D;$(SolutionDir)camera;$(ProjectDir)lib\fbx_sdk\include;$(SolutionDir)loader;$(SolutionDir)debugProcess;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)DirectXTex;$(SolutionDir)base;$(SolutionDir)scene;$(SolutionDir)2D;$(SolutionDir)math;$(SolutionDir)input;$(SolutionDir)3D;$(SolutionDir)camera;$(SolutionDir)debugProcess;$(ProjectDir)lib\fbx_sdk\include;$(SolutionDir)loader;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)DirectXTex;$(SolutionDir)base;$(SolutionDir)scene;$(SolutionDir)2D;$(SolutionDir)math;$(SolutionDir)input;$(SolutionDir)3D;$(SolutionDir)camera;$(ProjectDir)lib\fbx_sdk\include;$(SolutionDir)loader;$(SolutionDir)debugProcess;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -166,6 +166,7 @@
     <ClCompile Include="base\Window.cpp" />
     <ClCompile Include="camera\Camera.cpp" />
     <ClCompile Include="camera\RailCamera.cpp" />
+    <ClCompile Include="debugProcess\DebugText.cpp" />
     <ClCompile Include="debugProcess\SceneStopper.cpp" />
     <ClCompile Include="input\Input.cpp" />
     <ClCompile Include="loader\FbxLoader.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="base\Window.h" />
     <ClInclude Include="camera\Camera.h" />
     <ClInclude Include="camera\RailCamera.h" />
+    <ClInclude Include="debugProcess\DebugText.h" />
     <ClInclude Include="debugProcess\SceneStopper.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="loader\FbxLoader.h" />

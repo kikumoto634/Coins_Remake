@@ -8,6 +8,7 @@
 
 #ifdef _DEBUG
 #include "SceneStopper.h"
+#include "DebugText.h"
 #endif // _DEBUG
 
 class BaseScene
@@ -60,6 +61,7 @@ protected:
 	//çÏê¨
 	Input* input = nullptr;
 	Camera* camera = nullptr;
+	std::unique_ptr<DebugText> debugText;
 #pragma endregion
 
 

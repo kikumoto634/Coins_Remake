@@ -17,4 +17,5 @@ float4 main(VSOutput input) : SV_TARGET
 	float4 shadecolor = float4(brightness, brightness, brightness, 1.0f);
 	//陰影とテクスチャ色の合成
 	return shadecolor * texcolor;
+	//return tex.Sample(smp, input.uv);
 }
