@@ -76,6 +76,12 @@
     <Filter Include="ヘッダー ファイル\scene">
       <UniqueIdentifier>{d467907e-3d6e-4722-a54c-dccc6de58efe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\game">
+      <UniqueIdentifier>{2379a037-4f1a-4468-b2a6-4e06da9147ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\game">
+      <UniqueIdentifier>{ea57c6b7-74ef-4e42-a4ab-95c672e1605c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -150,6 +156,15 @@
     <ClCompile Include="debugProcess\DebugText.cpp">
       <Filter>ソース ファイル\debug</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Player\Player.cpp">
+      <Filter>ソース ファイル\game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Coins\Coins.cpp">
+      <Filter>ソース ファイル\game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\BaseObjects.cpp">
+      <Filter>ソース ファイル\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\Window.h">
@@ -220,6 +235,15 @@
     </ClInclude>
     <ClInclude Include="debugProcess\DebugText.h">
       <Filter>ヘッダー ファイル\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\Player.h">
+      <Filter>ヘッダー ファイル\game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Coins\Coins.h">
+      <Filter>ヘッダー ファイル\game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\BaseObjects.h">
+      <Filter>ヘッダー ファイル\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

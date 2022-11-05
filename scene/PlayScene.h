@@ -6,6 +6,9 @@
 #include "FbxModelObject.h"
 #include "WorldTransform.h"
 
+#include "Player\Player.h"
+#include <Coins/Coins.h>
+
 class PlayScene : public BaseScene
 {
 public:
@@ -40,11 +43,11 @@ public:
 	void Finalize() override;
 
 private:
-
 	//プレイヤー
-	FbxModelManager* playerModel;
-	FbxModelObject* playerObject;
-	WorldTransform playerWorld;
+	std::unique_ptr<Player> player;
+
+	//コイン
+	std::unique_ptr<Coins> coin;
 
 	//地面
 	FbxModelManager* groundModel;

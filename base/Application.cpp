@@ -85,6 +85,7 @@ void Application::Initialize()
 void Application::Update()
 {
 	scene->Update();
+	scene->EndUpdate();
 }
 
 void Application::Draw()
@@ -101,14 +102,14 @@ void Application::Draw()
 
 void Application::Finalize()
 {
-	scene->Finalize();
-	
 	FbxModelObject::StaticFinalize();
 	FbxLoader::GetInstance()->Finalize();
 
 	GeometryObject::StaticFinalize();
 
 	Sprite::StaticFinalize();
+	scene->Finalize();
+	delete scene.get();
 
 	window->Finalize();
 }
