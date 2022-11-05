@@ -27,3 +27,8 @@ void Coins::Finalize()
 {
 	BaseObjects::Finalize();
 }
+
+void Coins::OnCollision(Collider *TouchCollision)
+{
+	IsDead = true;
+}

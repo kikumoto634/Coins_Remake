@@ -1,8 +1,9 @@
 #pragma once
 #include "BaseObjects.h"
+#include "Collider/Collider.h"
 #include "Input.h"
 
-class Player : BaseObjects
+class Player : public BaseObjects, public Collider
 {
 //ƒƒ“ƒoŠÖ”
 public:
@@ -26,9 +27,16 @@ public:
 	/// </summary>
 	void Finalize() override;
 
-	//Getter
-	Vector3 GetPos()	{return world.translation;}
+	//Õ“Ë”»’è
+	void OnCollision(Collider* TouchCollision) override;
 
+	//Getter
+	const Vector3 GetPosition() override {return world.translation;}
+	const float GetWidth() override	{return width;}
+	const float GetHeight()	override	{return height;}
+	const float GetDepth()	override	{return depth;}
+	const std::string GetName() override	{return name;}
+	bool GetIsDead() const {return IsDead;}
 	//Setter
 
 
@@ -41,5 +49,10 @@ private:
 //ƒƒ“ƒo•Ï”
 private:
 	Input* input = nullptr;
+
+	float width = 10;
+	float height = 10;
+	float depth = 10;
+	std::string name = "Player";
 };
 

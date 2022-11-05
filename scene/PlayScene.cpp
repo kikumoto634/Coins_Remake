@@ -51,6 +51,8 @@ void PlayScene::Initialize()
 #pragma region 汎用機能初期化
 	eye = camera->GetEye();
 	target = camera->GetTarget();
+
+	collisionManager = make_unique<CollisionManager>();
 #pragma endregion
 }
 
@@ -93,6 +95,9 @@ void PlayScene::Update()
 	player->Update(camera, input);
 
 	//コイン
+	if(coin->GetIsDead()){
+		coin->Finalize();
+	}
 	coin->Update(camera);
 
 	//地面
@@ -104,8 +109,8 @@ void PlayScene::Update()
 
 #pragma region 汎用機能更新
 	//カメラ
-	eye.x = player->GetPos().x;
-	target.x = player->GetPos().x;
+	eye.x = player->GetPosition().x;
+	target.x = player->GetPosition().x;
 	camera->SetEye(eye);
 	camera->SetTarget(target);
 #pragma endregion
@@ -114,7 +119,9 @@ void PlayScene::Update()
 	debugText->Printf(0,0,1.f,"Camera:Eye	 X:%f Y:%f Z:%f", camera->GetEye().x,camera->GetEye().y,camera->GetEye().z);
 	debugText->Printf(0,16,1.f,"Camera:Target X:%f Y:%f Z:%f", camera->GetTarget().x,camera->GetTarget().y,camera->GetTarget().z);
 
-	debugText->Printf(0, 48, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPos().x, player->GetPos().y, player->GetPos().z);
+	debugText->Printf(0, 48, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
+
+	debugText->Printf(0, 80, 1.f,"coin Dead:%d", coin->GetIsDead());
 #endif // _DEBUG
 
 
@@ -187,4 +194,59 @@ void PlayScene::Finalize()
 #pragma region 2D後処理
 
 #pragma endregion 
+}
+
+void PlayScene::CheckAllCollision()
+{
+	//リストクリア
+	collisionManager->CollisionClear();
+	//リスト追加
+	collisionManager->SetCollision(player.get());
+	collisionManager->SetCollision(coin.get());
+
+	//総当たり判定
+	//リスト内のペアを総当たり
+	std::list<Collider*>::iterator itrA = collisionManager->colliders.begin();
+	for(; itrA != collisionManager->colliders.end(); ++itrA){
+		//イテレータAからコライダーAを取得
+		Collider* colliderA = *itrA;
+
+		//イテレータBはイテレータAの次の要素から回す(重複判定回避)
+		std::list<Collider*>::iterator itrB = itrA;
+		itrB++;
+
+		for(; itrB != collisionManager->colliders.end(); ++itrB){
+			//イテレータBからコライダーBを取得
+			Collider* colliderB = *itrB;
+
+			//ペアの当たり判定
+			CheckCollisionPair(colliderA, colliderB);
+		}
+	}
+}
+
+void PlayScene::CheckCollisionPair(Collider *colliderA, Collider *colliderB)
+{
+	//衝突フィルタリング
+	if(colliderA->GetCollisionAttribute() != colliderB->GetCollisionMask() || colliderB->GetCollisionAttribute() != colliderA->GetCollisionMask()){
+		return;
+	}
+
+	if(CheckCollisionDetail(colliderA, colliderB)){
+		colliderA->OnCollision(colliderB);
+		colliderB->OnCollision(colliderA);
+	}
+}
+
+bool PlayScene::CheckCollisionDetail(Collider *colliderA, Collider *colliderB)
+{
+	//ボックス同士の当たり判定
+	if(colliderA->GetPosition().x-colliderA->GetWidth() > colliderB->GetPosition().x+colliderB->GetWidth())		return false;
+	if(colliderA->GetPosition().x+colliderA->GetWidth() < colliderB->GetPosition().x-colliderB->GetWidth())		return false;
+	if(colliderA->GetPosition().y-colliderA->GetHeight() > colliderB->GetPosition().y+colliderB->GetHeight())	return false;
+	if(colliderA->GetPosition().y+colliderA->GetHeight() < colliderB->GetPosition().y-colliderB->GetHeight())	return false;
+	if(colliderA->GetPosition().z-colliderA->GetDepth() > colliderB->GetPosition().z+colliderB->GetDepth())		return false;
+	if(colliderA->GetPosition().z+colliderA->GetDepth() < colliderB->GetPosition().z-colliderB->GetDepth())		return false;
+
+	return true;
 }

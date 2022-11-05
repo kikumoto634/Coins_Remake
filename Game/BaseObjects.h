@@ -36,5 +36,7 @@ protected:
 	WorldTransform world;
 
 	Camera* camera = nullptr;
+
+	bool IsDead = false;
 };
 

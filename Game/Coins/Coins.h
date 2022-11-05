@@ -1,7 +1,8 @@
 #pragma once
 #include "BaseObjects.h"
+#include "Collider/Collider.h"
 
-class Coins : BaseObjects
+class Coins : public BaseObjects, public Collider
 {
 //ƒƒ“ƒoŠÖ”
 public:
@@ -24,5 +25,22 @@ public:
 	/// Œãˆ—
 	/// </summary>
 	void Finalize() override;
+
+	//Õ“Ë”»’è
+	void OnCollision(Collider* TouchCollision) override;
+
+	//Getter
+	const Vector3 GetPosition() override {return world.translation;}
+	const float GetWidth() override	{return width;}
+	const float GetHeight()	override	{return height;}
+	const float GetDepth()	override	{return depth;}
+	const std::string GetName() override	{return name;}
+	bool GetIsDead() const {return IsDead;}
+
+private:
+	float width = 10;
+	float height = 10;
+	float depth = 10;
+	std::string name = "Coin";
 };
 

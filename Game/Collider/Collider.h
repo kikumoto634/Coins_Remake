@@ -12,6 +12,7 @@ public:
 	//Get
 	virtual const float GetWidth() = 0;
 	virtual const float GetHeight() = 0;
+	virtual const float GetDepth() = 0;
 	virtual const std::string GetName() = 0;
 	virtual const Vector3 GetPosition() = 0;
 
@@ -25,6 +26,7 @@ private:
 	//衝突半径
 	float Width = 5.f;//デフォルト値
 	float Height = 5.f;
+	float Depth = 5.f;
 	std::string name = "unknown";
 
 	//衝突属性(自陣)

@@ -34,6 +34,10 @@ void Player::Finalize()
 	BaseObjects::Finalize();
 }
 
+void Player::OnCollision(Collider *TouchCollision)
+{
+}
+
 void Player::InputMovement()
 {
 	//ƒvƒŒƒCƒ„[

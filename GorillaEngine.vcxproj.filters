@@ -82,6 +82,12 @@
     <Filter Include="ヘッダー ファイル\game">
       <UniqueIdentifier>{ea57c6b7-74ef-4e42-a4ab-95c672e1605c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\collider">
+      <UniqueIdentifier>{6a61f552-fd9b-4615-ab32-2005d28f4dc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\collider">
+      <UniqueIdentifier>{1e08ec86-548c-4574-88d9-24e51d189031}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -165,6 +171,9 @@
     <ClCompile Include="Game\BaseObjects.cpp">
       <Filter>ソース ファイル\game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Collider\Collider.cpp">
+      <Filter>ソース ファイル\collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\Window.h">
@@ -244,6 +253,15 @@
     </ClInclude>
     <ClInclude Include="Game\BaseObjects.h">
       <Filter>ヘッダー ファイル\game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\Collider.h">
+      <Filter>ヘッダー ファイル\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\CollisionConfig.h">
+      <Filter>ヘッダー ファイル\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\CollisionManager.h">
+      <Filter>ヘッダー ファイル\collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

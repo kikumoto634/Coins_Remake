@@ -7,7 +7,9 @@
 #include "WorldTransform.h"
 
 #include "Player\Player.h"
-#include <Coins/Coins.h>
+#include "Coins/Coins.h"
+
+#include "Collider/CollisionManager.h"
 
 class PlayScene : public BaseScene
 {
@@ -43,6 +45,12 @@ public:
 	void Finalize() override;
 
 private:
+	//衝突判定と応答
+	void CheckAllCollision();
+	void CheckCollisionPair(Collider* colliderA, Collider* colliderB);
+	bool CheckCollisionDetail(Collider* colliderA, Collider* colliderB);
+
+private:
 	//プレイヤー
 	std::unique_ptr<Player> player;
 
@@ -57,5 +65,8 @@ private:
 	//カメラ
 	Vector3 eye{};
 	Vector3 target{};
+
+	//衝突判定
+	std::unique_ptr<CollisionManager> collisionManager;
 };
 
