@@ -13,7 +13,7 @@ public:
 	/// <summary>
 	/// XV
 	/// </summary>
-	void Update(Camera* camera) override;
+	void Update(Camera* camera);
 
 	/// <summary>
 	/// •`‰æ
