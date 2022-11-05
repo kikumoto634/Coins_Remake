@@ -31,7 +31,7 @@ void PlayScene::Initialize()
 #pragma region 3D初期化
 	//プレイヤー
 	player = make_unique<Player>();
-	player->Initialize();
+	player->Initialize("player");
 
 	//コイン
 	coin = make_unique<Coins>();

@@ -1,18 +1,15 @@
 #include "Player.h"
 
-void Player::Initialize()
+void Player::Initialize(std::string filePath)
 {
-	//プレイヤー
-	model = FbxLoader::GetInstance()->LoadModeFromFile("Player");
-	object = FbxModelObject::Create(model);
-	world.Initialize();
+	BaseObjects::Initialize(filePath);
+
 	world.translation = {0,-135,210};
 	world.UpdateMatrix();
 }
 
 void Player::Update(Camera* camera, Input* input)
 {
-	this->camera = camera;
 	this->input = input;
 
 	//入力
@@ -24,23 +21,17 @@ void Player::Update(Camera* camera, Input* input)
 	world.translation.z = max(world.translation.z, 135.f);
 	world.translation.z = min(world.translation.z, 295.f);
 
-	world.UpdateMatrix();
-	object->Update(world, this->camera);
+	BaseObjects::Update(camera);
 }
 
 void Player::Draw()
 {
-	//プレイヤー
-	object->Draw();
+	BaseObjects::Draw();
 }
 
 void Player::Finalize()
 {
-	delete model;
-	model = nullptr;
-	delete object;
-	object = nullptr;
-	world = {};
+	BaseObjects::Finalize();
 }
 
 void Player::InputMovement()

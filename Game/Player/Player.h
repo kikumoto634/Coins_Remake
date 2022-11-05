@@ -1,21 +1,16 @@
 #pragma once
-#include "FbxModelManager.h"
-#include "FbxModelObject.h"
-#include "WorldTransform.h"
-#include "Vector3.h"
-
-#include "Camera.h"
+#include "BaseObjects.h"
 #include "Input.h"
 
-class Player
+class Player : BaseObjects
 {
 //メンバ関数
 public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize();
-	
+	void Initialize(std::string filePath) override;
+
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -24,12 +19,12 @@ public:
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	void Draw() override;
 
 	/// <summary>
 	/// 後処理
 	/// </summary>
-	void Finalize();
+	void Finalize() override;
 
 	//Getter
 	Vector3 GetPos()	{return world.translation;}
@@ -45,12 +40,6 @@ private:
 
 //メンバ変数
 private:
-	//プレイヤー
-	FbxModelManager* model;
-	FbxModelObject* object;
-	WorldTransform world;
-
-	Camera* camera = nullptr;
 	Input* input = nullptr;
 };
 
