@@ -13,8 +13,13 @@ void Coins::Initialize(std::string filePath)
 
 void Coins::Update(Camera* camera)
 {
+	//‰ñ“]
 	if(world.rotation.y >= XMConvertToRadians(360.f))	world.rotation.y = XMConvertToRadians(0.f);
 	world.rotation.y += XMConvertToRadians(1.f);
+
+	//‰œs‚«ˆÚ“®
+	if(world.translation.z <= 0) world.translation.z = 1200.f;
+	world.translation.z -= DepthSp;
 
 	BaseObjects::Update(camera);
 }

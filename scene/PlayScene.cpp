@@ -55,6 +55,7 @@ void PlayScene::Update()
 	/// </summary>
 	BaseScene::Update();
 	frame += 1;
+	if(frame % 60 == 0) second += 1;
 
 #pragma region 入力処理
 #pragma endregion
@@ -67,17 +68,20 @@ void PlayScene::Update()
 	player->Update(camera, input);
 
 	//コイン
-	UpdateCoinPopCommands();
+	CoinPopCommands();
+
 	coin.remove_if([](unique_ptr<Coins>& obj){
 		return obj->GetIsDead();
 	});
 	for(unique_ptr<Coins>& obj : coin){
 		obj->Update(camera);
+		obj->SetDepthSp(GameSpeed);
 	}
 
 	//地面
 	for(unique_ptr<Grounds>& obj : ground){
 		obj->Update(camera);
+		obj->SetDepthSp(GameSpeed);
 	}
 #pragma endregion
 
@@ -95,7 +99,7 @@ void PlayScene::Update()
 	debugText->Printf(0,16,1.f,"Camera:Target X:%f Y:%f Z:%f", camera->GetTarget().x,camera->GetTarget().y,camera->GetTarget().z);
 	debugText->Printf(0, 48, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
 
-	debugText->Printf(0, 90, 1.f,"frame:%d, second:%d", frame, frame/60);
+	debugText->Printf(0, 90, 1.f,"frame:%d, second:%d", frame, second);
 #endif // _DEBUG
 
 	/// <summary>
@@ -179,7 +183,7 @@ void PlayScene::LoadCoinPopData()
 	coinPopCommands << file.rdbuf();
 	file.close();
 }
-void PlayScene::UpdateCoinPopCommands()
+void PlayScene::CoinPopCommands()
 {
 	//待機処理
 	if(IsWait){
@@ -240,6 +244,7 @@ void PlayScene::UpdateCoinPopCommands()
 		}
 	}
 }
+
 void PlayScene::CoinPop(Vector3 pos)
 {
 	unique_ptr<Coins> newCoin = make_unique<Coins>();

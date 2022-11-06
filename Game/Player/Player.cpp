@@ -4,7 +4,7 @@ void Player::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);
 
-	world.translation = {0,-135,210};
+	world.translation = {0,-135,200};
 	world.UpdateMatrix();
 
 	//Õ“Ë‘®«İ’è
@@ -23,8 +23,8 @@ void Player::Update(Camera* camera, Input* input)
 	//ƒvƒŒƒCƒ„[
 	world.translation.x = max(world.translation.x, -90.f);
 	world.translation.x = min(world.translation.x, 90.f);
-	world.translation.z = max(world.translation.z, 135.f);
-	world.translation.z = min(world.translation.z, 295.f);
+	world.translation.z = max(world.translation.z, 180.f);
+	world.translation.z = min(world.translation.z, 240.f);
 
 	BaseObjects::Update(camera);
 }

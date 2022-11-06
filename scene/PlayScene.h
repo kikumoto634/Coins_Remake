@@ -51,7 +51,7 @@ public:
 private:
 	//コインPOP
 	void LoadCoinPopData();
-	void UpdateCoinPopCommands();
+	void CoinPopCommands();
 	void CoinPop(Vector3 pos);
 
 
@@ -71,6 +71,10 @@ private:
 	//地面
 	std::list<std::unique_ptr<Grounds>> ground;
 
+	//ゲーム進行速度
+	const float GameSpeed = 4.f;
+
 	int frame = 0;
+	int second = 0;
 };
 

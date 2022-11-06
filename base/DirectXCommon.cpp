@@ -16,7 +16,7 @@ void DirectXCommon::Initialize(Window *window)
 	this->window = window;
 
 	//FPX固定初期化
-	InitializeFixFPS();
+	//InitializeFixFPS();
 
 	///デバックレイヤー
 #ifdef _DEBUG
@@ -92,7 +92,7 @@ void DirectXCommon::EndDraw()
 	}
 
 	//FPS固定
-	UpdateFixFPS();
+	//UpdateFixFPS();
 
 	//キュークリア
 	commandAllocator->Reset();

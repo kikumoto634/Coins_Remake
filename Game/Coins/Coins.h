@@ -39,11 +39,14 @@ public:
 
 	//Setter
 	void SetVector3(Vector3 position)	{world.translation = position;}
+	void SetDepthSp(float Sp)	{DepthSp = Sp;}
 
 private:
 	float width = 10;
 	float height = 10;
 	float depth = 10;
 	std::string name = "Coin";
+
+	float DepthSp = 0.f;
 };
 
