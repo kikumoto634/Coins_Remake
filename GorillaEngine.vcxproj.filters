@@ -177,6 +177,9 @@
     <ClCompile Include="Game\Grounds\Grounds.cpp">
       <Filter>ソース ファイル\game</Filter>
     </ClCompile>
+    <ClCompile Include="loader\CSVLoader.cpp">
+      <Filter>ソース ファイル\loader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\Window.h">
@@ -268,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="Game\Grounds\Grounds.h">
       <Filter>ヘッダー ファイル\game</Filter>
+    </ClInclude>
+    <ClInclude Include="loader\CSVLoader.h">
+      <Filter>ヘッダー ファイル\loader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

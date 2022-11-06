@@ -31,7 +31,6 @@ public:
 	void OnCollision(Collider* TouchCollision) override;
 
 	//Getter
-	const Vector3 GetPosition() override {return world.translation;}
 	const float GetWidth() override	{return width;}
 	const float GetHeight()	override	{return height;}
 	const float GetDepth()	override	{return depth;}

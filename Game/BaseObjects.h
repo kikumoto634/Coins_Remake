@@ -9,7 +9,7 @@
 
 class BaseObjects
 {
-protected:
+public:
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>
@@ -29,6 +29,12 @@ protected:
 	/// Œãˆ—
 	/// </summary>
 	virtual void Finalize();
+
+	//Getter
+	Vector3 GetPosition()	{return world.translation;}
+
+	//Setter
+	void SetVector3(Vector3 position)	{world.translation = position;}
 
 protected:
 	FbxModelManager* model;
