@@ -23,7 +23,7 @@ public:
 	/// <summary>
 	/// ポップコマンド
 	/// </summary>
-	void Pop(std::list<std::unique_ptr<BaseObjects>> obj, std::string objFilePath, Vector3 pos);
+	std::unique_ptr<BaseObjects> Pop(std::string objFilePath, Vector3 pos);
 
 private:
 	//コマンド、書き込みコピー用

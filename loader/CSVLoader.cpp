@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void CSVLoader::LoadPopData(std::string filaPath)
+void CSVLoader::LoadPopData(string filaPath)
 {
 	//fileŠJ‚­
 	ifstream file;
@@ -16,7 +16,7 @@ void CSVLoader::LoadPopData(std::string filaPath)
 	file.close();
 }
 
-void CSVLoader::PopCommands(std::list<std::unique_ptr<BaseObjects>> obj, std::string objFilePath)
+void CSVLoader::PopCommands(list<unique_ptr<BaseObjects>> obj, string objFilePath)
 {
 	//ˆês•ª‚Ì•¶š—ñ‚ğ“ü‚ê‚é•Ï”
 	string line;
@@ -50,16 +50,17 @@ void CSVLoader::PopCommands(std::list<std::unique_ptr<BaseObjects>> obj, std::st
 			getline(line_stream, word, ',');
 			float z = (float)atof(word.c_str());
 			//POP
-			Pop(obj, objFilePath, Vector3(x, y, z));
+			obj.push_back(move(Pop(objFilePath, Vector3(x, y, z))));
 		}
 	}
 }
 
-void CSVLoader::Pop(std::list<std::unique_ptr<BaseObjects>> obj, std::string objFilePath, Vector3 pos)
+unique_ptr<BaseObjects> CSVLoader::Pop(string objFilePath, Vector3 pos)
 {
 	unique_ptr<BaseObjects> newObj = make_unique<BaseObjects>();
 	newObj->Initialize(objFilePath);
 	newObj->SetVector3(pos);
 
-	obj.push_back(move(newObj));
+	return newObj;
+	//obj.push_back(move(newObj));
 }

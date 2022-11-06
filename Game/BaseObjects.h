@@ -30,9 +30,6 @@ public:
 	/// </summary>
 	virtual void Finalize();
 
-	//Getter
-	Vector3 GetPosition()	{return world.translation;}
-
 	//Setter
 	void SetVector3(Vector3 position)	{world.translation = position;}
 

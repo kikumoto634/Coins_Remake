@@ -94,8 +94,6 @@ void PlayScene::Update()
 	debugText->Printf(0,16,1.f,"Camera:Target X:%f Y:%f Z:%f", camera->GetTarget().x,camera->GetTarget().y,camera->GetTarget().z);
 	debugText->Printf(0, 48, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
 
-	debugText->Printf(0,64,1.f, "Ground:Pos X:%f Y:%f Z:%f", ground.begin()->get()->GetPosition().x,ground.begin()->get()->GetPosition().y,ground.begin()->get()->GetPosition().z);
-
 	debugText->Printf(0, 90, 1.f,"frame:%d, second:%d", frame, frame/60);
 #endif // _DEBUG
 
