@@ -5,9 +5,6 @@ using namespace DirectX;
 void Coins::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);
-
-	world.UpdateMatrix();
-
 	//Õ“Ë‘®«İ’è
 	SetCollisionAttribute(kCollisionAttributeThier);
 	//Õ“Ë‘ÎÛ‚ğ©•ª‚Ì‘®«ˆÈŠO‚Éİ’è

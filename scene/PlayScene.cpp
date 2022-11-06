@@ -38,13 +38,8 @@ void PlayScene::Initialize()
 	}
 
 	//地面
-	groundModel = FbxLoader::GetInstance()->LoadModeFromFile("ground");
-	for(int i = 0; i < 20; i++){
-		groundObject[i] = FbxModelObject::Create(groundModel);
-
-		groundWorld[i].Initialize();
-		groundWorld[i].translation = {0,-150,(float)i*210};
-		groundWorld[i].UpdateMatrix();
+	for(int i = 0; i < 20;i++){
+		GroundPop({0,-150,(float)i*210});
 	}
 #pragma endregion
 
@@ -78,9 +73,8 @@ void PlayScene::Update()
 	}
 
 	//地面
-	for(int i = 0; i < 20; i++){
-		groundWorld[i].UpdateMatrix();
-		groundObject[i]->Update(groundWorld[i], camera);
+	for(unique_ptr<Grounds>& obj : ground){
+		obj->Update(camera);
 	}
 #pragma endregion
 
@@ -126,8 +120,8 @@ void PlayScene::Draw()
 	}
 
 	//地面
-	for(int i = 0; i < 20; i++){
-		groundObject[i]->Draw();
+	for(unique_ptr<Grounds>& obj : ground){
+		obj->Draw();
 	}
 #pragma endregion
 
@@ -158,13 +152,9 @@ void PlayScene::Finalize()
 	}
 
 	//地面
-	for(int i = 0; i < 20; i++){
-		delete groundObject[i];
-		groundObject[i] = nullptr;
-		groundWorld[i] = {};
+	for(unique_ptr<Grounds>& obj : ground){
+		obj->Finalize();
 	}
-	delete groundModel;
-	groundModel = nullptr;
 
 #pragma endregion
 
@@ -180,4 +170,13 @@ void PlayScene::CoinPop(Vector3 position)
 	newcoin->SetVector3(position);
 
 	coin.push_back(move(newcoin));
+}
+
+void PlayScene::GroundPop(Vector3 position)
+{
+	unique_ptr<Grounds> newobj = make_unique<Grounds>();
+	newobj->Initialize("ground");
+	newobj->SetVector3(position);
+
+	ground.push_back(move(newobj));
 }

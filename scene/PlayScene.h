@@ -10,6 +10,7 @@
 
 #include "Player\Player.h"
 #include "Coins/Coins.h"
+#include "Grounds/Grounds.h"
 
 
 class PlayScene : public BaseScene
@@ -47,6 +48,7 @@ public:
 
 private:
 	void CoinPop(Vector3 position);
+	void GroundPop(Vector3 position);
 
 private:
 	//プレイヤー
@@ -56,8 +58,6 @@ private:
 	std::list<std::unique_ptr<Coins>> coin;
 
 	//地面
-	FbxModelManager* groundModel = {};
-	FbxModelObject* groundObject[20] = {};
-	WorldTransform groundWorld[20] = {};
+	std::list<std::unique_ptr<Grounds>> ground;
 };
 
