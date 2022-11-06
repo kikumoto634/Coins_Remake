@@ -59,5 +59,8 @@ private:
 
 	//’n–Ê
 	std::list<std::unique_ptr<Grounds>> ground;
+
+
+	int frame = 0;
 };
 

@@ -5,6 +5,8 @@
 #include <string>
 #include <wrl.h>
 #include <d3dx12.h>
+#include <chrono>
+#include <thread>
 
 #include "Window.h"
 
@@ -38,6 +40,11 @@ private:
 	HRESULT CreateDSV();
 	HRESULT CreateFence();
 
+	//FPS固定初期化
+	void InitializeFixFPS();
+	//FPS固定更新
+	void UpdateFixFPS();
+
 private:
 	Window* window = nullptr;
 
@@ -68,5 +75,8 @@ private:
 
 	D3D12_CPU_DESCRIPTOR_HANDLE rtvH;
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvH;
+
+	//記録時間(FPS固定用)
+	std::chrono::steady_clock::time_point reference_;
 };
 

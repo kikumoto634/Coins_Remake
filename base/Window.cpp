@@ -1,5 +1,7 @@
 #include "Window.h"
 
+#pragma comment(lib, "winmm.lib")
+
 wchar_t Window::kWindowClassName[] = L"DirectXGame";
 
 
@@ -39,7 +41,6 @@ void Window::Create(const std::string& name, const int width, const int height)
 	AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false);
 
 	///ウィンドウオブジェクトの生成
-	//HWND hwnd = nullptr;
 	wchar_t wName[256];
 	MultiByteToWideChar(CP_ACP, 0, this->name.c_str(), -1, wName, _countof(wName));
 
@@ -58,6 +59,9 @@ void Window::Create(const std::string& name, const int width, const int height)
 	);
 	//ウィンドウを表示状態にする
 	ShowWindow(hwnd, SW_SHOW);
+
+	//システムタイマーの分解能をあげる
+	timeBeginPeriod(1);
 }
 
 void Window::Finalize()
