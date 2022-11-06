@@ -6,6 +6,11 @@ void Player::Initialize(std::string filePath)
 
 	world.translation = {0,-135,210};
 	world.UpdateMatrix();
+
+	//Õ“Ë‘®«İ’è
+	SetCollisionAttribute(kCollisionAttributeMine);
+	//Õ“Ë‘ÎÛ‚ğ©•ª‚Ì‘®«ˆÈŠO‚Éİ’è
+	SetCollisionMask(kCollisionAttributeThier);
 }
 
 void Player::Update(Camera* camera, Input* input)

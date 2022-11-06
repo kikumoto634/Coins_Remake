@@ -15,7 +15,6 @@ void PlayScene::Application()
 	/// シーンベース
 	/// </summary>
 	BaseScene::Application();
-
 }
 
 void PlayScene::Initialize()
@@ -34,12 +33,13 @@ void PlayScene::Initialize()
 	player->Initialize("player");
 
 	//コイン
-	coin = make_unique<Coins>();
-	coin->Initialize("coin");
+	for(int i = 0; i < 20;i++){
+		CoinPop({0,-135,280 + (float)i*20});
+	}
 
 	//地面
 	groundModel = FbxLoader::GetInstance()->LoadModeFromFile("ground");
-	for(int i = 0; i < 10; i++){
+	for(int i = 0; i < 20; i++){
 		groundObject[i] = FbxModelObject::Create(groundModel);
 
 		groundWorld[i].Initialize();
@@ -49,10 +49,6 @@ void PlayScene::Initialize()
 #pragma endregion
 
 #pragma region 汎用機能初期化
-	eye = camera->GetEye();
-	target = camera->GetTarget();
-
-	collisionManager = make_unique<CollisionManager>();
 #pragma endregion
 }
 
@@ -64,27 +60,6 @@ void PlayScene::Update()
 	BaseScene::Update();
 
 #pragma region 入力処理
-
-
-#ifdef _DEBUG
-	//カメラ
-	if(input->Push(DIK_LSHIFT)){
-		if(input->Push(DIK_DOWN)){
-			target.y -= XMConvertToRadians(4.f);
-		}
-		else if(input->Push(DIK_UP)){
-			target.y += XMConvertToRadians(4.f);
-		}
-		if(input->Push(DIK_S)){
-			target.y -= 1.f;
-			eye.y -= 1.f;
-		}
-		else if(input->Push(DIK_W)){
-			target.y += 1.f;
-			eye.y += 1.f;
-		}
-	}
-#endif // _DEBUG
 #pragma endregion
 
 #pragma region 2D更新
@@ -95,35 +70,34 @@ void PlayScene::Update()
 	player->Update(camera, input);
 
 	//コイン
-	if(coin->GetIsDead()){
-		coin->Finalize();
+	coin.remove_if([](unique_ptr<Coins>& obj){
+		return obj->GetIsDead();
+	});
+	for(unique_ptr<Coins>& obj : coin){
+		obj->Update(camera);
 	}
-	coin->Update(camera);
 
 	//地面
-	for(int i = 0; i < 10; i++){
+	for(int i = 0; i < 20; i++){
 		groundWorld[i].UpdateMatrix();
 		groundObject[i]->Update(groundWorld[i], camera);
 	}
 #pragma endregion
 
 #pragma region 汎用機能更新
-	//カメラ
-	eye.x = player->GetPosition().x;
-	target.x = player->GetPosition().x;
-	camera->SetEye(eye);
-	camera->SetTarget(target);
+	//衝突判定リスト追加
+	collisionManager->SetCollision(player.get());
+	for(const std::unique_ptr<Coins>& obj : coin)
+	{
+		collisionManager->SetCollision(obj.get());
+	}
 #pragma endregion
 
 #ifdef _DEBUG
 	debugText->Printf(0,0,1.f,"Camera:Eye	 X:%f Y:%f Z:%f", camera->GetEye().x,camera->GetEye().y,camera->GetEye().z);
 	debugText->Printf(0,16,1.f,"Camera:Target X:%f Y:%f Z:%f", camera->GetTarget().x,camera->GetTarget().y,camera->GetTarget().z);
-
 	debugText->Printf(0, 48, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
-
-	debugText->Printf(0, 80, 1.f,"coin Dead:%d", coin->GetIsDead());
 #endif // _DEBUG
-
 
 	/// <summary>
 	/// シーンベース
@@ -147,23 +121,24 @@ void PlayScene::Draw()
 	player->Draw();
 
 	//コイン
-	coin->Draw();
+	for(unique_ptr<Coins>& obj : coin){
+		obj->Draw();
+	}
 
 	//地面
-	for(int i = 0; i < 10; i++){
+	for(int i = 0; i < 20; i++){
 		groundObject[i]->Draw();
 	}
 #pragma endregion
 
 #pragma region 2D描画UI
 	Sprite::SetPipelineState();
-
 #pragma endregion 
 
-#ifdef _DEBUG
-	debugText->DrawAll();
-#endif // _DEBUG
-
+	/// <summary>
+	/// シーンベース
+	/// </summary>
+	BaseScene::EndDraw();
 }
 
 void PlayScene::Finalize()
@@ -178,10 +153,12 @@ void PlayScene::Finalize()
 	player->Finalize();
 
 	//コイン
-	coin->Finalize();
+	for(unique_ptr<Coins>& obj : coin){
+		obj->Finalize();
+	}
 
 	//地面
-	for(int i = 0; i < 10; i++){
+	for(int i = 0; i < 20; i++){
 		delete groundObject[i];
 		groundObject[i] = nullptr;
 		groundWorld[i] = {};
@@ -196,57 +173,11 @@ void PlayScene::Finalize()
 #pragma endregion 
 }
 
-void PlayScene::CheckAllCollision()
+void PlayScene::CoinPop(Vector3 position)
 {
-	//リストクリア
-	collisionManager->CollisionClear();
-	//リスト追加
-	collisionManager->SetCollision(player.get());
-	collisionManager->SetCollision(coin.get());
+	unique_ptr<Coins> newcoin = make_unique<Coins>();
+	newcoin->Initialize("coin");
+	newcoin->SetVector3(position);
 
-	//総当たり判定
-	//リスト内のペアを総当たり
-	std::list<Collider*>::iterator itrA = collisionManager->colliders.begin();
-	for(; itrA != collisionManager->colliders.end(); ++itrA){
-		//イテレータAからコライダーAを取得
-		Collider* colliderA = *itrA;
-
-		//イテレータBはイテレータAの次の要素から回す(重複判定回避)
-		std::list<Collider*>::iterator itrB = itrA;
-		itrB++;
-
-		for(; itrB != collisionManager->colliders.end(); ++itrB){
-			//イテレータBからコライダーBを取得
-			Collider* colliderB = *itrB;
-
-			//ペアの当たり判定
-			CheckCollisionPair(colliderA, colliderB);
-		}
-	}
-}
-
-void PlayScene::CheckCollisionPair(Collider *colliderA, Collider *colliderB)
-{
-	//衝突フィルタリング
-	if(colliderA->GetCollisionAttribute() != colliderB->GetCollisionMask() || colliderB->GetCollisionAttribute() != colliderA->GetCollisionMask()){
-		return;
-	}
-
-	if(CheckCollisionDetail(colliderA, colliderB)){
-		colliderA->OnCollision(colliderB);
-		colliderB->OnCollision(colliderA);
-	}
-}
-
-bool PlayScene::CheckCollisionDetail(Collider *colliderA, Collider *colliderB)
-{
-	//ボックス同士の当たり判定
-	if(colliderA->GetPosition().x-colliderA->GetWidth() > colliderB->GetPosition().x+colliderB->GetWidth())		return false;
-	if(colliderA->GetPosition().x+colliderA->GetWidth() < colliderB->GetPosition().x-colliderB->GetWidth())		return false;
-	if(colliderA->GetPosition().y-colliderA->GetHeight() > colliderB->GetPosition().y+colliderB->GetHeight())	return false;
-	if(colliderA->GetPosition().y+colliderA->GetHeight() < colliderB->GetPosition().y-colliderB->GetHeight())	return false;
-	if(colliderA->GetPosition().z-colliderA->GetDepth() > colliderB->GetPosition().z+colliderB->GetDepth())		return false;
-	if(colliderA->GetPosition().z+colliderA->GetDepth() < colliderB->GetPosition().z-colliderB->GetDepth())		return false;
-
-	return true;
+	coin.push_back(move(newcoin));
 }

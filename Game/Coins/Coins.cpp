@@ -6,8 +6,12 @@ void Coins::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);
 
-	world.translation = {0,-135,280};
 	world.UpdateMatrix();
+
+	//Õ“Ë‘®«İ’è
+	SetCollisionAttribute(kCollisionAttributeThier);
+	//Õ“Ë‘ÎÛ‚ğ©•ª‚Ì‘®«ˆÈŠO‚Éİ’è
+	SetCollisionMask(kCollisionAttributeMine);
 }
 
 void Coins::Update(Camera* camera)

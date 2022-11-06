@@ -1,4 +1,6 @@
 #pragma once
+#include <list>
+
 #include "BaseScene.h"
 
 #include "Sprite.h"
@@ -9,7 +11,6 @@
 #include "Player\Player.h"
 #include "Coins/Coins.h"
 
-#include "Collider/CollisionManager.h"
 
 class PlayScene : public BaseScene
 {
@@ -45,28 +46,18 @@ public:
 	void Finalize() override;
 
 private:
-	//衝突判定と応答
-	void CheckAllCollision();
-	void CheckCollisionPair(Collider* colliderA, Collider* colliderB);
-	bool CheckCollisionDetail(Collider* colliderA, Collider* colliderB);
+	void CoinPop(Vector3 position);
 
 private:
 	//プレイヤー
 	std::unique_ptr<Player> player;
 
 	//コイン
-	std::unique_ptr<Coins> coin;
+	std::list<std::unique_ptr<Coins>> coin;
 
 	//地面
-	FbxModelManager* groundModel;
-	FbxModelObject* groundObject[10];
-	WorldTransform groundWorld[10];
-
-	//カメラ
-	Vector3 eye{};
-	Vector3 target{};
-
-	//衝突判定
-	std::unique_ptr<CollisionManager> collisionManager;
+	FbxModelManager* groundModel = {};
+	FbxModelObject* groundObject[20] = {};
+	WorldTransform groundWorld[20] = {};
 };
 

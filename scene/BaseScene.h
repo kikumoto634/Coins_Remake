@@ -6,6 +6,8 @@
 
 #include "Sprite.h"
 
+#include "Collider/CollisionManager.h"
+
 #ifdef _DEBUG
 #include "SceneStopper.h"
 #include "DebugText.h"
@@ -46,9 +48,19 @@ public:
 	virtual void Draw();
 
 	/// <summary>
+	/// Œã•`‰æ
+	/// </summary>
+	void EndDraw();
+
+	/// <summary>
 	/// Œãˆ—
 	/// </summary>
 	virtual void Finalize();
+
+	//Õ“Ë”»’è‚Æ‰“š
+	void CheckAllCollision();
+	void CheckCollisionPair(Collider* colliderA, Collider* colliderB);
+	bool CheckCollisionDetail(Collider* colliderA, Collider* colliderB);
 
 //ƒƒ“ƒo•Ï”
 protected:
@@ -62,8 +74,10 @@ protected:
 	Input* input = nullptr;
 	Camera* camera = nullptr;
 	std::unique_ptr<DebugText> debugText;
-#pragma endregion
 
+	//Õ“Ë”»’è
+	std::unique_ptr<CollisionManager> collisionManager;
+#pragma endregion
 
 #ifdef _DEBUG
 	SceneStopper* sceneStopper = nullptr;

@@ -37,6 +37,9 @@ public:
 	const std::string GetName() override	{return name;}
 	bool GetIsDead() const {return IsDead;}
 
+	//Setter
+	void SetVector3(Vector3 position)	{world.translation = position;}
+
 private:
 	float width = 10;
 	float height = 10;
