@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include <sstream>
 
 #include "BaseScene.h"
 
@@ -12,7 +13,6 @@
 #include "Coins/Coins.h"
 #include "Grounds/Grounds.h"
 
-#include "CSVLoader.h"
 
 
 class PlayScene : public BaseScene
@@ -49,8 +49,14 @@ public:
 	void Finalize() override;
 
 private:
-	void CoinPop(Vector3 position);
+	//コインPOP
+	void LoadCoinPopData();
+	void UpdateCoinPopCommands();
+	void CoinPop(Vector3 pos);
+
+
 	void GroundPop(Vector3 position);
+
 
 private:
 	//プレイヤー
@@ -58,12 +64,12 @@ private:
 
 	//コイン
 	std::list<std::unique_ptr<Coins>> coin;
+	std::stringstream coinPopCommands;
+	int waitTime = 0;
+	bool IsWait = false;
 
 	//地面
 	std::list<std::unique_ptr<Grounds>> ground;
-
-	//CSVLoader
-	std::unique_ptr<CSVLoader> csvLoader;
 
 	int frame = 0;
 };

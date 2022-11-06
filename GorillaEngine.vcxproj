@@ -174,7 +174,6 @@
     <ClCompile Include="Game\Grounds\Grounds.cpp" />
     <ClCompile Include="Game\Player\Player.cpp" />
     <ClCompile Include="input\Input.cpp" />
-    <ClCompile Include="loader\CSVLoader.cpp" />
     <ClCompile Include="loader\FbxLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\Vector2.cpp" />
@@ -208,7 +207,6 @@
     <ClInclude Include="Game\Grounds\Grounds.h" />
     <ClInclude Include="Game\Player\Player.h" />
     <ClInclude Include="input\Input.h" />
-    <ClInclude Include="loader\CSVLoader.h" />
     <ClInclude Include="loader\FbxLoader.h" />
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />

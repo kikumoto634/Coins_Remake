@@ -1,5 +1,8 @@
 #include "PlayScene.h"
 
+#include <fstream>
+#include <cassert>
+
 using namespace std;
 
 PlayScene::PlayScene(DirectXCommon *dxCommon, Window *window)
@@ -33,12 +36,7 @@ void PlayScene::Initialize()
 	player->Initialize("player");
 
 	//コイン
-	csvLoader = make_unique<CSVLoader>();
-	csvLoader->LoadPopData("Resources/csv/sample01.csv");
-	csvLoader->PopCommands(coin, "coin");
-	for(int i = 0; i < 20;i++){
-		CoinPop({0, -135, 250 + (float)i*20});
-	}
+	LoadCoinPopData();
 
 	//地面
 	for(int i = 0; i < 6;i++){
@@ -56,7 +54,6 @@ void PlayScene::Update()
 	/// シーンベース
 	/// </summary>
 	BaseScene::Update();
-
 	frame += 1;
 
 #pragma region 入力処理
@@ -70,6 +67,7 @@ void PlayScene::Update()
 	player->Update(camera, input);
 
 	//コイン
+	UpdateCoinPopCommands();
 	coin.remove_if([](unique_ptr<Coins>& obj){
 		return obj->GetIsDead();
 	});
@@ -169,15 +167,88 @@ void PlayScene::Finalize()
 
 #pragma endregion 
 }
-
-void PlayScene::CoinPop(Vector3 position)
+#pragma region コイン処理
+void PlayScene::LoadCoinPopData()
 {
-	unique_ptr<Coins> newcoin = make_unique<Coins>();
-	newcoin->Initialize("coin");
-	newcoin->SetVector3(position);
+	//file開く
+	ifstream file;
+	file.open("Resources/csv/sample01.csv");
+	assert(file.is_open());
 
-	coin.push_back(move(newcoin));
+	//file培養を文字列ストリームにコピー
+	coinPopCommands << file.rdbuf();
+	file.close();
 }
+void PlayScene::UpdateCoinPopCommands()
+{
+	//待機処理
+	if(IsWait){
+		waitTime--;
+		if(waitTime <= 0){
+			//待機完了
+			IsWait = false;
+		}
+		return;
+	}
+
+	//一行分の文字列を入れる変数
+	string line;
+
+	//コマンドループ
+	while(getline(coinPopCommands, line)){
+		//一行分のっ文字列をストリームに変換して解析しやすく
+		istringstream line_stream(line);
+
+		string word;
+		//区切りで行の銭湯文字列取得
+		getline(line_stream, word, ',');
+
+		//"//"から始まるのはcomment
+		if(word.find("//") == 0){
+			//飛ばす
+			continue;
+		}
+
+		//POPコマンド
+		if(word.find("POP") == 0){
+			//X座標
+			getline(line_stream, word, ',');
+			float x = (float)atof(word.c_str());
+
+			//Y座標
+			getline(line_stream, word, ',');
+			float y = (float)atof(word.c_str());
+
+			//Z座標
+			getline(line_stream, word, ',');
+			float z = (float)atof(word.c_str());
+
+			//POP
+			CoinPop(Vector3(x,y,z));
+		}
+		else if(word.find("WAIT") == 0){
+			getline(line_stream,word, ',');
+
+			//待ち時間
+			int32_t waitTime = atoi(word.c_str());
+
+			//待機開始
+			IsWait = true;
+			this->waitTime = waitTime;
+
+			break;
+		}
+	}
+}
+void PlayScene::CoinPop(Vector3 pos)
+{
+	unique_ptr<Coins> newCoin = make_unique<Coins>();
+	newCoin->Initialize("coin");
+	newCoin->SetVector3(pos);
+
+	coin.push_back(move(newCoin));
+}
+#pragma endregion
 
 void PlayScene::GroundPop(Vector3 position)
 {
