@@ -34,12 +34,12 @@ void PlayScene::Initialize()
 
 	//ÉRÉCÉì
 	for(int i = 0; i < 20;i++){
-		CoinPop({0,-135,280 + (float)i*20});
+		CoinPop({0, -135, 250 + (float)i*20});
 	}
 
 	//ínñ 
-	for(int i = 0; i < 20;i++){
-		GroundPop({0,-150,(float)i*210});
+	for(int i = 0; i < 6;i++){
+		GroundPop({0, -150, 200 + (float)i*200});
 	}
 #pragma endregion
 
@@ -91,6 +91,8 @@ void PlayScene::Update()
 	debugText->Printf(0,0,1.f,"Camera:Eye	 X:%f Y:%f Z:%f", camera->GetEye().x,camera->GetEye().y,camera->GetEye().z);
 	debugText->Printf(0,16,1.f,"Camera:Target X:%f Y:%f Z:%f", camera->GetTarget().x,camera->GetTarget().y,camera->GetTarget().z);
 	debugText->Printf(0, 48, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
+
+	debugText->Printf(0,64,1.f, "Ground:Pos X:%f Y:%f Z:%f", ground.begin()->get()->GetPosition().x,ground.begin()->get()->GetPosition().y,ground.begin()->get()->GetPosition().z);
 #endif // _DEBUG
 
 	/// <summary>

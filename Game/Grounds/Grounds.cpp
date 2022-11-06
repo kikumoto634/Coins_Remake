@@ -7,6 +7,9 @@ void Grounds::Initialize(std::string filePath)
 
 void Grounds::Update(Camera *camera)
 {
+	if(world.translation.z <= 0) world.translation.z = 1200.f;
+	world.translation.z -= 1.f;
+
 	BaseObjects::Update(camera);
 }
 
