@@ -33,6 +33,9 @@ void PlayScene::Initialize()
 	player->Initialize("player");
 
 	//ÉRÉCÉì
+	csvLoader = make_unique<CSVLoader>();
+	csvLoader->LoadPopData("Resources/csv/sample01.csv");
+	csvLoader->PopCommands(coin, "coin");
 	for(int i = 0; i < 20;i++){
 		CoinPop({0, -135, 250 + (float)i*20});
 	}

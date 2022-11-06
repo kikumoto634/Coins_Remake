@@ -18,6 +18,16 @@ void CSVLoader::LoadPopData(string filaPath)
 
 void CSVLoader::PopCommands(list<unique_ptr<BaseObjects>> obj, string objFilePath)
 {
+	//待機処理
+	if(IsWait){
+		waitTime--;
+		if(waitTime <= 0){
+			//待機完了
+			IsWait = false;
+		}
+		return;
+	}
+
 	//一行分の文字列を入れる変数
 	string line;
 
@@ -52,6 +62,18 @@ void CSVLoader::PopCommands(list<unique_ptr<BaseObjects>> obj, string objFilePat
 			//POP
 			obj.push_back(move(Pop(objFilePath, Vector3(x, y, z))));
 		}
+		else if(word.find("WAIT") == 0){
+			getline(line_stream,word, ',');
+
+			//待ち時間
+			int32_t waitTime = atoi(word.c_str());
+
+			//待機開始
+			IsWait = true;
+			this->waitTime = waitTime;
+
+			break;
+		}
 	}
 }
 
@@ -62,5 +84,4 @@ unique_ptr<BaseObjects> CSVLoader::Pop(string objFilePath, Vector3 pos)
 	newObj->SetVector3(pos);
 
 	return newObj;
-	//obj.push_back(move(newObj));
 }

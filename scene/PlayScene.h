@@ -12,6 +12,8 @@
 #include "Coins/Coins.h"
 #include "Grounds/Grounds.h"
 
+#include "CSVLoader.h"
+
 
 class PlayScene : public BaseScene
 {
@@ -60,6 +62,8 @@ private:
 	//’n–Ê
 	std::list<std::unique_ptr<Grounds>> ground;
 
+	//CSVLoader
+	std::unique_ptr<CSVLoader> csvLoader;
 
 	int frame = 0;
 };

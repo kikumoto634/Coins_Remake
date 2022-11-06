@@ -20,6 +20,7 @@ public:
 	/// </summary>
 	void PopCommands(std::list<std::unique_ptr<BaseObjects>> obj, std::string objFilePath);
 
+private:
 	/// <summary>
 	/// ポップコマンド
 	/// </summary>
@@ -28,5 +29,8 @@ public:
 private:
 	//コマンド、書き込みコピー用
 	std::stringstream popCommands;
+
+	int waitTime = 0;
+	bool IsWait = false;
 };
 
