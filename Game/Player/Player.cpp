@@ -41,6 +41,10 @@ void Player::Finalize()
 
 void Player::OnCollision(Collider *TouchCollision)
 {
+	if(TouchCollision->GetName() == "Coin"){
+		CoinCount = CoinCount + 1;
+		return ;
+	}
 }
 
 void Player::InputMovement()

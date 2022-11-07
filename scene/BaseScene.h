@@ -59,6 +59,7 @@ public:
 
 	//Õ“Ë”»’è‚Æ‰“š
 	void CheckAllCollision();
+private:
 	void CheckCollisionPair(Collider* colliderA, Collider* colliderB);
 	bool CheckCollisionDetail(Collider* colliderA, Collider* colliderB);
 
@@ -77,6 +78,7 @@ protected:
 
 	//Õ“Ë”»’è
 	std::unique_ptr<CollisionManager> collisionManager;
+
 #pragma endregion
 
 #ifdef _DEBUG

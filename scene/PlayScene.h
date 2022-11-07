@@ -53,11 +53,9 @@ private:
 	void LoadCoinPopData();
 	void CoinPopCommands();
 	void CoinPop(Vector3 pos);
-
+	void CoinPopReSet();
 
 	void GroundPop(Vector3 position);
-
-
 private:
 	//ÉvÉåÉCÉÑÅ[
 	std::unique_ptr<Player> player;

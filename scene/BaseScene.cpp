@@ -22,6 +22,7 @@ void BaseScene::Initialize()
 	//カメラ
 	camera->Initialize();
 
+	//衝突判定
 	collisionManager = make_unique<CollisionManager>();
 
 #ifdef _DEBUG
@@ -36,8 +37,8 @@ void BaseScene::Initialize()
 
 void BaseScene::Update()
 {
-	//リストクリア
-	collisionManager->CollisionClear();
+	//入力情報更新
+	input->Update();
 }
 
 void BaseScene::EndUpdate()
@@ -61,8 +62,6 @@ void BaseScene::EndUpdate()
 #pragma region 汎用機能更新
 	//衝突判定更新
 	CheckAllCollision();
-	//入力情報更新
-	input->Update();
 	//カメラ
 	camera->Update();
 #pragma endregion
@@ -104,6 +103,9 @@ void BaseScene::CheckAllCollision()
 			CheckCollisionPair(colliderA, colliderB);
 		}
 	}
+
+	//リストクリア
+	collisionManager->CollisionClear();
 }
 
 void BaseScene::CheckCollisionPair(Collider *colliderA, Collider *colliderB)

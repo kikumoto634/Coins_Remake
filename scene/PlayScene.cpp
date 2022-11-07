@@ -35,9 +35,6 @@ void PlayScene::Initialize()
 	player = make_unique<Player>();
 	player->Initialize("player");
 
-	//コイン
-	LoadCoinPopData();
-
 	//地面
 	for(int i = 0; i < 6;i++){
 		GroundPop({0, -150, 200 + (float)i*200});
@@ -54,10 +51,17 @@ void PlayScene::Update()
 	/// シーンベース
 	/// </summary>
 	BaseScene::Update();
-	frame += 1;
+
 	if(frame % 60 == 0) second += 1;
+	//コイン
+	CoinPopCommands();
 
 #pragma region 入力処理
+
+	if(input->Trigger(DIK_SPACE)){
+		CoinPopReSet();
+	}
+
 #pragma endregion
 
 #pragma region 2D更新
@@ -66,9 +70,6 @@ void PlayScene::Update()
 #pragma region 3D更新
 	//プレイヤー
 	player->Update(camera, input);
-
-	//コイン
-	CoinPopCommands();
 
 	coin.remove_if([](unique_ptr<Coins>& obj){
 		return obj->GetIsDead();
@@ -97,9 +98,14 @@ void PlayScene::Update()
 #ifdef _DEBUG
 	debugText->Printf(0,0,1.f,"Camera:Eye	 X:%f Y:%f Z:%f", camera->GetEye().x,camera->GetEye().y,camera->GetEye().z);
 	debugText->Printf(0,16,1.f,"Camera:Target X:%f Y:%f Z:%f", camera->GetTarget().x,camera->GetTarget().y,camera->GetTarget().z);
-	debugText->Printf(0, 48, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
 
 	debugText->Printf(0, 90, 1.f,"frame:%d, second:%d", frame, second);
+	debugText->Printf(0, 106, 1.f, "coinNum : %d", coin.size());
+
+	//プレイヤー
+	debugText->Printf(0, 600, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
+	debugText->Printf(0, 616, 1.f, "PlayerGetCoin : %d", player->GetCoinCount());
+
 #endif // _DEBUG
 
 	/// <summary>
@@ -171,6 +177,7 @@ void PlayScene::Finalize()
 
 #pragma endregion 
 }
+
 #pragma region コイン処理
 void PlayScene::LoadCoinPopData()
 {
@@ -242,9 +249,12 @@ void PlayScene::CoinPopCommands()
 
 			break;
 		}
+		else if(word.find("LOOP") == 0){
+			CoinPopReSet();
+			break;
+		}
 	}
 }
-
 void PlayScene::CoinPop(Vector3 pos)
 {
 	unique_ptr<Coins> newCoin = make_unique<Coins>();
@@ -252,6 +262,11 @@ void PlayScene::CoinPop(Vector3 pos)
 	newCoin->SetVector3(pos);
 
 	coin.push_back(move(newCoin));
+}
+void PlayScene::CoinPopReSet()
+{
+	coinPopCommands = {};
+	LoadCoinPopData();
 }
 #pragma endregion
 

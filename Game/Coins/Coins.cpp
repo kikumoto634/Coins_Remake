@@ -18,7 +18,7 @@ void Coins::Update(Camera* camera)
 	world.rotation.y += XMConvertToRadians(1.f);
 
 	//‰œs‚«ˆÚ“®
-	if(world.translation.z <= 0) world.translation.z = 1200.f;
+	if(world.translation.z <= 0) IsDead = true;
 	world.translation.z -= DepthSp;
 
 	BaseObjects::Update(camera);
