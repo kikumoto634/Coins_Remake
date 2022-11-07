@@ -58,7 +58,7 @@ private:
 	void CoinPopReSet();
 
 	//スコアPOP
-	void ScorePop(Vector2 position);
+	void ScorePop();
 
 	//地面POP
 	void GroundPop(Vector3 position);

@@ -57,9 +57,14 @@ void PlayScene::Update()
 	CoinPopCommands();
 
 #pragma region 入力処理
+
 	if(input->Trigger(DIK_SPACE)){
 		CoinPopReSet();
 	}
+	if(input->Trigger(DIK_1)){
+		ScorePop();
+	}
+
 #pragma endregion
 
 #pragma region 2D更新
@@ -106,6 +111,7 @@ void PlayScene::Update()
 
 	debugText->Printf(0, 90, 1.f,"frame:%d, second:%d", frame, second);
 	debugText->Printf(0, 106, 1.f, "coinNum : %d", coin.size());
+	debugText->Printf(0, 122, 1.f, "scoreSpNum : %d", score.size());
 
 	//プレイヤー
 	debugText->Printf(0, 600, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
@@ -281,11 +287,12 @@ void PlayScene::CoinPopReSet()
 }
 #pragma endregion
 
-void PlayScene::ScorePop(Vector2 position)
+void PlayScene::ScorePop()
 {
 	unique_ptr<ScoreSprite> newsp = make_unique<ScoreSprite>();
 	newsp->Initialize(2);
-	newsp->SetVector2(position);
+	//newsp->SetVector2(newsp->ChangeTransformation(player->GetPosition()));
+	newsp->SetVector2({0,0});
 
 	score.push_back(move(newsp));
 }
