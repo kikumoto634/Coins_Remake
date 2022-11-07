@@ -6,7 +6,7 @@
 
 #include "Sprite.h"
 
-#include "Collider/CollisionManager.h"
+#include "3D/Collider/CollisionManager.h"
 
 #ifdef _DEBUG
 #include "SceneStopper.h"

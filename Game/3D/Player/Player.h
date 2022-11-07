@@ -1,6 +1,6 @@
 #pragma once
-#include "BaseObjects.h"
-#include "Collider/Collider.h"
+#include "3D/BaseObjects.h"
+#include "3D/Collider/Collider.h"
 #include "Input.h"
 
 class Player : public BaseObjects, public Collider

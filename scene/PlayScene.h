@@ -9,9 +9,11 @@
 #include "FbxModelObject.h"
 #include "WorldTransform.h"
 
-#include "Player\Player.h"
-#include "Coins/Coins.h"
-#include "Grounds/Grounds.h"
+#include "3D/Player\Player.h"
+#include "3D/Coins/Coins.h"
+#include "3D/Grounds/Grounds.h"
+
+#include "2D/Score/ScoreSprite.h"
 
 
 
@@ -55,6 +57,10 @@ private:
 	void CoinPop(Vector3 pos);
 	void CoinPopReSet();
 
+	//スコアPOP
+	void ScorePop(Vector2 position);
+
+	//地面POP
 	void GroundPop(Vector3 position);
 private:
 	//プレイヤー
@@ -65,6 +71,9 @@ private:
 	std::stringstream coinPopCommands;
 	int waitTime = 0;
 	bool IsWait = false;
+
+	//スコア
+	std::list<std::unique_ptr<ScoreSprite>> score;
 
 	//地面
 	std::list<std::unique_ptr<Grounds>> ground;

@@ -57,14 +57,19 @@ void PlayScene::Update()
 	CoinPopCommands();
 
 #pragma region 入力処理
-
 	if(input->Trigger(DIK_SPACE)){
 		CoinPopReSet();
 	}
-
 #pragma endregion
 
 #pragma region 2D更新
+	//スコア
+	score.remove_if([](unique_ptr<ScoreSprite>& sp){
+		return sp->GetIsDead();
+	});
+	for(unique_ptr<ScoreSprite>& sp : score){
+		sp->Update();
+	}
 #pragma endregion
 
 #pragma region 3D更新
@@ -122,7 +127,6 @@ void PlayScene::Draw()
 	BaseScene::Draw();
 
 #pragma region 2D背景
-
 #pragma endregion
 
 #pragma region 3D描画
@@ -142,6 +146,10 @@ void PlayScene::Draw()
 
 #pragma region 2D描画UI
 	Sprite::SetPipelineState();
+	//スコア
+	for(unique_ptr<ScoreSprite>& sp : score){
+		sp->Draw();
+	}
 #pragma endregion 
 
 	/// <summary>
@@ -174,7 +182,10 @@ void PlayScene::Finalize()
 #pragma endregion
 
 #pragma region 2D後処理
-
+	//スコア
+	for(unique_ptr<ScoreSprite>& sp : score){
+		sp->Finalize();
+	}
 #pragma endregion 
 }
 
@@ -269,6 +280,15 @@ void PlayScene::CoinPopReSet()
 	LoadCoinPopData();
 }
 #pragma endregion
+
+void PlayScene::ScorePop(Vector2 position)
+{
+	unique_ptr<ScoreSprite> newsp = make_unique<ScoreSprite>();
+	newsp->Initialize(2);
+	newsp->SetVector2(position);
+
+	score.push_back(move(newsp));
+}
 
 void PlayScene::GroundPop(Vector3 position)
 {
