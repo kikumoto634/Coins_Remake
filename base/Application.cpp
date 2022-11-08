@@ -106,10 +106,9 @@ void Application::Finalize()
 {
 	FbxModelObject::StaticFinalize();
 	FbxLoader::GetInstance()->Finalize();
-
 	GeometryObject::StaticFinalize();
-
 	Sprite::StaticFinalize();
+
 	scene->Finalize();
 	delete scene.get();
 
