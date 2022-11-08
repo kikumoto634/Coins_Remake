@@ -68,6 +68,7 @@ void Application::Initialize()
 	TextureManager::Load(0, "white1x1.png");
 	TextureManager::Load(1, "texfont.png");
 	TextureManager::Load(2, "Score/add100.png");
+	TextureManager::Load(3, "Score/sub100.png");
 	Sprite::StaticInitialize(dxCommon, window->GetWindowWidth(), window->GetWindowHeight());
 
 	//Geometry

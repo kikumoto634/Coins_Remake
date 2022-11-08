@@ -18,10 +18,14 @@ void Player::Initialize(std::string filePath)
 void Player::Update(Camera* camera, Input* input)
 {
 	this->input = input;
-	IsGetCoin = false;
+	IsScoreUp = false;
+	IsScoreDown = false;
 
 	//入力
 	InputMovement();
+
+	//ダメージ
+	Damage();
 
 	//移動制限
 	world.translation.x = max(world.translation.x, -90.f);
@@ -30,8 +34,8 @@ void Player::Update(Camera* camera, Input* input)
 	world.translation.z = min(world.translation.z, 240.f);
 
 	//縦回転
-	world.rotation.x += XMConvertToRadians(20.f);
-
+	if(world.rotation.x >= XMConvertToRadians(360.f)) world.rotation.x = 0.f;
+	world.rotation.x += XMConvertToRadians(AnimSp);
 
 	BaseObjects::Update(camera);
 }
@@ -51,7 +55,13 @@ void Player::OnCollision(Collider *TouchCollision)
 	if(TouchCollision->GetName() == "Coin"){
 		CoinCount = CoinCount + 1;
 		ScoreCount += 100;
-		IsGetCoin = true;
+		IsScoreUp = true;
+		return ;
+	}
+	else if(TouchCollision->GetName() == "Wall01"){
+		ScoreCount -= 100;
+		IsScoreDown = true;
+		IsDamage = true;
 		return ;
 	}
 }
@@ -60,17 +70,36 @@ void Player::InputMovement()
 {
 	//プレイヤー
 	if(input->Push(DIK_LEFT)){
-		world.translation.x -= 2.f;
+		world.translation.x -= MoveSp;
 	}
 	else if(input->Push(DIK_RIGHT)){
-		world.translation.x += 2.f;
+		world.translation.x += MoveSp;
 	}
 
 
 	if(input->Push(DIK_UP)){
-		world.translation.z += 2.f;
+		world.translation.z += MoveSp;
 	}
 	else if(input->Push(DIK_DOWN)){
-		world.translation.z -= 2.f;
+		world.translation.z -= MoveSp;
 	}
+}
+
+void Player::Damage()
+{
+	//ダメージ無し時処理
+	if(!IsDamage) return;
+
+	//ダメージリセット
+	if(returnTime >= ReturnTime){
+		returnTime = 0.f;
+		world.rotation.z = 0.f;
+		IsDamage = false;
+
+		return;
+	}
+
+	//回転、時間経過
+	world.rotation.z += XMConvertToRadians(AnimSp);
+	returnTime += 1.f/60.f;
 }

@@ -12,6 +12,7 @@
 #include "3D/Player\Player.h"
 #include "3D/Coins/Coins.h"
 #include "3D/Grounds/Grounds.h"
+#include "3D/Wall01/Wall01.h"
 
 #include "2D/Score/ScoreSprite.h"
 
@@ -58,10 +59,15 @@ private:
 	void CoinPopReSet();
 
 	//スコアPOP
-	void ScorePop();
+	void ScoreUp100Pop();
+	void ScoreDown100Pop();
 
 	//地面POP
 	void GroundPop(Vector3 position);
+
+	//壁01
+	void Wall01Pop(Vector3 position);
+
 private:
 	//プレイヤー
 	std::unique_ptr<Player> player;
@@ -77,6 +83,9 @@ private:
 
 	//地面
 	std::list<std::unique_ptr<Grounds>> ground;
+
+	//壁01
+	std::list<std::unique_ptr<Wall01>> wall01;
 
 	//ゲーム進行速度
 	const float GameSpeed = 4.f;

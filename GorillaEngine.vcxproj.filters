@@ -201,6 +201,9 @@
     <ClCompile Include="Game\2D\Score\ScoreSprite.cpp">
       <Filter>ソース ファイル\game\2D</Filter>
     </ClCompile>
+    <ClCompile Include="Game\3D\Wall01\Wall01.cpp">
+      <Filter>ソース ファイル\game\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\Window.h">
@@ -298,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="Game\2D\Score\ScoreSprite.h">
       <Filter>ヘッダー ファイル\game\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\3D\Wall01\Wall01.h">
+      <Filter>ヘッダー ファイル\game\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

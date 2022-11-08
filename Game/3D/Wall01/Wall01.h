@@ -1,9 +1,8 @@
 #pragma once
 #include "3D/BaseObjects.h"
 #include "3D/Collider/Collider.h"
-#include "Input.h"
 
-class Player : public BaseObjects, public Collider
+class Wall01 : public BaseObjects, public Collider
 {
 //メンバ関数
 public:
@@ -15,7 +14,7 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update(Camera* camera, Input* input);
+	void Update(Camera* camera);
 
 	/// <summary>
 	/// 描画
@@ -37,50 +36,20 @@ public:
 	const float GetHeight()	override	{return height;}
 	const float GetDepth()	override	{return depth;}
 	const std::string GetName() override	{return name;}
-	
+
 	bool GetIsDead() const {return IsDead;}
 
-	int GetCoinCount() const {return CoinCount;}
-	int GetScoreCount() const {return ScoreCount;}
-	bool GetIsScoreUp() const {return IsScoreUp;}
-	bool GetIsScoreDown() const {return IsScoreDown;}
-
 	//Setter
-
-
-private:
-	/// <summary>
-	/// 入力移動
-	/// </summary>
-	void InputMovement();
-
-	/// <summary>
-	/// ダメージ
-	/// </summary>
-	void Damage();
-
-//定数
-private:
-	const float ReturnTime = 2.f;
+	void SetVector3(Vector3 position)	{world.translation = position;}
+	void SetDepthSp(float Sp)	{DepthSp = Sp;}
 
 //メンバ変数
 private:
-	Input* input = nullptr;
-
 	float width = 10;
 	float height = 10;
 	float depth = 10;
-	std::string name = "Player";
+	std::string name = "Wall01";
 
-	int CoinCount = 0;
-	int ScoreCount = 0;
-	bool IsScoreUp = false;
-	bool IsScoreDown = false;
-
-	float MoveSp = 2.f;
-	float AnimSp = 15.f;
-
-	bool IsDamage = false;
-	float returnTime = 0.f;
+	float DepthSp = 0.f;
 };
 

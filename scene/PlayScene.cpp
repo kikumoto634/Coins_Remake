@@ -58,16 +58,22 @@ void PlayScene::Update()
 
 #pragma region 入力処理
 
-	if(input->Trigger(DIK_SPACE)){
+	if(input->Trigger(DIK_1)){
 		CoinPopReSet();
+	}
+	else if(input->Trigger(DIK_2)){
+		Wall01Pop({0,-125,1000});
 	}
 
 #pragma endregion
 
 #pragma region 2D更新
 	//スコア
-	if(player->GetIsGetCoin()){
-		ScorePop();
+	if(player->GetIsScoreUp()){
+		ScoreUp100Pop();
+	}
+	else if(player->GetIsScoreDown()){
+		ScoreDown100Pop();
 	}
 	score.remove_if([](unique_ptr<ScoreSprite>& sp){
 		return sp->GetIsDead();
@@ -81,6 +87,7 @@ void PlayScene::Update()
 	//プレイヤー
 	player->Update(camera, input);
 
+	//コイン
 	coin.remove_if([](unique_ptr<Coins>& obj){
 		return obj->GetIsDead();
 	});
@@ -94,12 +101,26 @@ void PlayScene::Update()
 		obj->Update(camera);
 		obj->SetDepthSp(GameSpeed);
 	}
+
+	//壁01
+	wall01.remove_if([](unique_ptr<Wall01>& obj){
+		return obj->GetIsDead();
+	});
+	for(unique_ptr<Wall01>& obj : wall01){
+		obj->Update(camera);
+		obj->SetDepthSp(GameSpeed);
+	}
+
 #pragma endregion
 
 #pragma region 汎用機能更新
 	//衝突判定リスト追加
 	collisionManager->SetCollision(player.get());
 	for(const std::unique_ptr<Coins>& obj : coin)
+	{
+		collisionManager->SetCollision(obj.get());
+	}
+	for(const std::unique_ptr<Wall01>& obj : wall01)
 	{
 		collisionManager->SetCollision(obj.get());
 	}
@@ -112,6 +133,7 @@ void PlayScene::Update()
 	debugText->Printf(0, 90, 1.f,"frame:%d, second:%d", frame, second);
 	debugText->Printf(0, 106, 1.f, "coinNum : %d", coin.size());
 	debugText->Printf(0, 122, 1.f, "scoreSpNum : %d", score.size());
+	debugText->Printf(0, 138, 1.f, "wall01Num : %d", wall01.size());
 
 	//プレイヤー
 	debugText->Printf(0, 600, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
@@ -149,6 +171,12 @@ void PlayScene::Draw()
 	for(unique_ptr<Grounds>& obj : ground){
 		obj->Draw();
 	}
+
+	//壁01
+	for(unique_ptr<Wall01>& obj : wall01){
+		obj->Draw();
+	}
+
 #pragma endregion
 
 #pragma region 2D描画UI
@@ -183,6 +211,11 @@ void PlayScene::Finalize()
 
 	//地面
 	for(unique_ptr<Grounds>& obj : ground){
+		obj->Finalize();
+	}
+
+	//壁01
+	for(unique_ptr<Wall01>& obj : wall01){
 		obj->Finalize();
 	}
 
@@ -288,10 +321,20 @@ void PlayScene::CoinPopReSet()
 }
 #pragma endregion
 
-void PlayScene::ScorePop()
+void PlayScene::ScoreUp100Pop()
 {
 	unique_ptr<ScoreSprite> newsp = make_unique<ScoreSprite>();
 	newsp->Initialize(2);
+	Vector2 target = newsp->ChangeTransformation(player->GetPosition());
+	newsp->SetVector2(target);
+
+	score.push_back(move(newsp));
+}
+
+void PlayScene::ScoreDown100Pop()
+{
+	unique_ptr<ScoreSprite> newsp = make_unique<ScoreSprite>();
+	newsp->Initialize(3);
 	Vector2 target = newsp->ChangeTransformation(player->GetPosition());
 	newsp->SetVector2(target);
 
@@ -305,4 +348,13 @@ void PlayScene::GroundPop(Vector3 position)
 	newobj->SetVector3(position);
 
 	ground.push_back(move(newobj));
+}
+
+void PlayScene::Wall01Pop(Vector3 position)
+{
+	unique_ptr<Wall01> newobj = make_unique<Wall01>();
+	newobj->Initialize("Wall01");
+	newobj->SetVector3(position);
+
+	wall01.push_back(move(newobj));
 }
