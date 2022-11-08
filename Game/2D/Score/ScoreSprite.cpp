@@ -5,6 +5,9 @@ void ScoreSprite::Initialize(UINT textureNumber)
 	BaseSprite::Initialize(textureNumber);
 
 	window = Window::GetInstance();
+	camera = Camera::GetInstance();
+
+	sprite->SetAnchorpoint({0.5f, 0.5f});
 }
 
 void ScoreSprite::Update()
@@ -35,7 +38,7 @@ void ScoreSprite::FadeOut()
 	}
 
 	//移動
-	position.y -= 1.f;
+	position.y -= 3.f;
 
 	//フェードアウト
 	alpha -= 1.f/120;
@@ -46,12 +49,12 @@ Vector2 ScoreSprite::ChangeTransformation(Vector3 targetpos)
 {
 	DirectX::XMMATRIX matViewport = 
 	{
-		(float)window->GetWindowWidth()/2, 0							, 0, 0,
-		0						  , (float)-window->GetWindowHeight()/2, 0, 0,
-		0						  , 0							, 1, 0, 
+		(float)window->GetWindowWidth()/2, 0								  , 0, 0,
+		0								 , -((float)window->GetWindowHeight())/2, 0, 0,
+		0								 , 0								  , 1, 0, 
 		(float)window->GetWindowWidth()/2, (float)window->GetWindowHeight()/2 , 0, 1,
 	};
-	DirectX::XMMATRIX matViewProjectionViewPort = matView * matViewProjection * matViewport;
+	DirectX::XMMATRIX matViewProjectionViewPort = camera->GetMatView() * camera->GetMatProjection() * matViewport;
 	Vector3 positionreticle = Vector3Transform(targetpos, matViewProjectionViewPort);
 	return Vector2{positionreticle.x, positionreticle.y};
 }

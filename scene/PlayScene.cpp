@@ -61,14 +61,14 @@ void PlayScene::Update()
 	if(input->Trigger(DIK_SPACE)){
 		CoinPopReSet();
 	}
-	if(input->Trigger(DIK_1)){
-		ScorePop();
-	}
 
 #pragma endregion
 
 #pragma region 2D更新
 	//スコア
+	if(player->GetIsGetCoin()){
+		ScorePop();
+	}
 	score.remove_if([](unique_ptr<ScoreSprite>& sp){
 		return sp->GetIsDead();
 	});
@@ -291,8 +291,8 @@ void PlayScene::ScorePop()
 {
 	unique_ptr<ScoreSprite> newsp = make_unique<ScoreSprite>();
 	newsp->Initialize(2);
-	//newsp->SetVector2(newsp->ChangeTransformation(player->GetPosition()));
-	newsp->SetVector2({0,0});
+	Vector2 target = newsp->ChangeTransformation(player->GetPosition());
+	newsp->SetVector2(target);
 
 	score.push_back(move(newsp));
 }

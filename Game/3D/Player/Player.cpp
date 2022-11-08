@@ -16,6 +16,7 @@ void Player::Initialize(std::string filePath)
 void Player::Update(Camera* camera, Input* input)
 {
 	this->input = input;
+	IsGetCoin = false;
 
 	//“ü—Í
 	InputMovement();
@@ -43,6 +44,7 @@ void Player::OnCollision(Collider *TouchCollision)
 {
 	if(TouchCollision->GetName() == "Coin"){
 		CoinCount = CoinCount + 1;
+		IsGetCoin = true;
 		return ;
 	}
 }

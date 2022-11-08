@@ -1,6 +1,7 @@
 #pragma once
 #include "2D/BaseSprite.h"
 #include "Window.h"
+#include "Camera.h"
 
 class ScoreSprite : public BaseSprite
 {
@@ -36,10 +37,7 @@ private:
 
 private:
 	Window* window = nullptr;
-
-	//“§‹“Š‰e‚©‚ç•½s“Š‰e•ÏX
-	DirectX::XMMATRIX matView;
-	DirectX::XMMATRIX matViewProjection;
+	Camera* camera = nullptr;
 
 	//Á–ÅŠÔ
 	float time = 0.f;
