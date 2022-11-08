@@ -9,9 +9,9 @@ SamplerState smp : register(s0);
 float4 main(VSOutput input) : SV_TARGET
 {
 	//テクスチャマッピング
-	float4 texcolor = tex.Sample(smp, input.uv);
+	float4 texcolor = tex.Sample(smp, input.uv) * float4(1,1,1,1);
 	//Lambert反射
-	float3 light = normalize(float3(1, -1, 1));	//右下奥向きライト
+	float3 light = normalize(float3(0, -1, 0));	//右下奥向きライト
 	float diffuse = saturate(dot(-light, input.normal));
 	float brightness = diffuse + 0.3f;
 	float4 shadecolor = float4(brightness, brightness, brightness, 1.0f);

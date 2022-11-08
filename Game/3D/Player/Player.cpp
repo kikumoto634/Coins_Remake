@@ -1,10 +1,12 @@
 #include "Player.h"
 
+using namespace DirectX;
+
 void Player::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);
 
-	world.translation = {0,-135,200};
+	world.translation = {0,-131,200};
 	world.UpdateMatrix();
 
 	//Õ“Ë‘®«Ý’è
@@ -21,11 +23,15 @@ void Player::Update(Camera* camera, Input* input)
 	//“ü—Í
 	InputMovement();
 
-	//ƒvƒŒƒCƒ„[
+	//ˆÚ“®§ŒÀ
 	world.translation.x = max(world.translation.x, -90.f);
 	world.translation.x = min(world.translation.x, 90.f);
 	world.translation.z = max(world.translation.z, 180.f);
 	world.translation.z = min(world.translation.z, 240.f);
+
+	//c‰ñ“]
+	world.rotation.x += XMConvertToRadians(20.f);
+
 
 	BaseObjects::Update(camera);
 }
@@ -44,6 +50,7 @@ void Player::OnCollision(Collider *TouchCollision)
 {
 	if(TouchCollision->GetName() == "Coin"){
 		CoinCount = CoinCount + 1;
+		ScoreCount += 100;
 		IsGetCoin = true;
 		return ;
 	}
@@ -58,6 +65,8 @@ void Player::InputMovement()
 	else if(input->Push(DIK_RIGHT)){
 		world.translation.x += 2.f;
 	}
+
+
 	if(input->Push(DIK_UP)){
 		world.translation.z += 2.f;
 	}

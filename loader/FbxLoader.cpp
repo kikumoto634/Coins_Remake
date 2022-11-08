@@ -85,7 +85,7 @@ FbxModelManager* FbxLoader::LoadModeFromFile(const string &modelName)
 
     //バッファ生成
     model->CreateBuffer(device);
-
+    
     return model;
 }
 
@@ -336,13 +336,10 @@ void FbxLoader::LoadTexture(FbxModelManager *model, const std::string &fullpath)
     TexMetadata& metadata = model->metaData;
     ScratchImage& scratchImg = model->scratchImage;
     //ユニコード文字列に変換
-    wchar_t wfilepath[128];
+    wchar_t wfilepath[256];
     MultiByteToWideChar(CP_ACP, 0, fullpath.c_str(), -1, wfilepath, _countof(wfilepath));
     result = LoadFromWICFile(wfilepath, WIC_FLAGS_NONE, &metadata, scratchImg);
-    if(FAILED(result))
-    {
-        assert(0);
-    }
+    assert(SUCCEEDED(result));
 }
 
 void FbxLoader::ParseSkin(FbxModelManager *model, FbxMesh *fbxMesh)

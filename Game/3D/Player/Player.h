@@ -41,6 +41,7 @@ public:
 	bool GetIsDead() const {return IsDead;}
 
 	int GetCoinCount() const {return CoinCount;}
+	int GetScoreCount() const {return ScoreCount;}
 	bool GetIsGetCoin() const {return IsGetCoin;}
 
 	//Setter
@@ -62,6 +63,7 @@ private:
 	std::string name = "Player";
 
 	int CoinCount = 0;
+	int ScoreCount = 0;
 	bool IsGetCoin = false;
 };
 

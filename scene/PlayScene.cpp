@@ -33,7 +33,7 @@ void PlayScene::Initialize()
 #pragma region 3D初期化
 	//プレイヤー
 	player = make_unique<Player>();
-	player->Initialize("player");
+	player->Initialize("Player");
 
 	//地面
 	for(int i = 0; i < 6;i++){
@@ -116,6 +116,7 @@ void PlayScene::Update()
 	//プレイヤー
 	debugText->Printf(0, 600, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
 	debugText->Printf(0, 616, 1.f, "PlayerGetCoin : %d", player->GetCoinCount());
+	debugText->Printf(0, 632, 1.f, "PlayerGetSore : %d", player->GetScoreCount());
 
 #endif // _DEBUG
 
