@@ -11,6 +11,8 @@ void Player::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);
 
+	AnimSp = AnimNormalSp;
+
 	world.translation = {0,-131,200};
 	world.UpdateMatrix();
 
@@ -31,12 +33,6 @@ void Player::Update(Camera* camera, Input* input)
 
 	//ダメージ
 	Damage();
-
-	//移動制限
-	world.translation.x = max(world.translation.x, -90.f);
-	world.translation.x = min(world.translation.x, 90.f);
-	world.translation.z = max(world.translation.z, 180.f);
-	world.translation.z = min(world.translation.z, 240.f);
 
 	//縦回転
 	if(world.rotation.x >= XMConvertToRadians(360.f)) world.rotation.x = 0.f;
@@ -73,23 +69,13 @@ void Player::OnCollision(Collider *TouchCollision)
 
 void Player::InputMovement()
 {
-	//プレイヤー
-	/*if(input->Push(DIK_LEFT)){
-		world.translation.x -= MoveSp;
-	}
-	else if(input->Push(DIK_RIGHT)){
-		world.translation.x += MoveSp;
-	}
+	//移動制限
+	world.translation.x = max(world.translation.x, -90.f);
+	world.translation.x = min(world.translation.x, 90.f);
+	world.translation.z = max(world.translation.z, 180.f);
+	world.translation.z = min(world.translation.z, 240.f);
 
-
-	if(input->Push(DIK_UP)){
-		world.translation.z += MoveSp;
-	}
-	else if(input->Push(DIK_DOWN)){
-		world.translation.z -= MoveSp;
-	}*/
-
-	//回転
+	//水平移動
 	//入力時
 	if(input->Push(DIK_RIGHT))
 	{
@@ -119,13 +105,29 @@ void Player::InputMovement()
 	}
 	//未入力時
 	else if(!input->Push(DIK_RIGHT)&&!input->Push(DIK_LEFT)){
-		//正面向きの場合
-		if(world.rotation.y == 0.f) return;
 
-		//そのた
-		rotEaseTime += 1.f/30;
-		world.rotation.y = (1.f-rotEaseTime) * world.rotation.y + rotEaseTime * 0.f;
+		if(rotEaseTime >= 1.f){
+			world.rotation.y = 0.f;
+		}
+		else if(world.rotation.y != 0.f){
+			//そのた
+			rotEaseTime += 1.f/30;
+			world.rotation.y = (1.f-rotEaseTime) * world.rotation.y + rotEaseTime * 0.f;
+		}
 	}
+
+	//前後移動
+	/*if(input->Push(DIK_UP)){
+		AnimSp = AnimMaxSp;
+		world.translation.z += MoveSp;
+	}
+	else if(input->Push(DIK_DOWN)){
+		AnimSp = AnimMinSp;
+		world.translation.z -= MoveSp;
+	}
+	else if(!input->Push(DIK_UP)&&!input->Push(DIK_DOWN)){
+		AnimSp = AnimNormalSp;
+	}*/
 }
 
 void Player::Damage()

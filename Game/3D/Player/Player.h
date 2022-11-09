@@ -34,6 +34,7 @@ public:
 
 	//Getter
 	const Vector3 GetPosition() override {return world.translation;}
+	const Vector3 GetRotation() {return world.rotation;}
 
 	const float GetWidth() override	{return width;}
 	const float GetHeight()	override	{return height;}
@@ -70,9 +71,9 @@ private:
 	Input* input = nullptr;
 
 	//移動速度
-	float MoveSp = 2.f;
+	float MoveSp = 4.f;
 	//回転(絶対値)
-	float MaxRadian = DirectX::XMConvertToRadians(20.f);
+	float MaxRadian = DirectX::XMConvertToRadians(45.f);
 	float RotSp = DirectX::XMConvertToRadians(1.f);
 	float rotEaseTime = 0.f;
 
@@ -90,6 +91,10 @@ private:
 
 	//アニメーション速度
 	float AnimSp = 15.f;
+	float AnimNormalSp = 15.f;
+	float AnimMaxSp = 20.f;
+	float AnimMinSp = 10.f;
+
 
 	//ダメージ
 	bool IsDamage = false;

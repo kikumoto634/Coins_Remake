@@ -139,8 +139,9 @@ void PlayScene::Update()
 
 	//ƒvƒŒƒCƒ„[
 	debugText->Printf(0, 600, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
-	debugText->Printf(0, 616, 1.f, "PlayerGetCoin : %d", player->GetCoinCount());
-	debugText->Printf(0, 632, 1.f, "PlayerGetSore : %d", player->GetScoreCount());
+	debugText->Printf(0, 616, 1.f, "Player:Rot X:%f Y:%f Z:%f", XMConvertToRadians(player->GetRotation().x), XMConvertToRadians(player->GetRotation().y), XMConvertToRadians(player->GetRotation().z));
+	debugText->Printf(0, 632, 1.f, "PlayerGetCoin : %d", player->GetCoinCount());
+	debugText->Printf(0, 648, 1.f, "PlayerGetSore : %d", player->GetScoreCount());
 
 #endif // _DEBUG
 
