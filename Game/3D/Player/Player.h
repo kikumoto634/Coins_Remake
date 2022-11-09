@@ -69,19 +69,29 @@ private:
 private:
 	Input* input = nullptr;
 
+	//移動速度
+	float MoveSp = 2.f;
+	//回転(絶対値)
+	float MaxRadian = DirectX::XMConvertToRadians(20.f);
+	float RotSp = DirectX::XMConvertToRadians(1.f);
+	float rotEaseTime = 0.f;
+
+	//サイズ
 	float width = 10;
 	float height = 10;
 	float depth = 10;
 	std::string name = "Player";
 
+	//コイン、スコア
 	int CoinCount = 0;
 	int ScoreCount = 0;
 	bool IsScoreUp = false;
 	bool IsScoreDown = false;
 
-	float MoveSp = 2.f;
+	//アニメーション速度
 	float AnimSp = 15.f;
 
+	//ダメージ
 	bool IsDamage = false;
 	float returnTime = 0.f;
 };

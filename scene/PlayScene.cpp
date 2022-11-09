@@ -27,6 +27,8 @@ void PlayScene::Initialize()
 	/// </summary>
 	BaseScene::Initialize();
 
+	GameSpeed = GameNormalSpeed;
+
 #pragma region 2D‰Šú‰»
 #pragma endregion 
 

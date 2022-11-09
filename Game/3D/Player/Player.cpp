@@ -74,7 +74,7 @@ void Player::OnCollision(Collider *TouchCollision)
 void Player::InputMovement()
 {
 	//ƒvƒŒƒCƒ„[
-	if(input->Push(DIK_LEFT)){
+	/*if(input->Push(DIK_LEFT)){
 		world.translation.x -= MoveSp;
 	}
 	else if(input->Push(DIK_RIGHT)){
@@ -87,6 +87,44 @@ void Player::InputMovement()
 	}
 	else if(input->Push(DIK_DOWN)){
 		world.translation.z -= MoveSp;
+	}*/
+
+	//‰ñ“]
+	//“ü—Í
+	if(input->Push(DIK_RIGHT))
+	{
+		//ˆÚ“®
+		world.translation.x += MoveSp * (world.rotation.y / MaxRadian);
+
+		//‰ñ“]
+		rotEaseTime = 0.f;
+		if(world.rotation.y >= MaxRadian) return;
+
+		//‰EŒü‚«‚È‚ç‰ñ“]‰Á‘¬
+		if(world.rotation.y < 0.f) world.rotation.y += RotSp*2;
+		world.rotation.y += RotSp;
+	}
+	else if(input->Push(DIK_LEFT))
+	{
+		//ˆÚ“®
+		world.translation.x -= MoveSp * (world.rotation.y / -MaxRadian);
+
+		//‰ñ“]
+		rotEaseTime = 0.f;
+		if(world.rotation.y <= -MaxRadian) return;
+		
+		//‰EŒü‚«‚È‚ç‰ñ“]‰Á‘¬
+		if(world.rotation.y > 0.f) world.rotation.y -= RotSp*2;
+		world.rotation.y -= RotSp;
+	}
+	//–¢“ü—Í
+	else if(!input->Push(DIK_RIGHT)&&!input->Push(DIK_LEFT)){
+		//³–ÊŒü‚«‚Ìê‡
+		if(world.rotation.y == 0.f) return;
+
+		//‚»‚Ì‚½
+		rotEaseTime += 1.f/30;
+		world.rotation.y = (1.f-rotEaseTime) * world.rotation.y + rotEaseTime * 0.f;
 	}
 }
 

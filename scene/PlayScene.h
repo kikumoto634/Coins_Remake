@@ -88,7 +88,9 @@ private:
 	std::list<std::unique_ptr<Wall01>> wall01;
 
 	//ゲーム進行速度
-	const float GameSpeed = 4.f;
+	float GameSpeed = 0.f;
+	const float GameNormalSpeed = 4.f;
+	const float GameAcceleratorSpeed = 6.f;
 
 	int frame = 0;
 	int second = 0;
