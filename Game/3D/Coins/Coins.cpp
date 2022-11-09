@@ -2,6 +2,11 @@
 
 using namespace DirectX;
 
+Coins::~Coins()
+{
+	Finalize();
+}
+
 void Coins::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);

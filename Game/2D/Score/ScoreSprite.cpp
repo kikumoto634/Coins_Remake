@@ -1,5 +1,10 @@
 #include "ScoreSprite.h"
 
+ScoreSprite::~ScoreSprite()
+{
+	Finalize();
+}
+
 void ScoreSprite::Initialize(UINT textureNumber)
 {
 	BaseSprite::Initialize(textureNumber);

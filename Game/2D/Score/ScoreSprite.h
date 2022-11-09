@@ -6,6 +6,8 @@
 class ScoreSprite : public BaseSprite
 {
 public:
+	~ScoreSprite();
+
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>

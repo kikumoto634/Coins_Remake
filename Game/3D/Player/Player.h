@@ -7,6 +7,8 @@ class Player : public BaseObjects, public Collider
 {
 //ƒƒ“ƒoŠÖ”
 public:
+	~Player();
+
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>

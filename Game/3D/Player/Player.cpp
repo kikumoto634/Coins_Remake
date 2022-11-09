@@ -2,6 +2,11 @@
 
 using namespace DirectX;
 
+Player::~Player()
+{
+	Finalize();
+}
+
 void Player::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);

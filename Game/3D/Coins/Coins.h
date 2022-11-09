@@ -6,6 +6,9 @@ class Coins : public BaseObjects, public Collider
 {
 //ƒƒ“ƒoŠÖ”
 public:
+
+	~Coins();
+
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>

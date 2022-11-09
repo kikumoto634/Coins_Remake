@@ -1,5 +1,10 @@
 #include "Wall01.h"
 
+Wall01::~Wall01()
+{
+	Finalize();
+}
+
 void Wall01::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);

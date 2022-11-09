@@ -6,6 +6,8 @@ class Wall01 : public BaseObjects, public Collider
 {
 //ƒƒ“ƒoŠÖ”
 public:
+	~Wall01();
+
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>

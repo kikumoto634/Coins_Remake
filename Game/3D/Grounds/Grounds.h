@@ -5,6 +5,8 @@ class Grounds : public BaseObjects
 {
 //ƒƒ“ƒoŠÖ”
 public:
+	~Grounds();
+
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>

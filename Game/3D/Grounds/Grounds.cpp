@@ -1,5 +1,10 @@
 #include "Grounds.h"
 
+Grounds::~Grounds()
+{
+	Finalize();
+}
+
 void Grounds::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);
