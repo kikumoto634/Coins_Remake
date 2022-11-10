@@ -16,6 +16,8 @@
 
 #include "2D/Score/ScoreSprite.h"
 
+#include "System/HitStop.h"
+
 
 
 class PlayScene : public BaseScene
@@ -94,5 +96,8 @@ private:
 
 	int frame = 0;
 	int second = 0;
+
+	//ヒットストップ
+	std::unique_ptr<HitStop> hitStop;
 };
 

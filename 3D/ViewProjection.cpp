@@ -16,7 +16,7 @@ void ViewProjection::UpdateProjectionMatrix(int width, int height)
 {
 	//“§‹“Š‰e
 	matProjection = XMMatrixPerspectiveFovLH(
-		XMConvertToRadians(45.0f),	//ã‰º‰æŠp45‹
+		XMConvertToRadians(angle),	//ã‰º‰æŠp
 		(float)width / height,			//aspect”ä(‰æ–Ê‰¡•/‰æ–Êc•)
 		0.1f, 1000.0f				//‘O’[A‰œ’[
 	);

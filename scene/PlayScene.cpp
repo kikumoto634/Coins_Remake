@@ -44,6 +44,7 @@ void PlayScene::Initialize()
 #pragma endregion
 
 #pragma region 汎用機能初期化
+	hitStop = make_unique<HitStop>();
 #pragma endregion
 }
 
@@ -66,8 +67,15 @@ void PlayScene::Update()
 	else if(input->Trigger(DIK_2)){
 		Wall01Pop({0,-125,1000});
 	}
+	else if(input->Trigger(DIK_3)){
+		hitStop->SetStopFrame(3.f);
+		hitStop->HitStopStart();
+	}
 
 #pragma endregion
+
+	//ヒットストップ
+	if(hitStop->Update(camera)) return;
 
 #pragma region 2D更新
 	//スコア
@@ -128,23 +136,6 @@ void PlayScene::Update()
 	}
 #pragma endregion
 
-#ifdef _DEBUG
-	debugText->Printf(0,0,1.f,"Camera:Eye	 X:%f Y:%f Z:%f", camera->GetEye().x,camera->GetEye().y,camera->GetEye().z);
-	debugText->Printf(0,16,1.f,"Camera:Target X:%f Y:%f Z:%f", camera->GetTarget().x,camera->GetTarget().y,camera->GetTarget().z);
-
-	debugText->Printf(0, 90, 1.f,"frame:%d, second:%d", frame, second);
-	debugText->Printf(0, 106, 1.f, "coinNum : %d", coin.size());
-	debugText->Printf(0, 122, 1.f, "scoreSpNum : %d", score.size());
-	debugText->Printf(0, 138, 1.f, "wall01Num : %d", wall01.size());
-
-	//プレイヤー
-	debugText->Printf(0, 600, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
-	debugText->Printf(0, 616, 1.f, "Player:Rot X:%f Y:%f Z:%f", XMConvertToRadians(player->GetRotation().x), XMConvertToRadians(player->GetRotation().y), XMConvertToRadians(player->GetRotation().z));
-	debugText->Printf(0, 632, 1.f, "PlayerGetCoin : %d", player->GetCoinCount());
-	debugText->Printf(0, 648, 1.f, "PlayerGetSore : %d", player->GetScoreCount());
-
-#endif // _DEBUG
-
 	/// <summary>
 	/// シーンベース
 	/// </summary>
@@ -189,6 +180,23 @@ void PlayScene::Draw()
 		sp->Draw();
 	}
 #pragma endregion 
+
+#ifdef _DEBUG
+	debugText->Printf(0,0,1.f,"Camera:Eye	 X:%f Y:%f Z:%f", camera->GetEye().x,camera->GetEye().y,camera->GetEye().z);
+	debugText->Printf(0,16,1.f,"Camera:Target X:%f Y:%f Z:%f", camera->GetTarget().x,camera->GetTarget().y,camera->GetTarget().z);
+
+	debugText->Printf(0, 90, 1.f,"frame:%d, second:%d", frame, second);
+	debugText->Printf(0, 106, 1.f, "coinNum : %d", coin.size());
+	debugText->Printf(0, 122, 1.f, "scoreSpNum : %d", score.size());
+	debugText->Printf(0, 138, 1.f, "wall01Num : %d", wall01.size());
+
+	//プレイヤー
+	debugText->Printf(0, 600, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
+	debugText->Printf(0, 616, 1.f, "Player:Rot X:%f Y:%f Z:%f", XMConvertToRadians(player->GetRotation().x), XMConvertToRadians(player->GetRotation().y), XMConvertToRadians(player->GetRotation().z));
+	debugText->Printf(0, 632, 1.f, "PlayerGetCoin : %d", player->GetCoinCount());
+	debugText->Printf(0, 648, 1.f, "PlayerGetSore : %d", player->GetScoreCount());
+
+#endif // _DEBUG
 
 	/// <summary>
 	/// シーンベース

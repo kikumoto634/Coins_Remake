@@ -19,6 +19,8 @@ void Camera::Initialize()
 	view.target = {0, -50.f, 0};
 	view.up = {0, 1, 0};
 
+	view.angle = _Angle;
+
 
 	view.UpdateViewMatrix();
 	view.UpdateProjectionMatrix(window->GetWindowWidth(),window->GetWindowHeight());

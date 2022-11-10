@@ -22,6 +22,9 @@ public:
 	Vector3 target;		//注視点座標
 	Vector3 up;			//上方向ベクトル
 
+	//上下画角
+	float angle;
+
 	XMMATRIX matViewProjection;
 };
 

@@ -106,6 +106,12 @@
     <Filter Include="ヘッダー ファイル\Engine\loader">
       <UniqueIdentifier>{ef9199b7-0899-4312-bb9b-9c80de6d7899}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\game\System">
+      <UniqueIdentifier>{6edf15f1-d065-4701-8934-3c5cc010673c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\game\System">
+      <UniqueIdentifier>{bf3e1e5b-7fc0-4a94-8d5e-ea2778155df6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -203,6 +209,9 @@
     </ClCompile>
     <ClCompile Include="Game\3D\Wall01\Wall01.cpp">
       <Filter>ソース ファイル\game\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\System\HitStop.cpp">
+      <Filter>ソース ファイル\game\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +313,9 @@
     </ClInclude>
     <ClInclude Include="Game\3D\Wall01\Wall01.h">
       <Filter>ヘッダー ファイル\game\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\System\HitStop.h">
+      <Filter>ヘッダー ファイル\game\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

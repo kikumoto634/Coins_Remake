@@ -176,6 +176,7 @@
     <ClCompile Include="Game\3D\Grounds\Grounds.cpp" />
     <ClCompile Include="Game\3D\Player\Player.cpp" />
     <ClCompile Include="Game\3D\Wall01\Wall01.cpp" />
+    <ClCompile Include="Game\System\HitStop.cpp" />
     <ClCompile Include="input\Input.cpp" />
     <ClCompile Include="loader\FbxLoader.cpp" />
     <ClCompile Include="main.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="Game\3D\Grounds\Grounds.h" />
     <ClInclude Include="Game\3D\Player\Player.h" />
     <ClInclude Include="Game\3D\Wall01\Wall01.h" />
+    <ClInclude Include="Game\System\HitStop.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="loader\FbxLoader.h" />
     <ClInclude Include="math\Vector2.h" />

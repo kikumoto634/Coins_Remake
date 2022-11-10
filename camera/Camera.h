@@ -33,19 +33,25 @@ public:
 	const XMMATRIX& GetMatView()	{return view.matView;}
 	const XMMATRIX& GetViewProjectionMatrix()	{return view.matViewProjection;}
 
-
 	const Vector3& GetEye() {return view.eye; }
 	const Vector3& GetTarget() {return view.target; }
 	const Vector3& GetUp() {return view.up; }
+	const float& GetAngle()	{return view.angle;}
 
 	//setter
 	void SetEye(const Vector3& eye)	{this->view.eye = eye; }
 	void SetTarget(const Vector3& target)	{this->view.target = target; }
 	void SetUp(const Vector3& up)	{this->view.up = up; }
+	void SetAngle(const float& angle)	{this->view.angle = angle;}
+
+	//Reset
+	void ReSetAngle()	{this->view.angle = _Angle;}
 
 private:
 	//アスペクト用
 	Window* window;
+
+	const float _Angle = 60.f;
 
 protected:
 	ViewProjection view;
