@@ -14,8 +14,10 @@ void Wall01::Initialize(std::string filePath)
 	SetCollisionMask(kCollisionAttributeMine);
 }
 
-void Wall01::Update(Camera *camera)
+void Wall01::Update(Camera *camera, HitStop* hitStop)
 {
+	this->hitStop = hitStop;
+
 	if(world.translation.z <= -100){
 		IsDead = true;
 	}
@@ -39,5 +41,7 @@ void Wall01::Finalize()
 
 void Wall01::OnCollision(Collider *TouchCollision)
 {
+	hitStop->SetStopFrame(1.f);
+	hitStop->HitStopStart();
 	IsDead = true;
 }

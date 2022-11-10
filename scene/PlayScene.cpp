@@ -117,7 +117,7 @@ void PlayScene::Update()
 		return obj->GetIsDead();
 	});
 	for(unique_ptr<Wall01>& obj : wall01){
-		obj->Update(camera);
+		obj->Update(camera, hitStop.get());
 		obj->SetDepthSp(GameSpeed);
 	}
 

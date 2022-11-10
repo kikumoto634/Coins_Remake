@@ -1,6 +1,8 @@
 #pragma once
 #include "3D/BaseObjects.h"
 #include "3D/Collider/Collider.h"
+#include "System/HitStop.h"
+
 
 class Wall01 : public BaseObjects, public Collider
 {
@@ -16,7 +18,7 @@ public:
 	/// <summary>
 	/// çXêV
 	/// </summary>
-	void Update(Camera* camera);
+	void Update(Camera* camera, HitStop* hitStop);
 
 	/// <summary>
 	/// ï`âÊ
@@ -53,5 +55,7 @@ private:
 	std::string name = "Wall01";
 
 	float DepthSp = 0.f;
+
+	HitStop* hitStop = nullptr;
 };
 
