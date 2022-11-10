@@ -71,6 +71,9 @@ void PlayScene::Update()
 		hitStop->SetStopFrame(3.f);
 		hitStop->HitStopStart();
 	}
+	else if(input->Trigger(DIK_4)){
+		camera->ShakeStart();
+	}
 
 #pragma endregion
 

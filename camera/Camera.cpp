@@ -21,6 +21,7 @@ void Camera::Initialize()
 
 	view.angle = _Angle;
 
+	targetBase = view.target;
 
 	view.UpdateViewMatrix();
 	view.UpdateProjectionMatrix(window->GetWindowWidth(),window->GetWindowHeight());
@@ -28,10 +29,31 @@ void Camera::Initialize()
 
 void Camera::Update()
 {
+	Shake();
+	view.target = targetBase + offset;
+
 	view.matViewProjection = view.matView * view.matProjection;
 
 	view.UpdateViewMatrix();
 	view.UpdateProjectionMatrix(window->GetWindowWidth(),window->GetWindowHeight());
+}
+
+void Camera::Shake()
+{
+	if(!IsShake) return ;
+	if((int)time >= _Power){
+		time = 0;
+		offset = {0,0,0};
+		IsShake = false;
+		return ;
+	}
+
+	int shakePower = _Power - (int)time;
+	offset.x = (float)(rand()%shakePower - (shakePower/2));
+	offset.y = (float)(rand()%shakePower - (shakePower/2));
+	//offset.z = (float)(rand()%shakePower - (shakePower/2));
+
+	time += 1.f/30;
 }
 
 

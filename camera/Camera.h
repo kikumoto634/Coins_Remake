@@ -27,6 +27,11 @@ public:
 	/// </summary>
 	virtual void Update();
 
+	/// <summary>
+	/// シェイク
+	/// </summary>
+	void Shake();
+	void ShakeStart()	{IsShake = true;}
 
 	//getter
 	const XMMATRIX& GetMatProjection()	{return view.matProjection;}
@@ -51,7 +56,15 @@ private:
 	//アスペクト用
 	Window* window;
 
+	//画角
 	const float _Angle = 60.f;
+
+	//シェイク
+	const int _Power = 5;
+	bool IsShake = false;
+	float time = 0.f;
+	Vector3 targetBase = {0,0,0};
+	Vector3 offset = {0,0,0};
 
 protected:
 	ViewProjection view;
