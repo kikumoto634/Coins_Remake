@@ -62,6 +62,7 @@ void Player::OnCollision(Collider *TouchCollision)
 	else if(TouchCollision->GetName() == "Wall01"){
 		ScoreCount -= 100;
 		IsScoreDown = true;
+		Hp -= 1;
 		IsDamage = true;
 		return ;
 	}

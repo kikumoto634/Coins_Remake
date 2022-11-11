@@ -41,6 +41,7 @@ public:
 	const float GetDepth()	override	{return depth;}
 	const std::string GetName() override	{return name;}
 	
+	int GetHp()	const {return Hp;}
 	bool GetIsDead() const {return IsDead;}
 
 	int GetCoinCount() const {return CoinCount;}
@@ -90,11 +91,13 @@ private:
 	bool IsScoreDown = false;
 
 	//アニメーション速度
-	float AnimSp = 15.f;
+	float AnimSp = 0.f;
 	float AnimNormalSp = 15.f;
 	float AnimMaxSp = 20.f;
 	float AnimMinSp = 10.f;
 
+	//HP
+	int Hp = 3;
 
 	//ダメージ
 	bool IsDamage = false;

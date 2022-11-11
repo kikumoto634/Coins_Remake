@@ -221,6 +221,7 @@ void PlayScene::Draw()
 	debugText->Printf(0, 616, 1.f, "Player:Rot X:%f Y:%f Z:%f", XMConvertToRadians(player->GetRotation().x), XMConvertToRadians(player->GetRotation().y), XMConvertToRadians(player->GetRotation().z));
 	debugText->Printf(0, 632, 1.f, "PlayerGetCoin : %d", player->GetCoinCount());
 	debugText->Printf(0, 648, 1.f, "PlayerGetSore : %d", player->GetScoreCount());
+	debugText->Printf(0, 664, 1.f, "PlayerHp : %d", player->GetHp());
 
 #endif // _DEBUG
 
@@ -369,7 +370,7 @@ void PlayScene::ScoreUp100Pop()
 {
 	unique_ptr<ScoreSprite> newsp = make_unique<ScoreSprite>();
 	newsp->Initialize(2);
-	Vector2 target = newsp->ChangeTransformation(player->GetPosition());
+	Vector2 target = newsp->ChangeTransformation(Vector3(player->GetPosition().x, player->GetPosition().y+30, player->GetPosition().z));
 	newsp->SetVector2(target);
 
 	score.push_back(move(newsp));
@@ -379,7 +380,7 @@ void PlayScene::ScoreDown100Pop()
 {
 	unique_ptr<ScoreSprite> newsp = make_unique<ScoreSprite>();
 	newsp->Initialize(3);
-	Vector2 target = newsp->ChangeTransformation(player->GetPosition());
+	Vector2 target = newsp->ChangeTransformation(Vector3(player->GetPosition().x, player->GetPosition().y+30, player->GetPosition().z));
 	newsp->SetVector2(target);
 
 	score.push_back(move(newsp));
