@@ -73,8 +73,8 @@ void Player::InputMovement()
 	//ˆÚ“®§ŒÀ
 	world.translation.x = max(world.translation.x, -90.f);
 	world.translation.x = min(world.translation.x, 90.f);
-	world.translation.z = max(world.translation.z, 180.f);
-	world.translation.z = min(world.translation.z, 240.f);
+	world.translation.z = max(world.translation.z, 120.f);
+	world.translation.z = min(world.translation.z, 300.f);
 
 	//…•½ˆÚ“®
 	//“ü—ÍŽž
@@ -118,17 +118,21 @@ void Player::InputMovement()
 	}
 
 	//‘OŒãˆÚ“®
-	/*if(input->Push(DIK_UP)){
-		AnimSp = AnimMaxSp;
-		world.translation.z += MoveSp;
+	if(input->Push(DIK_UP)){
+		world.translation.z += MoveSp * (AnimSp / AnimMaxSp);
+		
+		if(AnimSp >= AnimMaxSp) return;
+		AnimSp += 0.05f;
 	}
 	else if(input->Push(DIK_DOWN)){
-		AnimSp = AnimMinSp;
-		world.translation.z -= MoveSp;
+		world.translation.z -= MoveSp * (AnimMinSp / AnimSp);
+		
+		if(AnimSp <= AnimMinSp) return;
+		AnimSp -= 0.1f;
 	}
 	else if(!input->Push(DIK_UP)&&!input->Push(DIK_DOWN)){
 		AnimSp = AnimNormalSp;
-	}*/
+	}
 }
 
 void Player::Damage()

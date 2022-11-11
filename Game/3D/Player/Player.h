@@ -92,9 +92,9 @@ private:
 
 	//アニメーション速度
 	float AnimSp = 0.f;
-	float AnimNormalSp = 15.f;
-	float AnimMaxSp = 20.f;
-	float AnimMinSp = 10.f;
+	float AnimNormalSp = 5.f;
+	float AnimMaxSp = 10.f;
+	float AnimMinSp = 2.5f;
 
 	//HP
 	int Hp = 3;
