@@ -43,5 +43,6 @@ void Wall01::OnCollision(Collider *TouchCollision)
 {
 	hitStop->SetStopFrame(1.f);
 	hitStop->HitStopStart();
+	camera->ShakeStart();
 	IsDead = true;
 }

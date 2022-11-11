@@ -60,7 +60,7 @@ private:
 	const float _Angle = 60.f;
 
 	//シェイク
-	const int _Power = 5;
+	float _Power = 2.f;
 	bool IsShake = false;
 	float time = 0.f;
 	Vector3 targetBase = {0,0,0};

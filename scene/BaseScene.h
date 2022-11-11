@@ -74,7 +74,10 @@ protected:
 	//ì¬
 	Input* input = nullptr;
 	Camera* camera = nullptr;
+
+#ifdef _DEBUG
 	std::unique_ptr<DebugText> debugText;
+#endif // _DEBUG
 
 	//Õ“Ë”»’è
 	std::unique_ptr<CollisionManager> collisionManager;

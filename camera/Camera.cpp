@@ -20,7 +20,6 @@ void Camera::Initialize()
 	view.up = {0, 1, 0};
 
 	view.angle = _Angle;
-
 	targetBase = view.target;
 
 	view.UpdateViewMatrix();
@@ -41,19 +40,23 @@ void Camera::Update()
 void Camera::Shake()
 {
 	if(!IsShake) return ;
-	if((int)time >= _Power){
-		time = 0;
-		offset = {0,0,0};
+	if(time >= _Power){
+		time = 0.f;
+		offset = {0.f,0.f,0.f};
 		IsShake = false;
 		return ;
 	}
 
-	int shakePower = _Power - (int)time;
-	offset.x = (float)(rand()%shakePower - (shakePower/2));
-	offset.y = (float)(rand()%shakePower - (shakePower/2));
-	//offset.z = (float)(rand()%shakePower - (shakePower/2));
-
-	time += 1.f/30;
+	int shakePower = (int)(_Power - time);
+	if(shakePower == 0) {
+		time = _Power;
+		return;
+	}
+	//offset.x = (float)(rand() % shakePower - (shakePower/2));
+	//offset.y = (float)(rand() % shakePower - (shakePower/2));
+	//offset.z = (float)(rand() % shakePower - (shakePower/2));
+	
+	time += 1.f/90;
 }
 
 
