@@ -73,7 +73,7 @@ void PlayScene::Update()
 		CoinPopReSet();
 	}
 	else if(input->Trigger(DIK_2)){
-		Wall01Pop({0,-125,1000});
+		Wall01Pop({0,-150,1000});
 	}
 	else if(input->Trigger(DIK_3)){
 		hitStop->SetStopFrame(3.f);
