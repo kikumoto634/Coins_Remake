@@ -41,6 +41,10 @@ void PlayScene::Initialize()
 	for(int i = 0; i < 6;i++){
 		GroundPop({0, -150, 200 + (float)i*200});
 	}
+
+	//天球
+	skyDome = make_unique<SkyDome>();
+	skyDome->Initialize("skydome");
 #pragma endregion
 
 #pragma region 汎用機能初期化
@@ -115,6 +119,9 @@ void PlayScene::Update()
 		obj->SetDepthSp(GameSpeed);
 	}
 
+	//天球
+	skyDome->Update(camera);
+
 	//壁01
 	wall01.remove_if([](unique_ptr<Wall01>& obj){
 		return obj->GetIsDead();
@@ -168,6 +175,9 @@ void PlayScene::Draw()
 	for(unique_ptr<Grounds>& obj : ground){
 		obj->Draw();
 	}
+
+	//天球
+	skyDome->Draw();
 
 	//壁01
 	for(unique_ptr<Wall01>& obj : wall01){
@@ -227,6 +237,9 @@ void PlayScene::Finalize()
 	for(unique_ptr<Grounds>& obj : ground){
 		obj->Finalize();
 	}
+
+	//天球
+	skyDome->Finalize();
 
 	//壁01
 	for(unique_ptr<Wall01>& obj : wall01){

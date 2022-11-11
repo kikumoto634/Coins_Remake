@@ -213,6 +213,9 @@
     <ClCompile Include="Game\System\HitStop.cpp">
       <Filter>ソース ファイル\game\System</Filter>
     </ClCompile>
+    <ClCompile Include="Game\3D\SkyDome\SkyDome.cpp">
+      <Filter>ソース ファイル\game\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\Window.h">
@@ -316,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="Game\System\HitStop.h">
       <Filter>ヘッダー ファイル\game\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\3D\SkyDome\SkyDome.h">
+      <Filter>ヘッダー ファイル\game\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

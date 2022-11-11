@@ -12,6 +12,7 @@
 #include "3D/Player\Player.h"
 #include "3D/Coins/Coins.h"
 #include "3D/Grounds/Grounds.h"
+#include "3D/SkyDome/SkyDome.h"
 #include "3D/Wall01/Wall01.h"
 
 #include "2D/Score/ScoreSprite.h"
@@ -85,6 +86,9 @@ private:
 
 	//’n–Ê
 	std::list<std::unique_ptr<Grounds>> ground;
+
+	//“V‹…
+	std::unique_ptr<SkyDome> skyDome;
 
 	//•Ç01
 	std::list<std::unique_ptr<Wall01>> wall01;
