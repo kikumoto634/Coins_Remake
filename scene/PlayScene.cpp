@@ -41,6 +41,10 @@ void PlayScene::Initialize()
 	for(int i = 0; i < 6;i++){
 		GroundPop({0, -150, 200 + (float)i*200});
 	}
+	//アウトエリア
+	for(int i = 0; i < 6;i++){
+		OutAreaPop({0, -150, 200 + (float)i*200});
+	}
 
 	//天球
 	skyDome = make_unique<SkyDome>();
@@ -118,6 +122,11 @@ void PlayScene::Update()
 		obj->Update(camera);
 		obj->SetDepthSp(GameSpeed);
 	}
+	//アウトエリア
+	for(unique_ptr<OutArea>& obj : outArea){
+		obj->Update(camera);
+		obj->SetDepthSp(GameSpeed);
+	}
 
 	//天球
 	skyDome->Update(camera);
@@ -173,6 +182,10 @@ void PlayScene::Draw()
 
 	//地面
 	for(unique_ptr<Grounds>& obj : ground){
+		obj->Draw();
+	}
+	//アウトエリア
+	for(unique_ptr<OutArea>& obj : outArea){
 		obj->Draw();
 	}
 
@@ -235,6 +248,10 @@ void PlayScene::Finalize()
 
 	//地面
 	for(unique_ptr<Grounds>& obj : ground){
+		obj->Finalize();
+	}
+	//アウトエリア
+	for(unique_ptr<OutArea>& obj : outArea){
 		obj->Finalize();
 	}
 
@@ -375,6 +392,15 @@ void PlayScene::GroundPop(Vector3 position)
 	newobj->SetVector3(position);
 
 	ground.push_back(move(newobj));
+}
+
+void PlayScene::OutAreaPop(Vector3 position)
+{
+	unique_ptr<OutArea> newobj = make_unique<OutArea>();
+	newobj->Initialize("OutArea");
+	newobj->SetVector3(position);
+
+	outArea.push_back(move(newobj));
 }
 
 void PlayScene::Wall01Pop(Vector3 position)

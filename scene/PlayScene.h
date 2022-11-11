@@ -12,6 +12,7 @@
 #include "3D/Player\Player.h"
 #include "3D/Coins/Coins.h"
 #include "3D/Grounds/Grounds.h"
+#include "3D/OutArea/OutArea.h"
 #include "3D/SkyDome/SkyDome.h"
 #include "3D/Wall01/Wall01.h"
 
@@ -67,6 +68,8 @@ private:
 
 	//地面POP
 	void GroundPop(Vector3 position);
+	//アウトエリアPOP
+	void OutAreaPop(Vector3 position);
 
 	//壁01
 	void Wall01Pop(Vector3 position);
@@ -86,6 +89,7 @@ private:
 
 	//地面
 	std::list<std::unique_ptr<Grounds>> ground;
+	std::list<std::unique_ptr<OutArea>> outArea;
 
 	//天球
 	std::unique_ptr<SkyDome> skyDome;
