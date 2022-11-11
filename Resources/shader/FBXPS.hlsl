@@ -13,7 +13,7 @@ float4 main(VSOutput input) : SV_TARGET
 	//Lambert反射
 	float3 light = normalize(float3(0, 0, 0));	//右下奥向きライト
 	float diffuse = saturate(dot(-light, input.normal));
-	float brightness = diffuse + 0.3f;
+	float brightness = diffuse + 0.5f;
 	float4 shadecolor = float4(brightness, brightness, brightness, 1.0f);
 	//陰影とテクスチャ色の合成
 	return shadecolor * texcolor;
