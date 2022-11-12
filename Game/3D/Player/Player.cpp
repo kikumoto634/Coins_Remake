@@ -11,10 +11,8 @@ void Player::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);
 
-	AnimSp = AnimNormalSp;
-
-	world.translation = {0,-131,200};
-	world.UpdateMatrix();
+	Initialize2D();
+	Initialize3D();
 
 	//衝突属性設定
 	SetCollisionAttribute(kCollisionAttributeMine);
@@ -25,29 +23,31 @@ void Player::Initialize(std::string filePath)
 void Player::Update(Camera* camera, Input* input)
 {
 	this->input = input;
-	IsScoreUp = false;
-	IsScoreDown = false;
 
-	//入力
-	InputMovement();
-
-	//ダメージ
-	Damage();
-
-	//縦回転
-	if(world.rotation.x >= XMConvertToRadians(360.f)) world.rotation.x = 0.f;
-	world.rotation.x += XMConvertToRadians(AnimSp);
+	Update2D();
+	Update3D();
 
 	BaseObjects::Update(camera);
 }
 
-void Player::Draw()
+void Player::Draw_2D()
 {
+	Draw2D();
+}
+
+void Player::Draw_3D()
+{
+	Draw2D();
+	Draw3D();
+
 	BaseObjects::Draw();
 }
 
 void Player::Finalize()
 {
+	Finalize2D();
+	Finalize3D();
+
 	BaseObjects::Finalize();
 }
 
@@ -67,6 +67,76 @@ void Player::OnCollision(Collider *TouchCollision)
 		return ;
 	}
 }
+
+#pragma region 2D処理
+void Player::Initialize2D()
+{
+	for(int i = 0; i < MaxHp; i++){
+		playerHp[i] = std::make_unique<PlayerHp>();
+		playerHp[i]->Initialize(4);
+	}
+}
+
+void Player::Update2D()
+{
+	//スコア
+	IsScoreUp = false;
+	IsScoreDown = false;
+
+	//体力
+	for(int i = 0; i < Hp; i++){
+		playerHp[i]->Update();
+		playerHp[i]->SetVector2(playerHp[i]->ChangeTransformation(Vector3(world.translation.x +i*20-20, world.translation.y+30, world.translation.z)));
+	}
+}
+
+void Player::Draw2D()
+{
+	//体力
+	for(int i = 0; i < Hp; i++){
+		playerHp[i]->Draw();
+	}
+}
+
+void Player::Finalize2D()
+{
+	//体力
+	for(int i = 0; i < MaxHp; i++){
+		playerHp[i]->Finalize();
+	}
+}
+#pragma endregion
+
+#pragma region 3D処理
+void Player::Initialize3D()
+{
+	AnimSp = AnimNormalSp;
+
+	world.translation = {0,-131,200};
+	world.UpdateMatrix();
+}
+
+void Player::Update3D()
+{
+	//入力
+	InputMovement();
+
+	//ダメージ
+	Damage();
+
+	//縦回転
+	if(world.rotation.x >= XMConvertToRadians(360.f)) world.rotation.x = 0.f;
+	world.rotation.x += XMConvertToRadians(AnimSp);
+}
+
+void Player::Draw3D()
+{
+}
+
+void Player::Finalize3D()
+{
+}
+#pragma endregion
 
 void Player::InputMovement()
 {
@@ -152,4 +222,9 @@ void Player::Damage()
 	//回転、時間経過
 	world.rotation.z += XMConvertToRadians(AnimSp);
 	returnTime += 1.f/60.f;
+
+	//Hp表示
+	for(int i = 0; i < Hp; i++){
+		playerHp[i]->FadeStart();
+	}
 }

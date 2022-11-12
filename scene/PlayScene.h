@@ -9,7 +9,7 @@
 #include "FbxModelObject.h"
 #include "WorldTransform.h"
 
-#include "3D/Player\Player.h"
+#include "3D/Player/Player.h"
 #include "3D/Coins/Coins.h"
 #include "3D/Grounds/Grounds.h"
 #include "3D/OutArea/OutArea.h"
@@ -62,10 +62,6 @@ private:
 	void CoinPop(Vector3 pos);
 	void CoinPopReSet();
 
-	//スコアPOP
-	void ScoreUp100Pop();
-	void ScoreDown100Pop();
-
 	//地面POP
 	void GroundPop(Vector3 position);
 	//アウトエリアPOP
@@ -73,6 +69,10 @@ private:
 
 	//壁01
 	void Wall01Pop(Vector3 position);
+
+	//スコアPOP
+	void ScoreUp100Pop();
+	void ScoreDown100Pop();
 
 private:
 	//プレイヤー
@@ -84,9 +84,6 @@ private:
 	int waitTime = 0;
 	bool IsWait = false;
 
-	//スコア
-	std::list<std::unique_ptr<ScoreSprite>> score;
-
 	//地面
 	std::list<std::unique_ptr<Grounds>> ground;
 	std::list<std::unique_ptr<OutArea>> outArea;
@@ -96,6 +93,9 @@ private:
 
 	//壁01
 	std::list<std::unique_ptr<Wall01>> wall01;
+
+	//スコア
+	std::list<std::unique_ptr<ScoreSprite>> score;
 
 	//ゲーム進行速度
 	float GameSpeed = 0.f;

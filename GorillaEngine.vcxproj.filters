@@ -219,6 +219,9 @@
     <ClCompile Include="Game\3D\OutArea\OutArea.cpp">
       <Filter>ソース ファイル\game\3D</Filter>
     </ClCompile>
+    <ClCompile Include="Game\2D\Hp\PlayerHp.cpp">
+      <Filter>ソース ファイル\game\2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\Window.h">
@@ -328,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="Game\3D\OutArea\OutArea.h">
       <Filter>ヘッダー ファイル\game\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\2D\Hp\PlayerHp.h">
+      <Filter>ヘッダー ファイル\game\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,11 @@
-#include "ScoreSprite.h"
+#include "PlayerHp.h"
 
-ScoreSprite::~ScoreSprite()
+PlayerHp::~PlayerHp()
 {
 	Finalize();
 }
 
-void ScoreSprite::Initialize(UINT textureNumber)
+void PlayerHp::Initialize(UINT textureNumber)
 {
 	BaseSprite::Initialize(textureNumber);
 
@@ -13,42 +13,62 @@ void ScoreSprite::Initialize(UINT textureNumber)
 	camera = Camera::GetInstance();
 
 	sprite->SetAnchorpoint({0.5f, 0.5f});
+
+	size = {50,50};
+
+	IsInvisibleState(true);
 }
 
-void ScoreSprite::Update()
+void PlayerHp::Update()
 {
+	HeartBreak();
 	FadeOut();
 
 	BaseSprite::Update();
 }
 
-void ScoreSprite::Draw()
+void PlayerHp::Draw()
 {
+
+
 	BaseSprite::Draw();
 }
 
-void ScoreSprite::Finalize()
+void PlayerHp::Finalize()
 {
 	BaseSprite::Finalize();
 }
 
-void ScoreSprite::FadeOut()
+void PlayerHp::FadeOut()
 {
-	//時間
-	time += 1.f/60;
-	if(time >= InvisibleTime){
-		IsDead = true;
+
+	if(!IsFade) return;
+	IsInvisibleState(false);
+
+	Fadetime += 1.f/60;
+	if(Fadetime >= FadeInvisibleTime){
+		IsInvisibleState(true);
+		Fadetime = 0.f;
+		IsFade = false;
+		return;
 	}
-
-	//移動
-	position.y -= 3.f;
-
-	//フェードアウト
-	alpha -= 1.f/120;
-	sprite->SetColor({1,1,1,alpha});
 }
 
-Vector2 ScoreSprite::ChangeTransformation(Vector3 targetpos)
+void PlayerHp::HeartBreak()
+{
+	if(!IsBreak) return;
+	IsInvisibleState(false);
+
+	BreakTime += 1.f/60;
+	if(BreakTime >= BreakInvisibleTime){
+		IsInvisibleState(true);
+		BreakTime = 0.f;
+		IsBreak = false;
+		return;
+	}
+}
+
+Vector2 PlayerHp::ChangeTransformation(Vector3 targetpos)
 {
 	DirectX::XMMATRIX matViewport = 
 	{
@@ -62,7 +82,7 @@ Vector2 ScoreSprite::ChangeTransformation(Vector3 targetpos)
 	return Vector2{positionreticle.x, positionreticle.y};
 }
 
-Vector3 ScoreSprite::Vector3Transform( Vector3 &v,  DirectX::XMMATRIX &m)
+Vector3 PlayerHp::Vector3Transform( Vector3 &v,  DirectX::XMMATRIX &m)
 {
 	float w = v.x * m.r[0].m128_f32[3] + v.y * m.r[1].m128_f32[3] + v.z * m.r[2].m128_f32[3] + m.r[3].m128_f32[3];
 

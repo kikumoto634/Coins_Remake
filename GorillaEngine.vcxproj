@@ -169,6 +169,7 @@
     <ClCompile Include="debugProcess\DebugText.cpp" />
     <ClCompile Include="debugProcess\SceneStopper.cpp" />
     <ClCompile Include="Game\2D\BaseSprite.cpp" />
+    <ClCompile Include="Game\2D\Hp\PlayerHp.cpp" />
     <ClCompile Include="Game\2D\Score\ScoreSprite.cpp" />
     <ClCompile Include="Game\3D\BaseObjects.cpp" />
     <ClCompile Include="Game\3D\Coins\Coins.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="debugProcess\DebugText.h" />
     <ClInclude Include="debugProcess\SceneStopper.h" />
     <ClInclude Include="Game\2D\BaseSprite.h" />
+    <ClInclude Include="Game\2D\Hp\PlayerHp.h" />
     <ClInclude Include="Game\2D\Score\ScoreSprite.h" />
     <ClInclude Include="Game\3D\BaseObjects.h" />
     <ClInclude Include="Game\3D\Coins\Coins.h" />

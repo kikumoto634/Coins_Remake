@@ -308,6 +308,13 @@ void Sprite::SetColor(XMFLOAT4 color)
 	SpriteTransferVertexBuffer();
 }
 
+void Sprite::SetIsInvisible(bool IsInvisible)
+{
+	this->IsInvisible = IsInvisible;
+
+	SpriteTransferVertexBuffer();
+}
+
 void Sprite::Common::InitializeGraphicsPipeline(const std::string& directoryPath)
 {
 	HRESULT result;

@@ -1,7 +1,11 @@
 #pragma once
 #include "3D/BaseObjects.h"
 #include "3D/Collider/Collider.h"
+
+#include "2D/Hp/PlayerHp.h"
+
 #include "Input.h"
+
 
 class Player : public BaseObjects, public Collider
 {
@@ -19,10 +23,16 @@ public:
 	/// </summary>
 	void Update(Camera* camera, Input* input);
 
+
 	/// <summary>
-	/// 描画
+	/// 2D描画
 	/// </summary>
-	void Draw() override;
+	void Draw_2D();
+
+	/// <summary>
+	/// 3D描画
+	/// </summary>
+	void Draw_3D();
 
 	/// <summary>
 	/// 後処理
@@ -53,6 +63,22 @@ public:
 
 
 private:
+
+
+#pragma region 2D
+	void Initialize2D();
+	void Update2D();
+	void Draw2D();
+	void Finalize2D();
+#pragma endregion
+
+#pragma region 3D
+	void Initialize3D();
+	void Update3D();
+	void Draw3D();
+	void Finalize3D();
+#pragma endregion
+
 	/// <summary>
 	/// 入力移動
 	/// </summary>
@@ -66,10 +92,15 @@ private:
 //定数
 private:
 	const float ReturnTime = 2.f;
+	static const int MaxHp = 3;
 
 //メンバ変数
 private:
 	Input* input = nullptr;
+
+	//Hp
+	std::unique_ptr<PlayerHp> playerHp[MaxHp];
+
 
 	//移動速度
 	float MoveSp = 4.f;
@@ -92,12 +123,12 @@ private:
 
 	//アニメーション速度
 	float AnimSp = 0.f;
-	float AnimNormalSp = 5.f;
-	float AnimMaxSp = 10.f;
-	float AnimMinSp = 2.5f;
+	float AnimNormalSp = 10.f;
+	float AnimMaxSp = 15.f;
+	float AnimMinSp = 5.f;
 
 	//HP
-	int Hp = 3;
+	int Hp = MaxHp;
 
 	//ダメージ
 	bool IsDamage = false;

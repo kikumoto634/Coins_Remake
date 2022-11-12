@@ -82,6 +82,10 @@ void PlayScene::Update()
 	else if(input->Trigger(DIK_4)){
 		camera->ShakeStart();
 	}
+	else if(input->Trigger(DIK_5)){
+		//hp->FadeStart();
+		//hp->BreakStart();
+	}
 
 #pragma endregion
 
@@ -102,6 +106,7 @@ void PlayScene::Update()
 	for(unique_ptr<ScoreSprite>& sp : score){
 		sp->Update();
 	}
+
 #pragma endregion
 
 #pragma region 3D更新
@@ -173,7 +178,7 @@ void PlayScene::Draw()
 
 #pragma region 3D描画
 	//プレイヤー
-	player->Draw();
+	player->Draw_3D();
 
 	//コイン
 	for(unique_ptr<Coins>& obj : coin){
@@ -205,6 +210,10 @@ void PlayScene::Draw()
 	for(unique_ptr<ScoreSprite>& sp : score){
 		sp->Draw();
 	}
+
+	//プレイヤー
+	player->Draw_2D();
+	
 #pragma endregion 
 
 #ifdef _DEBUG
@@ -270,7 +279,7 @@ void PlayScene::Finalize()
 	//スコア
 	for(unique_ptr<ScoreSprite>& sp : score){
 		sp->Finalize();
-	}
+	}	
 #pragma endregion 
 }
 
@@ -366,26 +375,6 @@ void PlayScene::CoinPopReSet()
 }
 #pragma endregion
 
-void PlayScene::ScoreUp100Pop()
-{
-	unique_ptr<ScoreSprite> newsp = make_unique<ScoreSprite>();
-	newsp->Initialize(2);
-	Vector2 target = newsp->ChangeTransformation(Vector3(player->GetPosition().x, player->GetPosition().y+30, player->GetPosition().z));
-	newsp->SetVector2(target);
-
-	score.push_back(move(newsp));
-}
-
-void PlayScene::ScoreDown100Pop()
-{
-	unique_ptr<ScoreSprite> newsp = make_unique<ScoreSprite>();
-	newsp->Initialize(3);
-	Vector2 target = newsp->ChangeTransformation(Vector3(player->GetPosition().x, player->GetPosition().y+30, player->GetPosition().z));
-	newsp->SetVector2(target);
-
-	score.push_back(move(newsp));
-}
-
 void PlayScene::GroundPop(Vector3 position)
 {
 	unique_ptr<Grounds> newobj = make_unique<Grounds>();
@@ -412,3 +401,24 @@ void PlayScene::Wall01Pop(Vector3 position)
 
 	wall01.push_back(move(newobj));
 }
+
+void PlayScene::ScoreUp100Pop()
+{
+	unique_ptr<ScoreSprite> newsp = make_unique<ScoreSprite>();
+	newsp->Initialize(2);
+	Vector2 target = newsp->ChangeTransformation(Vector3(player->GetPosition().x, player->GetPosition().y+30, player->GetPosition().z));
+	newsp->SetVector2(target);
+
+	score.push_back(move(newsp));
+}
+
+void PlayScene::ScoreDown100Pop()
+{
+	unique_ptr<ScoreSprite> newsp = make_unique<ScoreSprite>();
+	newsp->Initialize(3);
+	Vector2 target = newsp->ChangeTransformation(Vector3(player->GetPosition().x, player->GetPosition().y+30, player->GetPosition().z));
+	newsp->SetVector2(target);
+
+	score.push_back(move(newsp));
+}
+
