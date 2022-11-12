@@ -82,10 +82,6 @@ void PlayScene::Update()
 	else if(input->Trigger(DIK_4)){
 		camera->ShakeStart();
 	}
-	else if(input->Trigger(DIK_5)){
-		//hp->FadeStart();
-		//hp->BreakStart();
-	}
 
 #pragma endregion
 
@@ -112,6 +108,9 @@ void PlayScene::Update()
 #pragma region 3D更新
 	//プレイヤー
 	player->Update(camera, input);
+	if(player->GetIsDead()){
+		GameSpeed *= player->GetDeadAnimSp();
+	}
 
 	//コイン
 	coin.remove_if([](unique_ptr<Coins>& obj){
@@ -231,6 +230,13 @@ void PlayScene::Draw()
 	debugText->Printf(0, 632, 1.f, "PlayerGetCoin : %d", player->GetCoinCount());
 	debugText->Printf(0, 648, 1.f, "PlayerGetSore : %d", player->GetScoreCount());
 	debugText->Printf(0, 664, 1.f, "PlayerHp : %d", player->GetHp());
+
+	//デバックボタン
+	debugText->Print("DIK_1 : Coin Appearance",1000,0,1.f);
+	debugText->Print("DIK_2 : Wall Appearance",1000,16,1.f);
+	debugText->Print("DIK_3 : HitStop",1000,32,1.f);
+	debugText->Print("DIK_4 : CameraShake(Unimplemented)",1000,48,1.f);
+	debugText->Print("DIK_5 : PlayerDead",1000,64,1.f);
 
 #endif // _DEBUG
 

@@ -53,6 +53,7 @@ public:
 	
 	int GetHp()	const {return Hp;}
 	bool GetIsDead() const {return IsDead;}
+	float GetDeadAnimSp() {return (DeadAnimSp/AnimNormalSp);}
 
 	int GetCoinCount() const {return CoinCount;}
 	int GetScoreCount() const {return ScoreCount;}
@@ -89,10 +90,19 @@ private:
 	/// </summary>
 	void Damage();
 
+	/// <summary>
+	/// 死亡
+	/// </summary>
+	void Dead();
+
 //定数
 private:
 	const float ReturnTime = 2.f;
 	static const int MaxHp = 3;
+
+	const float AnimNormalSp = 10.f;
+	const float AnimMaxSp = 15.f;
+	const float AnimMinSp = 5.f;
 
 //メンバ変数
 private:
@@ -123,9 +133,7 @@ private:
 
 	//アニメーション速度
 	float AnimSp = 0.f;
-	float AnimNormalSp = 10.f;
-	float AnimMaxSp = 15.f;
-	float AnimMinSp = 5.f;
+	float DeadAnimSp = AnimNormalSp;
 
 	//HP
 	int Hp = MaxHp;
@@ -133,5 +141,8 @@ private:
 	//ダメージ
 	bool IsDamage = false;
 	float returnTime = 0.f;
+
+	//死亡
+	bool IsDead = false;
 };
 

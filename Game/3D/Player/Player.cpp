@@ -118,9 +118,12 @@ void Player::Initialize3D()
 
 void Player::Update3D()
 {
+	//€–S
+	Dead();
+	if(IsDead) return;
+
 	//“ü—Í
 	InputMovement();
-
 	//ƒ_ƒ[ƒW
 	Damage();
 
@@ -227,4 +230,24 @@ void Player::Damage()
 	for(int i = 0; i < Hp; i++){
 		playerHp[i]->FadeStart();
 	}
+}
+
+void Player::Dead()
+{
+	if(input->Trigger(DIK_5)){
+		IsDead = true;
+	}
+
+	if(!IsDead) return;
+
+	if(DeadAnimSp <= 0.f) {
+		world.rotation.x = 0.f;
+		world.rotation.y = XMConvertToRadians(90.f);
+		world.rotation.z = XMConvertToRadians(90.f);
+		return;
+	}
+	world.rotation.x += XMConvertToRadians(DeadAnimSp);
+	DeadAnimSp -= 0.1f;
+
+	world.rotation.z += XMConvertToRadians(5.f);
 }
