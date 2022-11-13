@@ -54,18 +54,19 @@ private:
 
 //’è”
 private:
-	const float FallTime = 2.0f;//1s ~ 2s
+	const float FallTime = 1.0f;//1s ~ 2s
 
 //ƒƒ“ƒo•Ï”
 private:
-	float width = 10;
-	float height = 10;
-	float depth = 10;
+	float width = 20;
+	float height = 20;
+	float depth = 20;
 	std::string name = "Wall01";
 
 	float DepthSp = 0.f;
 
 	float fallTime = 0.f;
+	bool IsLRFlag = false;//(false:¶ˆÚ“®, true:‰EˆÚ“®)
 
 	HitStop* hitStop = nullptr;
 };

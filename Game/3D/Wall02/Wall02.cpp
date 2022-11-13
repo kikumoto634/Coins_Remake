@@ -58,9 +58,19 @@ void Wall02::OnCollision(Collider *TouchCollision)
 void Wall02::Movement()
 {
 	fallTime += 1.f/60;
-	if(fallTime <= FallTime) return;
+	if(fallTime <= FallTime) {
+		if(world.translation.x < 0) IsLRFlag = true;
+		return;
+	}
 
-	world.translation.x -= 3.f;
 	if(world.translation.y >= -120.f) world.translation.y -= 1.f;
-	world.rotation.z += DirectX::XMConvertToRadians(6.f);
+
+	if(!IsLRFlag){
+		world.translation.x -= 4.f;
+		world.rotation.z += DirectX::XMConvertToRadians(6.f);
+	}
+	else if(IsLRFlag) {
+		world.translation.x += 4.f;
+		world.rotation.z -= DirectX::XMConvertToRadians(6.f);
+	}
 }

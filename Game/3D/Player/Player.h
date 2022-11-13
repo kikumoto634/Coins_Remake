@@ -120,7 +120,7 @@ private:
 	float rotEaseTime = 0.f;
 
 	//ÉTÉCÉY
-	float width = 10;
+	float width = 5;
 	float height = 10;
 	float depth = 10;
 	std::string name = "Player";

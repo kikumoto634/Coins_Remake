@@ -77,7 +77,7 @@ void PlayScene::Update()
 	}
 	else if(input->Trigger(DIK_3)){
 		Wall02Pop({350,-70,1000});
-		//Wall02Pop({0,-130,1000});
+		Wall02Pop({-350,-70,1000});
 	}
 	else if(input->Trigger(DIK_4)){
 		hitStop->SetStopFrame(3.f);
