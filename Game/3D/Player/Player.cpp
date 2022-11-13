@@ -128,7 +128,7 @@ void Player::Update3D()
 	Damage();
 
 	//c‰ñ“]
-	if(world.rotation.x >= XMConvertToRadians(360.f)) world.rotation.x = 0.f;
+	if(world.rotation.x >= XMConvertToRadians(360.f-AnimSp)) world.rotation.x = 0.f;
 	world.rotation.x += XMConvertToRadians(AnimSp);
 }
 

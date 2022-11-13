@@ -9,7 +9,7 @@ void Wall02::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);
 
-	world.scale = Vector3(1.5f,1.5f,1.5f);
+	world.scale = Vector3(0.5f,0.5f,0.5f);
 	world.UpdateMatrix();
 
 	//è’ìÀëÆê´ê›íË
@@ -30,6 +30,10 @@ void Wall02::Update(Camera *camera, HitStop *hitStop)
 	if(world.translation.z <= 0) IsDead = true;
 	world.translation.z -= DepthSp;
 
+	//â°à⁄ìÆ
+	Movement();
+
+
 	BaseObjects::Update(camera);
 }
 
@@ -49,4 +53,14 @@ void Wall02::OnCollision(Collider *TouchCollision)
 	hitStop->HitStopStart();
 	camera->ShakeStart();
 	IsDead = true;
+}
+
+void Wall02::Movement()
+{
+	fallTime += 1.f/60;
+	if(fallTime <= FallTime) return;
+
+	world.translation.x -= 3.f;
+	if(world.translation.y >= -120.f) world.translation.y -= 1.f;
+	world.rotation.z += DirectX::XMConvertToRadians(6.f);
 }

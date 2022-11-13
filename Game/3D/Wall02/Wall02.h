@@ -46,6 +46,16 @@ public:
 	void SetVector3(Vector3 position)	{world.translation = position;}
 	void SetDepthSp(float Sp)	{DepthSp = Sp;}
 
+private:
+	/// <summary>
+	/// ˆÚ“®
+	/// </summary>
+	void Movement();
+
+//’è”
+private:
+	const float FallTime = 2.0f;//1s ~ 2s
+
 //ƒƒ“ƒo•Ï”
 private:
 	float width = 10;
@@ -54,6 +64,8 @@ private:
 	std::string name = "Wall01";
 
 	float DepthSp = 0.f;
+
+	float fallTime = 0.f;
 
 	HitStop* hitStop = nullptr;
 };
