@@ -241,7 +241,7 @@ void Player::Dead()
 	if(!IsDead) return;
 
 	if(DeadAnimSp <= 0.f) {
-		world.rotation.x = 0.f;
+		world.rotation.x = XMConvertToRadians(360);
 		world.rotation.y = XMConvertToRadians(90.f);
 		world.rotation.z = XMConvertToRadians(90.f);
 		return;
