@@ -144,5 +144,6 @@ private:
 
 	//Ž€–S
 	bool IsDead = false;
+	float time = 0.f;
 };
 

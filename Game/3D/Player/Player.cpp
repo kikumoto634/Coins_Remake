@@ -246,8 +246,11 @@ void Player::Dead()
 		world.rotation.z = XMConvertToRadians(90.f);
 		return;
 	}
-	world.rotation.x += XMConvertToRadians(DeadAnimSp);
-	DeadAnimSp -= 0.1f;
+	DeadAnimSp -= 1.f/240;
 
-	world.rotation.z += XMConvertToRadians(5.f);
+	if(time >= 1.f) return;
+	time += 0.01f;
+	world.rotation.x = (1-time)*XMConvertToRadians(world.rotation.x) + (time)*XMConvertToRadians(360);
+	world.rotation.y = (1-time)*XMConvertToRadians(world.rotation.y) + (time)*XMConvertToRadians(90.f);
+	world.rotation.z = (1-time)*XMConvertToRadians(world.rotation.z) + (time)*XMConvertToRadians(90.f);
 }
