@@ -179,6 +179,7 @@
     <ClCompile Include="Game\3D\Player\Player.cpp" />
     <ClCompile Include="Game\3D\SkyDome\SkyDome.cpp" />
     <ClCompile Include="Game\3D\Wall01\Wall01.cpp" />
+    <ClCompile Include="Game\3D\Wall02\Wall02.cpp" />
     <ClCompile Include="Game\System\HitStop.cpp" />
     <ClCompile Include="input\Input.cpp" />
     <ClCompile Include="loader\FbxLoader.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="Game\3D\Player\Player.h" />
     <ClInclude Include="Game\3D\SkyDome\SkyDome.h" />
     <ClInclude Include="Game\3D\Wall01\Wall01.h" />
+    <ClInclude Include="Game\3D\Wall02\Wall02.h" />
     <ClInclude Include="Game\System\HitStop.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="loader\FbxLoader.h" />

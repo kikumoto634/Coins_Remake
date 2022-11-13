@@ -234,9 +234,13 @@ void Player::Damage()
 
 void Player::Dead()
 {
-	if(input->Trigger(DIK_5)){
+#ifdef _DEBUG
+
+	if(input->Trigger(DIK_6)){
 		IsDead = true;
 	}
+
+#endif // _DEBUG
 
 	if(!IsDead) return;
 

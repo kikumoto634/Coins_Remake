@@ -15,6 +15,7 @@
 #include "3D/OutArea/OutArea.h"
 #include "3D/SkyDome/SkyDome.h"
 #include "3D/Wall01/Wall01.h"
+#include "3D/Wall02/Wall02.h"
 
 #include "2D/Score/ScoreSprite.h"
 
@@ -67,8 +68,9 @@ private:
 	//アウトエリアPOP
 	void OutAreaPop(Vector3 position);
 
-	//壁01
+	//壁
 	void Wall01Pop(Vector3 position);
+	void Wall02Pop(Vector3 position);
 
 	//スコアPOP
 	void ScoreUp100Pop();
@@ -91,8 +93,9 @@ private:
 	//天球
 	std::unique_ptr<SkyDome> skyDome;
 
-	//壁01
+	//壁
 	std::list<std::unique_ptr<Wall01>> wall01;
+	std::list<std::unique_ptr<Wall02>> wall02;
 
 	//スコア
 	std::list<std::unique_ptr<ScoreSprite>> score;

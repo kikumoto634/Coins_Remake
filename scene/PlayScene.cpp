@@ -76,10 +76,13 @@ void PlayScene::Update()
 		Wall01Pop({0,-150,1000});
 	}
 	else if(input->Trigger(DIK_3)){
+		Wall02Pop({350,-70,1000});
+	}
+	else if(input->Trigger(DIK_4)){
 		hitStop->SetStopFrame(3.f);
 		hitStop->HitStopStart();
 	}
-	else if(input->Trigger(DIK_4)){
+	else if(input->Trigger(DIK_5)){
 		camera->ShakeStart();
 	}
 
@@ -135,11 +138,18 @@ void PlayScene::Update()
 	//天球
 	skyDome->Update(camera);
 
-	//壁01
+	//壁
 	wall01.remove_if([](unique_ptr<Wall01>& obj){
 		return obj->GetIsDead();
 	});
 	for(unique_ptr<Wall01>& obj : wall01){
+		obj->Update(camera, hitStop.get());
+		obj->SetDepthSp(GameSpeed);
+	}
+	wall02.remove_if([](unique_ptr<Wall02>& obj){
+		return obj->GetIsDead();
+	});
+	for(unique_ptr<Wall02>& obj : wall02){
 		obj->Update(camera, hitStop.get());
 		obj->SetDepthSp(GameSpeed);
 	}
@@ -154,6 +164,10 @@ void PlayScene::Update()
 		collisionManager->SetCollision(obj.get());
 	}
 	for(const std::unique_ptr<Wall01>& obj : wall01)
+	{
+		collisionManager->SetCollision(obj.get());
+	}
+	for(const std::unique_ptr<Wall02>& obj : wall02)
 	{
 		collisionManager->SetCollision(obj.get());
 	}
@@ -196,8 +210,11 @@ void PlayScene::Draw()
 	//天球
 	skyDome->Draw();
 
-	//壁01
+	//壁
 	for(unique_ptr<Wall01>& obj : wall01){
+		obj->Draw();
+	}
+	for(unique_ptr<Wall02>& obj : wall02){
 		obj->Draw();
 	}
 
@@ -223,6 +240,7 @@ void PlayScene::Draw()
 	debugText->Printf(0, 106, 1.f, "coinNum : %d", coin.size());
 	debugText->Printf(0, 122, 1.f, "scoreSpNum : %d", score.size());
 	debugText->Printf(0, 138, 1.f, "wall01Num : %d", wall01.size());
+	debugText->Printf(0, 154, 1.f, "wall02Num : %d", wall02.size());
 
 	//プレイヤー
 	debugText->Printf(0, 600, 1.f, "Player:Pos X:%f Y:%f Z:%f", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
@@ -233,10 +251,11 @@ void PlayScene::Draw()
 
 	//デバックボタン
 	debugText->Print("DIK_1 : Coin Appearance",1000,0,1.f);
-	debugText->Print("DIK_2 : Wall Appearance",1000,16,1.f);
-	debugText->Print("DIK_3 : HitStop",1000,32,1.f);
-	debugText->Print("DIK_4 : CameraShake(Unimplemented)",1000,48,1.f);
-	debugText->Print("DIK_5 : PlayerDead",1000,64,1.f);
+	debugText->Print("DIK_2 : Wall1 Appearance",1000,16,1.f);
+	debugText->Print("DIK_3 : Wall2 Appearance",1000,32,1.f);
+	debugText->Print("DIK_4 : HitStop",1000,48,1.f);
+	debugText->Print("DIK_5 : CameraShake(Unimplemented)",1000,64,1.f);
+	debugText->Print("DIK_6 : PlayerDead",1000,80,1.f);
 
 #endif // _DEBUG
 
@@ -274,8 +293,11 @@ void PlayScene::Finalize()
 	//天球
 	skyDome->Finalize();
 
-	//壁01
+	//壁0
 	for(unique_ptr<Wall01>& obj : wall01){
+		obj->Finalize();
+	}
+	for(unique_ptr<Wall02>& obj : wall02){
 		obj->Finalize();
 	}
 
@@ -406,6 +428,14 @@ void PlayScene::Wall01Pop(Vector3 position)
 	newobj->SetVector3(position);
 
 	wall01.push_back(move(newobj));
+}
+void PlayScene::Wall02Pop(Vector3 position)
+{
+	unique_ptr<Wall02> newobj = make_unique<Wall02>();
+	newobj->Initialize("Wall01");
+	newobj->SetVector3(position);
+
+	wall02.push_back(move(newobj));
 }
 
 void PlayScene::ScoreUp100Pop()
