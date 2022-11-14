@@ -132,6 +132,7 @@ void Player::Update3D()
 	InputMovement();
 	//‰Á‘¬
 	InputAccelerator();
+
 	//ƒ_ƒ[ƒW
 	Damage();
 
@@ -271,6 +272,7 @@ void Player::InputAccelerator()
 {
 	if(input->Trigger(DIK_Z)){
 		IsAccelerator = true;
+		cameraAngle = camera->GetAngle();
 	}
 
 	if(!IsAccelerator) return;
@@ -280,10 +282,15 @@ void Player::InputAccelerator()
 	MoveSp = MaxMoveSp;
 	RotSp = MaxRotSp;
 
+	if(cameraAngle <= AcceleratorCameraAngle) cameraAngle += 1.f;
+	camera->SetAngle(cameraAngle);
+
 	if(accelertime <= AccelerTime) return;
 	IsAccelerator = false;
 	accelertime = 0.f;
 	AnimSp = AnimNormalSp;
 	MoveSp = NormalMoveSp;
 	RotSp = NormalRotSp;
+	camera->ReSetAngle();
+	cameraAngle = camera->GetAngle();
 }
