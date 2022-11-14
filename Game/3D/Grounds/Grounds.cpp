@@ -8,13 +8,12 @@ Grounds::~Grounds()
 void Grounds::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);
+
+	world.scale.z = 10.f;
 }
 
 void Grounds::Update(Camera *camera)
 {
-	if(world.translation.z <= 0) world.translation.z = 1200.f;
-	world.translation.z -= DepthSp;
-
 	BaseObjects::Update(camera);
 }
 

@@ -26,11 +26,5 @@ public:
 	/// Œãˆ—
 	/// </summary>
 	void Finalize() override;
-
-	//Settter
-	void SetDepthSp(float Sp)	{DepthSp = Sp;}
-
-private:
-	float DepthSp = 0.f;
 };
 

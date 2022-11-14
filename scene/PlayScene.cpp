@@ -38,7 +38,7 @@ void PlayScene::Initialize()
 	player->Initialize("Player");
 
 	//地面
-	for(int i = 0; i < 6;i++){
+	for(int i = 0; i < 1;i++){
 		GroundPop({0, -150, 200 + (float)i*200});
 	}
 	//アウトエリア
@@ -133,7 +133,6 @@ void PlayScene::Update()
 	//地面
 	for(unique_ptr<Grounds>& obj : ground){
 		obj->Update(camera);
-		obj->SetDepthSp(GameSpeed);
 	}
 	//アウトエリア
 	for(unique_ptr<OutArea>& obj : outArea){
