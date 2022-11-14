@@ -53,6 +53,7 @@ public:
 	
 	int GetHp()	const {return Hp;}
 	bool GetIsDead() const {return IsDead;}
+	bool GetIsAccelerator()const {return IsAccelerator;}
 	float GetDeadAnimSp() {return (DeadAnimSp/AnimNormalSp);}
 
 	int GetCoinCount() const {return CoinCount;}
@@ -95,6 +96,11 @@ private:
 	/// </summary>
 	void Dead();
 
+	/// <summary>
+	/// アクセル
+	/// </summary>
+	void InputAccelerator();
+
 //定数
 private:
 	const float ReturnTime = 2.f;
@@ -104,6 +110,9 @@ private:
 	const float AnimMaxSp = 15.f;
 	const float AnimMinSp = 5.f;
 
+	const float NormalMoveSp = 4.f;
+	const float MaxMoveSp = 6.f;
+
 //メンバ変数
 private:
 	Input* input = nullptr;
@@ -111,9 +120,8 @@ private:
 	//Hp
 	std::unique_ptr<PlayerHp> playerHp[MaxHp];
 
-
 	//移動速度
-	float MoveSp = 4.f;
+	float MoveSp = NormalMoveSp;
 	//回転(絶対値)
 	float MaxRadian = DirectX::XMConvertToRadians(45.f);
 	float RotSp = DirectX::XMConvertToRadians(1.f);
@@ -145,5 +153,10 @@ private:
 	//死亡
 	bool IsDead = false;
 	float time = 0.f;
+
+	//加速
+	bool IsAccelerator = false;
+	float AccelerTime = 5.f;
+	float accelertime = 0.f;
 };
 

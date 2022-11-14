@@ -91,6 +91,11 @@ void PlayScene::Update()
 
 	//ヒットストップ
 	if(hitStop->Update(camera)) return;
+	//加速
+	GameSpeed = GameNormalSpeed;
+	if(player->GetIsAccelerator()){
+		GameSpeed = GameAcceleratorSpeed;
+	}
 
 #pragma region 2D更新
 	//スコア
@@ -249,6 +254,7 @@ void PlayScene::Draw()
 	debugText->Printf(0, 632, 1.f, "PlayerGetCoin : %d", player->GetCoinCount());
 	debugText->Printf(0, 648, 1.f, "PlayerGetSore : %d", player->GetScoreCount());
 	debugText->Printf(0, 664, 1.f, "PlayerHp : %d", player->GetHp());
+	debugText->Printf(0, 680, 1.f, "PlayerIsAccelerator : %d", player->GetIsAccelerator());
 
 	//デバックボタン
 	debugText->Print("DIK_1 : Coin Appearance",1000,0,1.f);

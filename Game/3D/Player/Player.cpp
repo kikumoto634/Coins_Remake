@@ -68,7 +68,7 @@ void Player::OnCollision(Collider *TouchCollision)
 	}
 }
 
-#pragma region 2Dèàóù
+#pragma region _2Dèàóù
 void Player::Initialize2D()
 {
 	for(int i = 0; i < MaxHp; i++){
@@ -107,7 +107,7 @@ void Player::Finalize2D()
 }
 #pragma endregion
 
-#pragma region 3Dèàóù
+#pragma region _3Dèàóù
 void Player::Initialize3D()
 {
 	AnimSp = AnimNormalSp;
@@ -124,6 +124,8 @@ void Player::Update3D()
 
 	//ì¸óÕ
 	InputMovement();
+	//â¡ë¨
+	InputAccelerator();
 	//É_ÉÅÅ[ÉW
 	Damage();
 
@@ -257,4 +259,23 @@ void Player::Dead()
 	world.rotation.x = (1-time)*XMConvertToRadians(world.rotation.x) + (time)*XMConvertToRadians(360);
 	world.rotation.y = (1-time)*XMConvertToRadians(world.rotation.y) + (time)*XMConvertToRadians(90.f);
 	world.rotation.z = (1-time)*XMConvertToRadians(world.rotation.z) + (time)*XMConvertToRadians(90.f);
+}
+
+void Player::InputAccelerator()
+{
+	if(input->Trigger(DIK_Z)){
+		IsAccelerator = true;
+	}
+
+	if(!IsAccelerator) return;
+	
+	accelertime += 1.f/60;
+	AnimSp = AnimMaxSp;
+	MoveSp = MaxMoveSp;
+
+	if(accelertime <= AccelerTime) return;
+	IsAccelerator = false;
+	accelertime = 0.f;
+	AnimSp = AnimNormalSp;
+	MoveSp = NormalMoveSp;
 }
