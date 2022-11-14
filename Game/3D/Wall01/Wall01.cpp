@@ -8,6 +8,10 @@ Wall01::~Wall01()
 void Wall01::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);
+
+	world.scale = Vector3(0.2f,0.2f,0.2f);
+	world.UpdateMatrix();
+
 	//Õ“Ë‘®«İ’è
 	SetCollisionAttribute(kCollisionAttributeThier);
 	//Õ“Ë‘ÎÛ‚ğ©•ª‚Ì‘®«ˆÈŠO‚Éİ’è
