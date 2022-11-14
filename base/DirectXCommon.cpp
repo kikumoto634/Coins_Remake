@@ -16,16 +16,7 @@ void DirectXCommon::Initialize(Window *window)
 	this->window = window;
 
 	//FPX固定初期化
-	//InitializeFixFPS();
-
-	///デバックレイヤー
-#ifdef _DEBUG
-	//デバックレイヤーをオンに
-	ID3D12Debug* debugController= nullptr;
-	if(SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugController)))){
-		debugController->EnableDebugLayer();
-	}
-#endif // _DEBUG
+	InitializeFixFPS();
 
 	if(FAILED(CreateDevice())) assert(0);
 	if(FAILED(CreateCommand())) assert(0);
@@ -69,6 +60,8 @@ void DirectXCommon::BeginDraw()
 
 void DirectXCommon::EndDraw()
 {
+	HRESULT result;
+
 	//リソースバリア
 	UINT bbIndex = swapChain->GetCurrentBackBufferIndex();
 	commandList->ResourceBarrier(1,&CD3DX12_RESOURCE_BARRIER::Transition(backBuffers[bbIndex].Get(),
@@ -76,10 +69,15 @@ void DirectXCommon::EndDraw()
 
 	//コマンドリスト
 	//命令クローズ
-	commandList->Close();
+	result = commandList->Close();
+	assert(SUCCEEDED(result));
 	//コマンドリストの実行
 	ID3D12CommandList* commandLists[] = {commandList.Get()};
 	commandQueue->ExecuteCommandLists(1, commandLists);
+
+	//画面に表示するバッファをフリップ(表裏の入れ替え)
+	result = swapChain->Present(1, 0);
+	assert(SUCCEEDED(result));
 
 	//コマンド完了待ち
 	commandQueue->Signal(fence.Get(), ++fenceVal);
@@ -92,42 +90,38 @@ void DirectXCommon::EndDraw()
 	}
 
 	//FPS固定
-	//UpdateFixFPS();
+	UpdateFixFPS();
 
 	//キュークリア
-	commandAllocator->Reset();
+	result = commandAllocator->Reset();
+	assert(SUCCEEDED(result));
 	//再びコマンドリストを溜める準備
-	commandList->Reset(commandAllocator.Get(), nullptr);
-
-	//画面に表示するバッファをフリップ(表裏の入れ替え)
-	swapChain->Present(1, 0);
+	result = commandList->Reset(commandAllocator.Get(), nullptr);
+	assert(SUCCEEDED(result));
 }
 
 HRESULT DirectXCommon::CreateDevice()
 {
 	HRESULT result;
 
-	///デバイスの生成(1ゲームに一つ)
-	//対応レベルの配列
-	D3D_FEATURE_LEVEL levels[] = 
-	{
-		D3D_FEATURE_LEVEL_12_1,
-		D3D_FEATURE_LEVEL_12_0,
-		D3D_FEATURE_LEVEL_11_1,
-		D3D_FEATURE_LEVEL_11_0,
-	};
+	///デバックレイヤー
+#ifdef _DEBUG
+	//デバックレイヤーをオンに
+	ID3D12Debug* debugController= nullptr;
+	if(SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugController)))){
+		debugController->EnableDebugLayer();
+	}
+#endif // _DEBUG
 
 	///アダプタ列挙
 	//DXGIファクトリー
 	result = CreateDXGIFactory(IID_PPV_ARGS(&dxgiFactory));
-	if(FAILED(result)){
-		return result;
-	}
+	assert(SUCCEEDED(result));
 
 	//アダプターの列挙用
 	std::vector<ComPtr<IDXGIAdapter4>> adapters;
 	//ここに特定の名前を持つアダプターオブジェクトが入る
-	ComPtr<IDXGIAdapter4> tmpAdapter = nullptr;
+	ComPtr<IDXGIAdapter4> tmpAdapter;
 
 	//パフォーマンスが高いものから順に、すべてのアダプタを列挙する
 	for(UINT i = 0; dxgiFactory->EnumAdapterByGpuPreference(i, DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE, IID_PPV_ARGS(&tmpAdapter)) != DXGI_ERROR_NOT_FOUND; i++)
@@ -148,10 +142,20 @@ HRESULT DirectXCommon::CreateDevice()
 		if(!(adapterDesc.Flags & DXGI_ADAPTER_FLAG3_SOFTWARE))
 		{
 			//デバイスを採用してループを抜ける
-			tmpAdapter = adapters[i].Get();
+			tmpAdapter = adapters[i];
 			break;
 		}
 	}
+
+	///デバイスの生成(1ゲームに一つ)
+	//対応レベルの配列
+	D3D_FEATURE_LEVEL levels[] = 
+	{
+		D3D_FEATURE_LEVEL_12_1,
+		D3D_FEATURE_LEVEL_12_0,
+		D3D_FEATURE_LEVEL_11_1,
+		D3D_FEATURE_LEVEL_11_0,
+	};
 
 	D3D_FEATURE_LEVEL featureLevel;
 	for(size_t i = 0; i < _countof(levels); i++)
@@ -165,6 +169,33 @@ HRESULT DirectXCommon::CreateDevice()
 			break;
 		}
 	}
+
+#ifdef _DEBUG
+    Microsoft::WRL::ComPtr<ID3D12InfoQueue> infoQueue;
+    if (SUCCEEDED(device->QueryInterface(IID_PPV_ARGS(&infoQueue)))) {
+        // 抑制するエラー
+        D3D12_MESSAGE_ID denyIds[] = {
+            /*
+             * Windows11でのDXGIデバッグレイヤーとDX12デバッグレイヤーの相互作用バグによるエラーメッセージ
+             * https://stackoverflow.com/questions/69805245/directx-12-application-is-crashing-in-windows-11
+             */
+            D3D12_MESSAGE_ID_RESOURCE_BARRIER_MISMATCHING_COMMAND_LIST_TYPE };
+        // 抑制する表示レベル
+        D3D12_MESSAGE_SEVERITY severities[] = { D3D12_MESSAGE_SEVERITY_INFO };
+        D3D12_INFO_QUEUE_FILTER filter{};
+        filter.DenyList.NumIDs = _countof(denyIds);
+        filter.DenyList.pIDList = denyIds;
+        filter.DenyList.NumSeverities = _countof(severities);
+        filter.DenyList.pSeverityList = severities;
+        // 指定したエラーの表示を抑制する
+        infoQueue->PushStorageFilter(&filter);
+        // エラー時にブレークを発生させる
+        infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true);
+        infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
+        infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
+    }
+#endif
+
 	return result;
 }
 
