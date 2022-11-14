@@ -60,6 +60,11 @@ void Player::OnCollision(Collider *TouchCollision)
 		return ;
 	}
 	else if(TouchCollision->GetName() == "Wall01"){
+		if(IsAccelerator) {
+			ScoreCount += 100;
+			IsScoreUp = true;
+			return;
+		}
 		ScoreCount -= 100;
 		IsScoreDown = true;
 		Hp -= 1;
@@ -272,10 +277,12 @@ void Player::InputAccelerator()
 	accelertime += 1.f/60;
 	AnimSp = AnimMaxSp;
 	MoveSp = MaxMoveSp;
+	RotSp = MaxRotSp;
 
 	if(accelertime <= AccelerTime) return;
 	IsAccelerator = false;
 	accelertime = 0.f;
 	AnimSp = AnimNormalSp;
 	MoveSp = NormalMoveSp;
+	RotSp = NormalRotSp;
 }

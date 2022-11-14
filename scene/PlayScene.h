@@ -102,8 +102,8 @@ private:
 
 	//ゲーム進行速度
 	float GameSpeed = 0.f;
-	const float GameNormalSpeed = 4.f;
-	const float GameAcceleratorSpeed = 12.f;
+	const float GameNormalSpeed = 6.f;
+	const float GameAcceleratorSpeed = 18.f;
 
 	int frame = 0;
 	int second = 0;

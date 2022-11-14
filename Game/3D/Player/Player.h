@@ -103,15 +103,22 @@ private:
 
 //定数
 private:
+	//体力、ダメージリターン
 	const float ReturnTime = 2.f;
 	static const int MaxHp = 3;
 
+	//アニメーション速度
 	const float AnimNormalSp = 10.f;
 	const float AnimMaxSp = 15.f;
 	const float AnimMinSp = 5.f;
 
+	//移動速度
 	const float NormalMoveSp = 4.f;
 	const float MaxMoveSp = 6.f;
+
+	//移動回転
+	const float NormalRotSp = DirectX::XMConvertToRadians(1.f);
+	const float MaxRotSp = DirectX::XMConvertToRadians(3.f);
 
 //メンバ変数
 private:
@@ -124,8 +131,8 @@ private:
 	float MoveSp = NormalMoveSp;
 	//回転(絶対値)
 	float MaxRadian = DirectX::XMConvertToRadians(45.f);
-	float RotSp = DirectX::XMConvertToRadians(1.f);
 	float rotEaseTime = 0.f;
+	float RotSp = NormalRotSp;
 
 	//サイズ
 	float width = 5;
@@ -156,7 +163,7 @@ private:
 
 	//加速
 	bool IsAccelerator = false;
-	float AccelerTime = 5.f;
+	float AccelerTime = 10.f;
 	float accelertime = 0.f;
 };
 
