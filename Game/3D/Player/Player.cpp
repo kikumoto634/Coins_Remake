@@ -55,6 +55,7 @@ void Player::OnCollision(Collider *TouchCollision)
 {
 	if(TouchCollision->GetName() == "Coin"){
 		CoinCount = CoinCount + 1;
+		if(acceleratorGage <= AcceleratorGageMax)acceleratorGage += 0.5f;
 		ScoreCount += 100;
 		IsScoreUp = true;
 		return ;

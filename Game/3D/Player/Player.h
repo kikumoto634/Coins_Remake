@@ -55,6 +55,7 @@ public:
 	bool GetIsDead() const {return IsDead;}
 	bool GetIsAccelerator()const {return IsAccelerator;}
 	float GetDeadAnimSp() {return (DeadAnimSp/AnimNormalSp);}
+	float GetAcceleratorGage()	{return acceleratorGage;}
 
 	int GetCoinCount() const {return CoinCount;}
 	int GetScoreCount() const {return ScoreCount;}
@@ -120,6 +121,9 @@ private:
 	const float NormalRotSp = DirectX::XMConvertToRadians(1.f);
 	const float MaxRotSp = DirectX::XMConvertToRadians(3.f);
 
+	//加速ゲージ
+	const float AcceleratorGageMax = 10.f;
+
 //メンバ変数
 private:
 	Input* input = nullptr;
@@ -165,5 +169,7 @@ private:
 	bool IsAccelerator = false;
 	float AccelerTime = 10.f;
 	float accelertime = 0.f;
+	//加速ゲージ
+	float acceleratorGage = 0.f;
 };
 
