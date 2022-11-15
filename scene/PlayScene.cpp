@@ -31,8 +31,8 @@ void PlayScene::Initialize()
 
 #pragma region 2D初期化
 	//スコア表
-	scoreText = make_unique<ScoreText>();
-	scoreText->Initialize(1);
+	//scoreText = make_unique<ScoreText>();
+	//scoreText->Initialize(1);
 #pragma endregion 
 
 #pragma region 3D初期化
@@ -116,8 +116,8 @@ void PlayScene::Update()
 		sp->Update();
 	}
 	//スコア表
-	scoreText->Printf(578, 0, 1.5f, "High Score");
-	scoreText->Printf(580, 24, 1.5f, "%09d", player->GetScoreCount());
+	//scoreText->Printf(578, 0, 1.5f, "High Score");
+	//scoreText->Printf(580, 24, 1.5f, "%09d", player->GetScoreCount());
 #pragma endregion
 
 #pragma region 3D更新
@@ -239,7 +239,7 @@ void PlayScene::Draw()
 	}
 
 	//スコア表
-	scoreText->DrawAll();
+	//scoreText->DrawAll();
 
 	//プレイヤー
 	player->Draw_2D();
