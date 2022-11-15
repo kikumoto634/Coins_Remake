@@ -171,9 +171,6 @@
     <ClCompile Include="3D\ViewProjection.cpp">
       <Filter>ソース ファイル\Engine\3D</Filter>
     </ClCompile>
-    <ClCompile Include="camera\RailCamera.cpp">
-      <Filter>ソース ファイル\camera</Filter>
-    </ClCompile>
     <ClCompile Include="2D\PostEffect.cpp">
       <Filter>ソース ファイル\Engine\2D</Filter>
     </ClCompile>
@@ -280,9 +277,6 @@
     </ClInclude>
     <ClInclude Include="3D\ViewProjection.h">
       <Filter>ヘッダー ファイル\Engine\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="camera\RailCamera.h">
-      <Filter>ヘッダー ファイル\camera</Filter>
     </ClInclude>
     <ClInclude Include="2D\PostEffect.h">
       <Filter>ヘッダー ファイル\Engine\2D</Filter>

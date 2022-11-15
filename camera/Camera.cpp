@@ -1,5 +1,8 @@
 #include "Camera.h"
 
+#include <iostream>
+#include <random>
+
 //using namespace DirectX;
 
 Camera *Camera::GetInstance()
@@ -47,16 +50,18 @@ void Camera::Shake()
 		return ;
 	}
 
-	int shakePower = (int)(_Power - time);
+	float shakePower = (_Power - time);
 	if(shakePower == 0) {
 		time = _Power;
 		return;
 	}
-	//offset.x = (float)(rand() % shakePower - (shakePower/2));
-	//offset.y = (float)(rand() % shakePower - (shakePower/2));
-	//offset.z = (float)(rand() % shakePower - (shakePower/2));
+
+	float num = (float)(rand() / (32768.0 + (shakePower - (shakePower/2))));
+
+	offset.x = num;
+	//offset.y = num;
 	
-	time += 1.f/90;
+	time += 1.f/60;
 }
 
 void Camera::AngleMove(float targetAngle)
