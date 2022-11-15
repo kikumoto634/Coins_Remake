@@ -254,6 +254,7 @@ void PlayScene::Draw()
 	debugText->Printf(0, 648, 1.f, "PlayerGetSore : %d", player->GetScoreCount());
 	debugText->Printf(0, 664, 1.f, "PlayerHp : %d", player->GetHp());
 	debugText->Printf(0, 680, 1.f, "PlayerIsAccelerator : %d", player->GetIsAccelerator());
+	debugText->Printf(0, 696, 1.f, "PlayerDeadAnimSp : %f", player->GetDeadAnimSp());
 
 	//デバックボタン
 	debugText->Print("DIK_1 : Coin Appearance",1000,0,1.f);

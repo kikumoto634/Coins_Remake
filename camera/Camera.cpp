@@ -59,4 +59,22 @@ void Camera::Shake()
 	time += 1.f/90;
 }
 
+void Camera::AngleMove(float targetAngle)
+{
+	if(targetAngle >= view.angle){
+		if(view.angle >= targetAngle){
+			view.angle = targetAngle;
+		}
+
+		view.angle += 1.f;
+	}
+	else if(targetAngle <= view.angle){
+		if(view.angle <= targetAngle){
+			view.angle = targetAngle;
+		}
+
+		view.angle -= 1.f;
+	}
+}
+
 

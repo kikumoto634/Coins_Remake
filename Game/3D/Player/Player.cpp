@@ -23,6 +23,7 @@ void Player::Initialize(std::string filePath)
 void Player::Update(Camera* camera, Input* input)
 {
 	this->input = input;
+	this->camera = camera;
 
 	Update2D();
 	Update3D();
@@ -132,6 +133,9 @@ void Player::Update3D()
 	InputMovement();
 	//‰Á‘¬
 	InputAccelerator();
+	if(!IsAccelerator && camera->GetIniAngle() != camera->GetAngle()){
+		camera->AngleMove(camera->GetIniAngle());
+	}
 
 	//ƒ_ƒ[ƒW
 	Damage();
@@ -259,7 +263,7 @@ void Player::Dead()
 		world.rotation.z = XMConvertToRadians(90.f);
 		return;
 	}
-	DeadAnimSp -= 1.f/240;
+	DeadAnimSp -= 1.f/25;
 
 	if(time >= 1.f) return;
 	time += 0.01f;
@@ -272,25 +276,21 @@ void Player::InputAccelerator()
 {
 	if(input->Trigger(DIK_Z)){
 		IsAccelerator = true;
-		cameraAngle = camera->GetAngle();
 	}
 
 	if(!IsAccelerator) return;
-	
+
+	camera->AngleMove(AcceleratorCameraAngle);
 	accelertime += 1.f/60;
 	AnimSp = AnimMaxSp;
 	MoveSp = MaxMoveSp;
 	RotSp = MaxRotSp;
 
-	if(cameraAngle <= AcceleratorCameraAngle) cameraAngle += 1.f;
-	camera->SetAngle(cameraAngle);
-
-	if(accelertime <= AccelerTime) return;
-	IsAccelerator = false;
-	accelertime = 0.f;
-	AnimSp = AnimNormalSp;
-	MoveSp = NormalMoveSp;
-	RotSp = NormalRotSp;
-	camera->ReSetAngle();
-	cameraAngle = camera->GetAngle();
+	if(accelertime >= AccelerTime){
+		IsAccelerator = false;
+		accelertime = 0.f;
+		AnimSp = AnimNormalSp;
+		MoveSp = NormalMoveSp;
+		RotSp = NormalRotSp;
+	}
 }

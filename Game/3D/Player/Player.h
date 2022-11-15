@@ -102,6 +102,11 @@ private:
 	/// </summary>
 	void InputAccelerator();
 
+#ifdef _DEBUG
+
+#endif // _DEBUG
+
+
 //定数
 private:
 	//体力、ダメージリターン
@@ -125,7 +130,7 @@ private:
 	//ゲージ
 	const float AcceleratorGageMax = 10.f;
 	//視野角
-	const float AcceleratorCameraAngle = 65.f;
+	const float AcceleratorCameraAngle = 70.f;
 
 //メンバ変数
 private:
@@ -170,11 +175,9 @@ private:
 
 	//加速
 	bool IsAccelerator = false;
-	float AccelerTime = 2.f;
+	float AccelerTime = 5.f;
 	float accelertime = 0.f;
 	//加速ゲージ
 	float acceleratorGage = 0.f;
-	//カメラ視野角
-	float cameraAngle = 0.f;
 };
 
