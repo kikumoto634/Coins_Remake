@@ -18,6 +18,7 @@
 #include "3D/Wall02/Wall02.h"
 
 #include "2D/Score/ScoreSprite.h"
+#include "2D/ScoreText/ScoreText.h"
 
 #include "System/HitStop.h"
 
@@ -99,6 +100,8 @@ private:
 
 	//スコア
 	std::list<std::unique_ptr<ScoreSprite>> score;
+	//スコア表
+	std::unique_ptr<ScoreText> scoreText;
 
 	//ゲーム進行速度
 	float GameSpeed = 0.f;
