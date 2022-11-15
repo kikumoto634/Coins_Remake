@@ -12,6 +12,8 @@ void ScoreSprite::Initialize(UINT textureNumber)
 	window = Window::GetInstance();
 	camera = Camera::GetInstance();
 
+	alpha = 0.8f;
+	size = {60,60};
 	sprite->SetAnchorpoint({0.5f, 0.5f});
 }
 
