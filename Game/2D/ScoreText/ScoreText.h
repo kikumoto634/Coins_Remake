@@ -27,6 +27,9 @@ public:
 	//•`‰æ
 	void DrawAll();
 
+	//‰ð–@
+	void Finalize();
+
 private:
 	void Print(const std::string& text, float x, float y, float scale = 1.f);
 

@@ -2,12 +2,7 @@
 
 ScoreText::~ScoreText()
 {
-	for(int i = 0; i < _countof(sprites); i++)
-	{
-		//スプライトを解放
-		delete sprites[i];
-		sprites[i] = nullptr;
-	}
+	Finalize();
 }
 
 void ScoreText::Initialize(UINT texnumber)
@@ -42,6 +37,16 @@ void ScoreText::DrawAll()
 		sprites[i]->Draw();
 	}
 	spriteIndex = 0;
+}
+
+void ScoreText::Finalize()
+{
+	for(int i = 0; i < _countof(sprites); i++)
+	{
+		//スプライトを解放
+		delete sprites[i];
+		sprites[i] = nullptr;
+	}
 }
 
 void ScoreText::Print(const std::string &text, float x, float y, float scale)
