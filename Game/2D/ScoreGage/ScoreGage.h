@@ -1,10 +1,10 @@
 #pragma once
 #include "2D/BaseSprite.h"
 
-class ScoreBoard : public BaseSprite
+class ScoreGage : public BaseSprite
 {
 public:
-	~ScoreBoard();
+	~ScoreGage();
 
 	/// <summary>
 	/// ‰Šú‰»

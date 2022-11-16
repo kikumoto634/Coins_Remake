@@ -36,6 +36,9 @@ void PlayScene::Initialize()
 	//スコアボード
 	scoreBoard = make_unique<ScoreBoard>();
 	scoreBoard->Initialize(5);
+	//スコアゲージ
+	scoreGage = make_unique<ScoreGage>();
+	scoreGage->Initialize(6);
 #pragma endregion 
 
 #pragma region 3D初期化
@@ -123,6 +126,8 @@ void PlayScene::Update()
 	scoreText->Printf(585, 48, 1.5f, "%09d", player->GetScoreCount());
 	//スコアボード
 	scoreBoard->Update();
+	//スコアゲージ
+	scoreGage->Update();
 #pragma endregion
 
 #pragma region 3D更新
@@ -247,6 +252,8 @@ void PlayScene::Draw()
 	scoreBoard->Draw();
 	//スコア表
 	scoreText->DrawAll();
+	//スコアゲージ
+	scoreGage->Draw();
 
 	//プレイヤー
 	player->Draw_2D();
@@ -333,7 +340,9 @@ void PlayScene::Finalize()
 	//スコア表
 	scoreText->Finalize();
 	//スコアボード
-	scoreBoard->Draw();
+	scoreBoard->Finalize();
+	//スコアゲージ
+	scoreGage->Finalize();
 #pragma endregion 
 }
 

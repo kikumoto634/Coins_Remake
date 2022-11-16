@@ -170,6 +170,7 @@
     <ClCompile Include="Game\2D\BaseSprite.cpp" />
     <ClCompile Include="Game\2D\Hp\PlayerHp.cpp" />
     <ClCompile Include="Game\2D\ScoreBoard\ScoreBoard.cpp" />
+    <ClCompile Include="Game\2D\ScoreGage\ScoreGage.cpp" />
     <ClCompile Include="Game\2D\ScoreText\ScoreText.cpp" />
     <ClCompile Include="Game\2D\Score\ScoreSprite.cpp" />
     <ClCompile Include="Game\3D\BaseObjects.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="Game\2D\BaseSprite.h" />
     <ClInclude Include="Game\2D\Hp\PlayerHp.h" />
     <ClInclude Include="Game\2D\ScoreBoard\ScoreBoard.h" />
+    <ClInclude Include="Game\2D\ScoreGage\ScoreGage.h" />
     <ClInclude Include="Game\2D\ScoreText\ScoreText.h" />
     <ClInclude Include="Game\2D\Score\ScoreSprite.h" />
     <ClInclude Include="Game\3D\BaseObjects.h" />

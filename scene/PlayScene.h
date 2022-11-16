@@ -20,6 +20,7 @@
 #include "2D/Score/ScoreSprite.h"
 #include "2D/ScoreText/ScoreText.h"
 #include "2D/ScoreBoard/ScoreBoard.h"
+#include "2D/ScoreGage/ScoreGage.h"
 
 #include "System/HitStop.h"
 
@@ -105,6 +106,8 @@ private:
 	std::unique_ptr<ScoreText> scoreText;
 	//スコアボード
 	std::unique_ptr<ScoreBoard> scoreBoard;
+	//スコアゲージ
+	std::unique_ptr<ScoreGage> scoreGage;
 
 	//ゲーム進行速度
 	float GameSpeed = 0.f;
