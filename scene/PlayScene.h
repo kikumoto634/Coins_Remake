@@ -4,6 +4,7 @@
 
 #include "BaseScene.h"
 
+
 #include "Sprite.h"
 #include "FbxModelManager.h"
 #include "FbxModelObject.h"
@@ -23,6 +24,7 @@
 #include "2D/ScoreGage/ScoreGage.h"
 
 #include "System/HitStop.h"
+#include <Result.h>
 
 
 
@@ -108,6 +110,9 @@ private:
 	std::unique_ptr<ScoreBoard> scoreBoard;
 	//スコアゲージ
 	std::unique_ptr<ScoreGage> scoreGage;
+
+	//リザルト
+	std::unique_ptr<Result> result;
 
 	//ゲーム進行速度
 	float GameSpeed = 0.f;

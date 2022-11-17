@@ -64,6 +64,10 @@ void PlayScene::Initialize()
 	//ヒットストップ
 	hitStop = make_unique<HitStop>();
 #pragma endregion
+
+	//リザルト
+	result = make_unique<Result>();
+	result->Initialize(8);
 }
 
 void PlayScene::Update()
@@ -72,6 +76,9 @@ void PlayScene::Update()
 	/// シーンベース
 	/// </summary>
 	BaseScene::Update();
+
+	//リザルト
+	result->Update(player->GetIsDead());
 
 	if(frame % 60 == 0) second += 1;
 	//コイン
@@ -179,18 +186,20 @@ void PlayScene::Update()
 
 #pragma region 汎用機能更新
 	//衝突判定リスト追加
-	collisionManager->SetCollision(player.get());
-	for(const std::unique_ptr<Coins>& obj : coin)
-	{
-		collisionManager->SetCollision(obj.get());
-	}
-	for(const std::unique_ptr<Wall01>& obj : wall01)
-	{
-		collisionManager->SetCollision(obj.get());
-	}
-	for(const std::unique_ptr<Wall02>& obj : wall02)
-	{
-		collisionManager->SetCollision(obj.get());
+	if(!player->GetIsDead()){
+		collisionManager->SetCollision(player.get());
+		for(const std::unique_ptr<Coins>& obj : coin)
+		{
+			collisionManager->SetCollision(obj.get());
+		}
+		for(const std::unique_ptr<Wall01>& obj : wall01)
+		{
+			collisionManager->SetCollision(obj.get());
+		}
+		for(const std::unique_ptr<Wall02>& obj : wall02)
+		{
+			collisionManager->SetCollision(obj.get());
+		}
 	}
 #pragma endregion
 
@@ -248,10 +257,12 @@ void PlayScene::Draw()
 		sp->Draw();
 	}
 
-	//スコアボード
-	scoreBoard->Draw();
-	//スコア表
-	scoreText->DrawAll();
+	if(!player->GetIsDead()){
+		//スコアボード
+		scoreBoard->Draw();
+		//スコア表
+		scoreText->DrawAll();
+	}
 	//スコアゲージ
 	scoreGage->Draw();
 
@@ -259,6 +270,9 @@ void PlayScene::Draw()
 	player->Draw_2D();
 	
 #pragma endregion 
+
+	//リザルト
+	result->Draw();
 
 #ifdef _DEBUG
 	debugText->Printf(0,0,1.f,"Camera:Eye	 X:%f Y:%f Z:%f", camera->GetEye().x,camera->GetEye().y,camera->GetEye().z);
@@ -346,6 +360,8 @@ void PlayScene::Finalize()
 	//スコアゲージ
 	scoreGage->Finalize();
 #pragma endregion 
+
+	result->Finalize();
 }
 
 #pragma region コイン処理

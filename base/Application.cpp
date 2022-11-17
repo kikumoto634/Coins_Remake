@@ -76,6 +76,7 @@ void Application::Initialize()
 	TextureManager::Load(5, "Score/ScoreBoard.png");
 	TextureManager::Load(6, "Score/ScoreGage.png");
 	TextureManager::Load(7, "Title/Title.png");
+	TextureManager::Load(8, "Result/ResultBack.png");
 	Sprite::StaticInitialize(dxCommon, window->GetWindowWidth(), window->GetWindowHeight());
 
 	//Geometry
@@ -96,6 +97,7 @@ void Application::Update()
 	//ƒV[ƒ“‘JˆÚ
 	if(scene->GetIsSceneChange()){
 		if(sceneName == "Title"){
+			scene->Finalize();
 			scene = make_unique<PlayScene>(dxCommon, window);
 			scene->Application();
 			scene->Initialize();
@@ -103,6 +105,7 @@ void Application::Update()
 			scene->ResetIsSceneChange();
 		}
 		else if(sceneName == "Play"){
+			scene->Finalize();
 			scene = make_unique<Title>(dxCommon, window);
 			scene->Application();
 			scene->Initialize();

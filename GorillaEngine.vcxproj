@@ -191,6 +191,7 @@
     <ClCompile Include="math\Vector4.cpp" />
     <ClCompile Include="scene\BaseScene.cpp" />
     <ClCompile Include="scene\PlayScene.cpp" />
+    <ClCompile Include="scene\Result.cpp" />
     <ClCompile Include="scene\Title.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +235,7 @@
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="scene\BaseScene.h" />
     <ClInclude Include="scene\PlayScene.h" />
+    <ClInclude Include="scene\Result.h" />
     <ClInclude Include="scene\Title.h" />
   </ItemGroup>
   <ItemGroup>

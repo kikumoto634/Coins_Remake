@@ -259,6 +259,8 @@ void Player::Damage()
 
 void Player::Dead()
 {
+	if(Hp == 0) IsDead = true;
+
 #ifdef _DEBUG
 
 	if(input != nullptr && input->Trigger(DIK_6)){
