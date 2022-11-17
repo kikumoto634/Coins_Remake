@@ -44,6 +44,12 @@ void BaseScene::Update()
 void BaseScene::EndUpdate()
 {
 #ifdef _DEBUG
+
+	//ƒV[ƒ“‘JˆÚ
+	if(input->Trigger(DIK_SPACE)){
+		IsSceneChange = true;
+	}
+
 #pragma region ˆêŽž’âŽ~
 	//“ü—Í
 	if(input->Trigger(DIK_F1)){

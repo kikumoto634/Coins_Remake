@@ -48,5 +48,6 @@ private:
 #pragma endregion
 
 	std::unique_ptr<BaseScene> scene;
+	std::string sceneName = "";
 
 };

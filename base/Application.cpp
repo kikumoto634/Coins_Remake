@@ -31,7 +31,9 @@ Application::Application()
 
 	scene = make_unique<Title>(dxCommon, window);
 	scene->Application();
+	sceneName = "Title";
 }
+
 
 Application::~Application()
 {
@@ -91,6 +93,24 @@ void Application::Initialize()
 
 void Application::Update()
 {
+	//ƒV[ƒ“‘JˆÚ
+	if(scene->GetIsSceneChange()){
+		if(sceneName == "Title"){
+			scene = make_unique<PlayScene>(dxCommon, window);
+			scene->Application();
+			scene->Initialize();
+			sceneName = "Play";
+			scene->ResetIsSceneChange();
+		}
+		else if(sceneName == "Play"){
+			scene = make_unique<Title>(dxCommon, window);
+			scene->Application();
+			scene->Initialize();
+			sceneName = "Title";
+			scene->ResetIsSceneChange();
+		}
+	}
+
 	scene->Update();
 	scene->EndUpdate();
 }

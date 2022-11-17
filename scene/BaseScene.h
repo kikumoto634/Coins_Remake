@@ -59,6 +59,12 @@ public:
 
 	//Õ“Ë”»’è‚Æ‰“š
 	void CheckAllCollision();
+
+	//Getter
+	bool GetIsSceneChange()	{return IsSceneChange;}
+	//Reset
+	void ResetIsSceneChange()	{IsSceneChange = false;}
+
 private:
 	void CheckCollisionPair(Collider* colliderA, Collider* colliderB);
 	bool CheckCollisionDetail(Collider* colliderA, Collider* colliderB);
@@ -74,6 +80,9 @@ protected:
 	//ì¬
 	Input* input = nullptr;
 	Camera* camera = nullptr;
+
+	//ƒV[ƒ“‘JˆÚ
+	bool IsSceneChange = false;
 
 #ifdef _DEBUG
 	std::unique_ptr<DebugText> debugText;
