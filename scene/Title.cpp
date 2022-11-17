@@ -38,11 +38,11 @@ void Title::Initialize()
 	//地面
 	GroundPop({0, -150, 600});
 	//アウトエリア
-	for(int i = 0; i < 6;i++){
+	for(int i = 0; i < 7;i++){
 		OutAreaPop({0, -150, 200 - (float)i*200});
 	}
 	for(unique_ptr<OutArea>& obj : outArea){
-		obj->SetDeletePosZ(-800);
+		obj->SetDeletePosZ(-1000);
 		obj->SetPopPosZ(400);
 	}
 #pragma endregion

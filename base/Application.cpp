@@ -29,7 +29,7 @@ Application::Application()
 	window = Window::GetInstance();
 	dxCommon = DirectXCommon::GetInstance();
 
-	scene = make_unique<PlayScene>(dxCommon, window);
+	scene = make_unique<Title>(dxCommon, window);
 	scene->Application();
 }
 
