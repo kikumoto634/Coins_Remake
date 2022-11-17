@@ -277,6 +277,7 @@ void PlayScene::Draw()
 	debugText->Printf(0, 648, 1.f, "PlayerGetSore : %d", player->GetScoreCount());
 	debugText->Printf(0, 664, 1.f, "PlayerHp : %d", player->GetHp());
 	debugText->Printf(0, 680, 1.f, "PlayerIsAccelerator : %d", player->GetIsAccelerator());
+	debugText->Printf(0, 696, 1.f, "PlayerIsAcceleratorGage : %f", player->GetAcceleratorGage());
 
 	//デバックボタン
 	debugText->Print("DIK_1 : Coin Appearance",1000,0,1.f);
@@ -285,6 +286,7 @@ void PlayScene::Draw()
 	debugText->Print("DIK_4 : HitStop",1000,48,1.f);
 	debugText->Print("DIK_5 : CameraShake(Unimplemented)",1000,64,1.f);
 	debugText->Print("DIK_6 : PlayerDead",1000,80,1.f);
+	debugText->Print("DIK_7 : AcceleratorGage MAX",1000,96,1.f);
 
 #endif // _DEBUG
 

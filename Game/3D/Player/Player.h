@@ -175,8 +175,6 @@ private:
 
 	//â¡ë¨
 	bool IsAccelerator = false;
-	float AccelerTime = 5.f;
-	float accelertime = 0.f;
 	//â¡ë¨ÉQÅ[ÉW
 	float acceleratorGage = 0.f;
 };

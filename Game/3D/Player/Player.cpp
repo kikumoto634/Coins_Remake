@@ -28,6 +28,14 @@ void Player::Update(Camera* camera, Input* input)
 	Update2D();
 	Update3D();
 
+#ifdef _DEBUG
+	if(input != nullptr && input->Trigger(DIK_7)){
+		acceleratorGage = AcceleratorGageMax;
+	}
+#endif // _DEBUG
+
+	acceleratorGage = min(acceleratorGage, AcceleratorGageMax);
+
 	BaseObjects::Update(camera);
 }
 
@@ -58,12 +66,14 @@ void Player::OnCollision(Collider *TouchCollision)
 		CoinCount = CoinCount + 1;
 		if(acceleratorGage <= AcceleratorGageMax)acceleratorGage += 0.5f;
 		ScoreCount += 100;
+		acceleratorGage += 0.5f;
 		IsScoreUp = true;
 		return ;
 	}
 	else if(TouchCollision->GetName() == "Wall01"){
 		if(IsAccelerator) {
 			ScoreCount += 100;
+			acceleratorGage += 0.5f;
 			IsScoreUp = true;
 			return;
 		}
@@ -285,14 +295,14 @@ void Player::InputAccelerator()
 	if(!IsAccelerator) return;
 
 	camera->AngleMove(AcceleratorCameraAngle);
-	accelertime += 1.f/60;
+	acceleratorGage -= 1.f/45;
 	AnimSp = AnimMaxSp;
 	MoveSp = MaxMoveSp;
 	RotSp = MaxRotSp;
 
-	if(accelertime >= AccelerTime){
+	if(acceleratorGage <= 0){
 		IsAccelerator = false;
-		accelertime = 0.f;
+		acceleratorGage = 0.f;
 		AnimSp = AnimNormalSp;
 		MoveSp = NormalMoveSp;
 		RotSp = NormalRotSp;
