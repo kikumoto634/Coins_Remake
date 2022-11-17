@@ -21,8 +21,8 @@ void Title::Initialize()
 #pragma region _2Dモデル初期化
 	titleLogo = make_unique<BaseSprite>();
 	titleLogo->Initialize(7);
-	titleLogo->SetVector2({600, 50});
-	titleLogo->SetSize({600,300});
+	titleLogo->SetVector2(LogoPos);
+	titleLogo->SetSize(LogoSize);
 #pragma endregion
 
 #pragma region _3Dモデル初期化
@@ -82,6 +82,7 @@ void Title::Update()
 #pragma endregion
 
 #pragma region _2Dモデル更新
+	TitleLogoMove();
 	titleLogo->Update();
 #pragma endregion
 
@@ -175,4 +176,15 @@ void Title::OutAreaPop(Vector3 position)
 	newobj->SetVector3(position);
 
 	outArea.push_back(move(newobj));
+}
+
+void Title::TitleLogoMove()
+{
+	LogoTime = (LogoTime < 1.f) ? LogoTime += 1.f/180 : LogoTime = 0.f, LogoPos = LogoStartPos;
+	float ease = -(cosf(3.14159265f * LogoTime) - 1.f)/2.f;
+
+	LogoPos.x = ((1.f-ease)*(1.f-ease) * LogoStartPos.x) + (2 * (1.f-ease) * ease * LogoEndPos.x) + (ease*ease * LogoStartPos.x);
+	LogoPos.y = ((1.f-ease)*(1.f-ease) * LogoStartPos.y) + (2 * (1.f-ease) * ease * LogoEndPos.y) + (ease*ease * LogoStartPos.y);
+
+	titleLogo->SetVector2(LogoPos);
 }

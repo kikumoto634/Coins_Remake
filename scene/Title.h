@@ -45,6 +45,8 @@ private:
 	//アウトエリアPOP
 	void OutAreaPop(Vector3 position);
 
+	void TitleLogoMove();
+
 private:
 	float GameSpeed = 6.f;
 
@@ -60,6 +62,11 @@ private:
 
 	//タイトルロゴ
 	std::unique_ptr<BaseSprite> titleLogo;
+	const Vector2 LogoStartPos = {600, 30};
+	const Vector2 LogoEndPos = {600, 80};
+	Vector2 LogoPos = LogoStartPos;
+	Vector2 LogoSize = {600,300};
+	float LogoTime = 0.f;
 
 #ifdef _DEBUG
 	Vector3 target;
