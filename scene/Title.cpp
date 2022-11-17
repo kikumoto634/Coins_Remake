@@ -157,6 +157,18 @@ void Title::Finalize()
 #pragma region _3Dモデル後処理
 	//プレイヤー
 	playerObj->Finalize();
+	
+	//天球
+	skyDome->Finalize();
+
+	//地面
+	for(unique_ptr<Grounds>& obj : ground){
+		obj->Finalize();
+	}
+	//アウトエリア
+	for(unique_ptr<OutArea>& obj : outArea){
+		obj->Finalize();
+	}
 #pragma endregion
 }
 

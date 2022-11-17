@@ -80,6 +80,7 @@ void BaseScene::EndDraw()
 
 void BaseScene::Finalize()
 {
+	window->Finalize();
 }
 
 void BaseScene::CheckAllCollision()
