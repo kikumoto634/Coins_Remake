@@ -67,7 +67,7 @@ void PlayScene::Initialize()
 
 	//ƒŠƒUƒ‹ƒg
 	result = make_unique<Result>();
-	result->Initialize(8);
+	result->Initialize(8, 9);
 }
 
 void PlayScene::Update()

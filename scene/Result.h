@@ -9,7 +9,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(int texNumber);
+	void Initialize(int BackTexNumber, int fonrtexNumber);
 
 	/// <summary>
 	/// 更新
@@ -27,10 +27,18 @@ public:
 	void Finalize();
 
 private:
-	Sprite* sprite;
-	Vector2 position = {0,0};
-	Vector2 size = {100,100};
+	//バック
+	Sprite* back = nullptr;
+	Vector2 backPosition = {0,0};
+	Vector2 backSize = {100,100};
+
+	//フォント
+	Sprite* font = nullptr;
+	Vector2 fontPosition = {0,0};
+	Vector2 fontSize = {100,100};
 
 	bool IsEnd = false;
+
+	float alpha = 0.f;
 };
 
