@@ -231,6 +231,9 @@
     <ClCompile Include="Game\2D\ScoreGage\ScoreGage.cpp">
       <Filter>ソース ファイル\game\2D</Filter>
     </ClCompile>
+    <ClCompile Include="scene\Title.cpp">
+      <Filter>ソース ファイル\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\Window.h">
@@ -352,6 +355,9 @@
     </ClInclude>
     <ClInclude Include="Game\2D\ScoreGage\ScoreGage.h">
       <Filter>ヘッダー ファイル\game\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\Title.h">
+      <Filter>ヘッダー ファイル\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
