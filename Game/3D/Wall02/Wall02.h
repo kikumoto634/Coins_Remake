@@ -64,6 +64,7 @@ private:
 	std::string name = "Wall01";
 
 	float DepthSp = 0.f;
+	float MoveSp = 1.5f;
 
 	float fallTime = 0.f;
 	bool IsLRFlag = false;//(false:¶ˆÚ“®, true:‰EˆÚ“®)

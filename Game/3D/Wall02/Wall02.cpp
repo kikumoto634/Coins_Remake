@@ -63,7 +63,7 @@ void Wall02::Movement()
 		return;
 	}
 
-	if(world.translation.y >= -120.f) world.translation.y -= 1.f;
+	if(world.translation.y >= -120.f) world.translation.y -= MoveSp;
 
 	if(!IsLRFlag){
 		world.translation.x -= 4.f;
