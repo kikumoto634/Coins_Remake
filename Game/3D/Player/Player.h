@@ -21,7 +21,7 @@ public:
 	/// <summary>
 	/// XV
 	/// </summary>
-	void Update(Camera* camera, Input* input);
+	void Update(Camera* camera, Input* input = nullptr);
 
 
 	/// <summary>

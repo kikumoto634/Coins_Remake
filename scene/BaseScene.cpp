@@ -43,7 +43,7 @@ void BaseScene::Update()
 
 void BaseScene::EndUpdate()
 {
-	#ifdef _DEBUG
+#ifdef _DEBUG
 #pragma region ˆêŽž’âŽ~
 	//“ü—Í
 	if(input->Trigger(DIK_F1)){

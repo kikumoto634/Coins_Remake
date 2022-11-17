@@ -12,7 +12,7 @@ void OutArea::Initialize(std::string filePath)
 
 void OutArea::Update(Camera *camera)
 {
-	if(world.translation.z <= 0) world.translation.z = 1200.f;
+	if(world.translation.z <= DeletePosZ) world.translation.z = PopPosZ;
 	world.translation.z -= DepthSp;
 
 	BaseObjects::Update(camera);

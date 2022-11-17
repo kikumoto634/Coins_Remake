@@ -32,6 +32,7 @@ public:
 
 	//Setter
 	void SetVector3(Vector3 position)	{world.translation = position;}
+	void SetRotation(Vector3 rotation)	{world.rotation = rotation;}
 
 protected:
 	FbxModelManager* model;

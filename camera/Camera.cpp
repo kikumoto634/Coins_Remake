@@ -32,8 +32,6 @@ void Camera::Initialize()
 void Camera::Update()
 {
 	Shake();
-	view.target = targetBase + offset;
-
 	view.matViewProjection = view.matView * view.matProjection;
 
 	view.UpdateViewMatrix();
@@ -43,8 +41,12 @@ void Camera::Update()
 void Camera::Shake()
 {
 	if(!IsShake) return ;
+
+	view.target = targetBase + offset;
+
 	if(time >= _Power){
 		time = 0.f;
+		view.target = targetBase;
 		offset = {0.f,0.f,0.f};
 		IsShake = false;
 		return ;

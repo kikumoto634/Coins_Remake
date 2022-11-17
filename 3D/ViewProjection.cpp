@@ -18,6 +18,6 @@ void ViewProjection::UpdateProjectionMatrix(int width, int height)
 	matProjection = XMMatrixPerspectiveFovLH(
 		XMConvertToRadians(angle),	//上下画角
 		(float)width / height,			//aspect比(画面横幅/画面縦幅)
-		0.1f, 1000.0f				//前端、奥端
+		0.1f, 1300.0f				//前端、奥端
 	);
 }

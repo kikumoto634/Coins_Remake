@@ -73,6 +73,7 @@ void Application::Initialize()
 	TextureManager::Load(4, "Hp/Heart_Still.png");
 	TextureManager::Load(5, "Score/ScoreBoard.png");
 	TextureManager::Load(6, "Score/ScoreGage.png");
+	TextureManager::Load(7, "Title/Title.png");
 	Sprite::StaticInitialize(dxCommon, window->GetWindowWidth(), window->GetWindowHeight());
 
 	//Geometry

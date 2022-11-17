@@ -22,7 +22,7 @@ void Player::Initialize(std::string filePath)
 
 void Player::Update(Camera* camera, Input* input)
 {
-	this->input = input;
+	if(input != nullptr)this->input = input;
 	this->camera = camera;
 
 	Update2D();
@@ -156,6 +156,8 @@ void Player::Finalize3D()
 
 void Player::InputMovement()
 {
+	if(!input) return;
+
 	//ˆÚ“®§ŒÀ
 	world.translation.x = max(world.translation.x, -90.f);
 	world.translation.x = min(world.translation.x, 90.f);
@@ -249,7 +251,7 @@ void Player::Dead()
 {
 #ifdef _DEBUG
 
-	if(input->Trigger(DIK_6)){
+	if(input != nullptr && input->Trigger(DIK_6)){
 		IsDead = true;
 	}
 
@@ -274,6 +276,8 @@ void Player::Dead()
 
 void Player::InputAccelerator()
 {
+	if(!input) return;
+
 	if(input->Trigger(DIK_Z)){
 		IsAccelerator = true;
 	}
