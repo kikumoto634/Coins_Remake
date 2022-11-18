@@ -88,8 +88,8 @@ void PlayScene::Update()
 	BaseScene::Update();
 
 	//ƒŠƒUƒ‹ƒg
-	result->Update(player->GetIsDead());
-	if(player->GetIsDead() && input->Trigger(DIK_Z)){
+	result->Update(player->GetIsDead(),false);
+	if(result->GetIsEnd() && input->Trigger(DIK_Z)){
 		IsSceneChange = true;
 	}
 

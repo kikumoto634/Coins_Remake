@@ -14,7 +14,7 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update(bool IsGameEnd);
+	void Update(bool IsGameOver, bool IsGameClear);
 
 	/// <summary>
 	/// 描画
@@ -25,6 +25,9 @@ public:
 	/// 後処理
 	/// </summary>
 	void Finalize();
+
+	//getter
+	bool GetIsEnd()	{return IsEnd;}
 
 private:
 	//バック

@@ -18,9 +18,9 @@ void Result::Initialize(int BackTexNumber, int fonrtexNumber)
 	fontSize = {240, 90};
 }
 
-void Result::Update(bool IsGameEnd)
+void Result::Update(bool IsGameOver, bool IsGameClear)
 {
-	IsEnd = IsGameEnd;
+	IsEnd = (IsGameOver || IsGameClear) ? IsEnd = true : IsEnd = false;
 	if(!IsEnd) return;
 
 

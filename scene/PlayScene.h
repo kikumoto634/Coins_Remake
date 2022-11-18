@@ -24,7 +24,7 @@
 #include "2D/ScoreGage/ScoreGage.h"
 
 #include "System/HitStop.h"
-#include <Result.h>
+#include "Result.h"
 
 
 

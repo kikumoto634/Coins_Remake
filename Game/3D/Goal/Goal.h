@@ -37,6 +37,8 @@ public:
 	const float GetDepth()	override	{return depth;}
 	const std::string GetName() override	{return name;}
 
+	const bool GetIsGoal()	{return IsGoal;}
+
 	//Setter
 	void SetVector3(Vector3 position)	{world.translation = position;}
 	void SetDepthSp(float Sp)	{DepthSp = Sp;}
@@ -48,5 +50,6 @@ private:
 	std::string name = "Goal";
 
 	float DepthSp = 0.f;
+	bool IsGoal = false;
 };
 
