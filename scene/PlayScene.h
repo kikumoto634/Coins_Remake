@@ -62,11 +62,13 @@ public:
 	void Finalize() override;
 
 private:
+	//エリアデータ読み込み
+	void CSVLoadPopData();
+	void PopCommands();
+
 	//コインPOP
-	void LoadCoinPopData();
-	void CoinPopCommands();
+	void InitCoinPop();
 	void CoinPop(Vector3 pos);
-	void CoinPopReSet();
 
 	//地面POP
 	void GroundPop(Vector3 position);
@@ -74,7 +76,9 @@ private:
 	void OutAreaPop(Vector3 position);
 
 	//壁
+	void InitWall01Pop();
 	void Wall01Pop(Vector3 position);
+	void InitWall02Pop();
 	void Wall02Pop(Vector3 position);
 
 	//スコアPOP
@@ -87,9 +91,6 @@ private:
 
 	//コイン
 	std::list<std::unique_ptr<Coins>> coin;
-	std::stringstream coinPopCommands;
-	int waitTime = 0;
-	bool IsWait = false;
 
 	//地面
 	std::list<std::unique_ptr<Grounds>> ground;
@@ -124,5 +125,10 @@ private:
 
 	//ヒットストップ
 	std::unique_ptr<HitStop> hitStop;
+
+	//csvコマンド
+	std::stringstream popCommands;
+	int waitTime = 0;
+	bool IsWait = false;
 };
 

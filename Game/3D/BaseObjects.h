@@ -30,9 +30,13 @@ public:
 	/// </summary>
 	virtual void Finalize();
 
+	//Getter
+	bool GetIsDead() const {return IsDead;}
+
 	//Setter
 	void SetVector3(Vector3 position)	{world.translation = position;}
 	void SetRotation(Vector3 rotation)	{world.rotation = rotation;}
+	void SetIsDead(bool IsFlag)	{IsDead = IsFlag;}
 
 protected:
 	FbxModelManager* model;

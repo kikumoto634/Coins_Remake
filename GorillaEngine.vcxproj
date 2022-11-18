@@ -176,6 +176,7 @@
     <ClCompile Include="Game\3D\BaseObjects.cpp" />
     <ClCompile Include="Game\3D\Coins\Coins.cpp" />
     <ClCompile Include="Game\3D\Collider\Collider.cpp" />
+    <ClCompile Include="Game\3D\Goal\Goal.cpp" />
     <ClCompile Include="Game\3D\Grounds\Grounds.cpp" />
     <ClCompile Include="Game\3D\OutArea\OutArea.cpp" />
     <ClCompile Include="Game\3D\Player\Player.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="Game\3D\Collider\Collider.h" />
     <ClInclude Include="Game\3D\Collider\CollisionConfig.h" />
     <ClInclude Include="Game\3D\Collider\CollisionManager.h" />
+    <ClInclude Include="Game\3D\Goal\Goal.h" />
     <ClInclude Include="Game\3D\Grounds\Grounds.h" />
     <ClInclude Include="Game\3D\OutArea\OutArea.h" />
     <ClInclude Include="Game\3D\Player\Player.h" />

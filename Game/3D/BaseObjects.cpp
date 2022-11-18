@@ -11,6 +11,12 @@ void BaseObjects::Initialize(std::string filePath)
 
 void BaseObjects::Update(Camera *camera)
 {
+	if(IsDead) {
+		world.translation = {0,0, -1500};
+		world.UpdateMatrix();
+		return;
+	}
+
 	this->camera = camera;
 	world.UpdateMatrix();
 	object->Update(world, this->camera);
@@ -18,6 +24,8 @@ void BaseObjects::Update(Camera *camera)
 
 void BaseObjects::Draw()
 {
+	if(IsDead) return;
+
 	//ƒvƒŒƒCƒ„[
 	object->Draw();
 }

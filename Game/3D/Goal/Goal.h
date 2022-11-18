@@ -1,14 +1,11 @@
 #pragma once
 #include "3D/BaseObjects.h"
 #include "3D/Collider/Collider.h"
-#include "System/HitStop.h"
 
-
-class Wall01 : public BaseObjects, public Collider
+class Goal : public BaseObjects, public Collider
 {
-//メンバ関数
 public:
-	~Wall01();
+	~Goal();
 
 	/// <summary>
 	/// 初期化
@@ -18,7 +15,7 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update(Camera* camera, HitStop* hitStop);
+	void Update(Camera* camera);
 
 	/// <summary>
 	/// 描画
@@ -35,7 +32,6 @@ public:
 
 	//Getter
 	const Vector3 GetPosition() override {return world.translation;}
-
 	const float GetWidth() override	{return width;}
 	const float GetHeight()	override	{return height;}
 	const float GetDepth()	override	{return depth;}
@@ -45,15 +41,12 @@ public:
 	void SetVector3(Vector3 position)	{world.translation = position;}
 	void SetDepthSp(float Sp)	{DepthSp = Sp;}
 
-//メンバ変数
 private:
-	float width = 15;
-	float height = 15;
-	float depth = 15;
-	std::string name = "Wall01";
+	float width = 50;
+	float height = 50;
+	float depth = 10;
+	std::string name = "Goal";
 
 	float DepthSp = 0.f;
-
-	HitStop* hitStop = nullptr;
 };
 

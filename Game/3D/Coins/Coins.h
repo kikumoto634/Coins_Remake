@@ -38,7 +38,6 @@ public:
 	const float GetHeight()	override	{return height;}
 	const float GetDepth()	override	{return depth;}
 	const std::string GetName() override	{return name;}
-	bool GetIsDead() const {return IsDead;}
 
 	//Setter
 	void SetVector3(Vector3 position)	{world.translation = position;}

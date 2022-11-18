@@ -29,7 +29,7 @@ void PlayScene::Initialize()
 
 	GameSpeed = GameNormalSpeed;
 
-#pragma region 2D初期化
+#pragma region _2D初期化
 	//スコア表
 	scoreText = make_unique<ScoreText>();
 	scoreText->Initialize(1);
@@ -41,10 +41,17 @@ void PlayScene::Initialize()
 	scoreGage->Initialize(6);
 #pragma endregion 
 
-#pragma region 3D初期化
+#pragma region _3D初期化
 	//プレイヤー
 	player = make_unique<Player>();
 	player->Initialize("Player");
+
+	//コイン
+	InitCoinPop();
+
+	//壁
+	InitWall01Pop();
+	InitWall02Pop();
 
 	//地面
 	for(int i = 0; i < 1;i++){
@@ -65,6 +72,9 @@ void PlayScene::Initialize()
 	hitStop = make_unique<HitStop>();
 #pragma endregion
 
+	//エリアデータ
+	CSVLoadPopData();
+
 	//リザルト
 	result = make_unique<Result>();
 	result->Initialize(8, 9);
@@ -81,20 +91,23 @@ void PlayScene::Update()
 	result->Update(player->GetIsDead());
 
 	if(frame % 60 == 0) second += 1;
-	//コイン
-	CoinPopCommands();
+	//エリアデータ
+	PopCommands();
 
 #pragma region 入力処理
 
+#ifdef _DEBUG
 	if(input->Trigger(DIK_1)){
-		CoinPopReSet();
+		CoinPop({-50,-135,1000});
+		CoinPop({-0,-135,1000});
+		//popCommands = {};
+		//CSVLoadPopData();
 	}
 	else if(input->Trigger(DIK_2)){
-		Wall01Pop({0,-150,1000});
+		Wall01Pop({50,-150,1000});
 	}
 	else if(input->Trigger(DIK_3)){
 		Wall02Pop({350,-70,1000});
-		//Wall02Pop({-350,-70,1000});
 	}
 	else if(input->Trigger(DIK_4)){
 		hitStop->SetStopFrame(3.f);
@@ -103,7 +116,7 @@ void PlayScene::Update()
 	else if(input->Trigger(DIK_5)){
 		camera->ShakeStart();
 	}
-
+#endif // _DEBUG
 #pragma endregion
 
 	//ヒットストップ
@@ -145,9 +158,6 @@ void PlayScene::Update()
 	}
 
 	//コイン
-	coin.remove_if([](unique_ptr<Coins>& obj){
-		return obj->GetIsDead();
-	});
 	for(unique_ptr<Coins>& obj : coin){
 		obj->Update(camera);
 		obj->SetDepthSp(GameSpeed);
@@ -167,16 +177,10 @@ void PlayScene::Update()
 	skyDome->Update(camera);
 
 	//壁
-	wall01.remove_if([](unique_ptr<Wall01>& obj){
-		return obj->GetIsDead();
-	});
 	for(unique_ptr<Wall01>& obj : wall01){
 		obj->Update(camera, hitStop.get());
 		obj->SetDepthSp(GameSpeed);
 	}
-	wall02.remove_if([](unique_ptr<Wall02>& obj){
-		return obj->GetIsDead();
-	});
 	for(unique_ptr<Wall02>& obj : wall02){
 		obj->Update(camera, hitStop.get());
 		obj->SetDepthSp(GameSpeed);
@@ -364,19 +368,19 @@ void PlayScene::Finalize()
 	result->Finalize();
 }
 
-#pragma region コイン処理
-void PlayScene::LoadCoinPopData()
+void PlayScene::CSVLoadPopData()
 {
 	//file開く
 	ifstream file;
-	file.open("Resources/csv/sample01.csv");
+	file.open("Resources/csv/Area01.csv");
 	assert(file.is_open());
 
 	//file培養を文字列ストリームにコピー
-	coinPopCommands << file.rdbuf();
+	popCommands << file.rdbuf();
 	file.close();
 }
-void PlayScene::CoinPopCommands()
+
+void PlayScene::PopCommands()
 {
 	//待機処理
 	if(IsWait){
@@ -392,7 +396,7 @@ void PlayScene::CoinPopCommands()
 	string line;
 
 	//コマンドループ
-	while(getline(coinPopCommands, line)){
+	while(getline(popCommands, line)){
 		//一行分のっ文字列をストリームに変換して解析しやすく
 		istringstream line_stream(line);
 
@@ -408,20 +412,29 @@ void PlayScene::CoinPopCommands()
 
 		//POPコマンド
 		if(word.find("POP") == 0){
-			//X座標
+			//左POP
 			getline(line_stream, word, ',');
-			float x = (float)atof(word.c_str());
+			float l = (float)atof(word.c_str());
+			if(l == 1) CoinPop({-50, -135, 1000});
+			else if(l == 2) Wall01Pop({-50, -150, 1000});
 
-			//Y座標
+			//真ん中POP
 			getline(line_stream, word, ',');
-			float y = (float)atof(word.c_str());
+			float c = (float)atof(word.c_str());
+			if(c == 1) CoinPop({0, -135, 1000});
+			else if(c == 2) Wall01Pop({0, -150, 1000});
 
-			//Z座標
+			//右POP
 			getline(line_stream, word, ',');
-			float z = (float)atof(word.c_str());
+			float r = (float)atof(word.c_str());
+			if(r == 1) CoinPop({50, -135, 1000});
+			else if(r == 2) Wall01Pop({50, -150, 1000});
 
-			//POP
-			CoinPop(Vector3(x,y,z));
+			//待機開始
+			IsWait = true;
+			this->waitTime = 10;
+
+			break;
 		}
 		else if(word.find("WAIT") == 0){
 			getline(line_stream,word, ',');
@@ -435,26 +448,31 @@ void PlayScene::CoinPopCommands()
 
 			break;
 		}
-		else if(word.find("LOOP") == 0){
-			CoinPopReSet();
+	}
+}
+
+void PlayScene::InitCoinPop()
+{
+	for(int i = 0; i < 30; i++){
+		unique_ptr<Coins> newCoin = make_unique<Coins>();
+		newCoin->Initialize("coin");
+		coin.push_back(move(newCoin));
+	}
+	for(unique_ptr<Coins>& obj : coin){
+		obj->SetIsDead(true);
+	}
+}
+
+void PlayScene::CoinPop(Vector3 pos)
+{
+	for(unique_ptr<Coins>& obj : coin){
+		if(obj->GetIsDead()){
+			obj->SetIsDead(false);
+			obj->SetVector3(pos);
 			break;
 		}
 	}
 }
-void PlayScene::CoinPop(Vector3 pos)
-{
-	unique_ptr<Coins> newCoin = make_unique<Coins>();
-	newCoin->Initialize("coin");
-	newCoin->SetVector3(pos);
-
-	coin.push_back(move(newCoin));
-}
-void PlayScene::CoinPopReSet()
-{
-	coinPopCommands = {};
-	LoadCoinPopData();
-}
-#pragma endregion
 
 void PlayScene::GroundPop(Vector3 position)
 {
@@ -474,21 +492,48 @@ void PlayScene::OutAreaPop(Vector3 position)
 	outArea.push_back(move(newobj));
 }
 
+void PlayScene::InitWall01Pop()
+{
+	for(int i = 0; i < 30; i++){
+		unique_ptr<Wall01> newobj = make_unique<Wall01>();
+		newobj->Initialize("Wall01");
+		wall01.push_back(move(newobj));
+	}
+	for(unique_ptr<Wall01>& obj : wall01){
+		obj->SetIsDead(true);
+	}
+}
 void PlayScene::Wall01Pop(Vector3 position)
 {
-	unique_ptr<Wall01> newobj = make_unique<Wall01>();
-	newobj->Initialize("Wall01");
-	newobj->SetVector3(position);
+	for(unique_ptr<Wall01>& obj : wall01){
+		if(obj->GetIsDead()){
+			obj->SetIsDead(false);
+			obj->SetVector3(position);
+			break;
+		}
+	}
+}
 
-	wall01.push_back(move(newobj));
+void PlayScene::InitWall02Pop()
+{
+	for(int i = 0; i < 30; i++){
+		unique_ptr<Wall02> newobj = make_unique<Wall02>();
+		newobj->Initialize("Wall02");
+		wall02.push_back(move(newobj));
+	}
+	for(unique_ptr<Wall02>& obj : wall02){
+		obj->SetIsDead(true);
+	}
 }
 void PlayScene::Wall02Pop(Vector3 position)
 {
-	unique_ptr<Wall02> newobj = make_unique<Wall02>();
-	newobj->Initialize("Wall02");
-	newobj->SetVector3(position);
-
-	wall02.push_back(move(newobj));
+	for(unique_ptr<Wall02>& obj : wall02){
+		if(obj->GetIsDead()){
+			obj->SetIsDead(false);
+			obj->SetVector3(position);
+			break;
+		}
+	}
 }
 
 void PlayScene::ScoreUp100Pop()

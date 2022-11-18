@@ -40,8 +40,6 @@ public:
 	const float GetDepth()	override	{return depth;}
 	const std::string GetName() override	{return name;}
 
-	bool GetIsDead() const {return IsDead;}
-
 	//Setter
 	void SetVector3(Vector3 position)	{world.translation = position;}
 	void SetDepthSp(float Sp)	{DepthSp = Sp;}
