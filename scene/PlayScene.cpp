@@ -89,6 +89,9 @@ void PlayScene::Update()
 
 	//リザルト
 	result->Update(player->GetIsDead());
+	if(player->GetIsDead() && input->Trigger(DIK_Z)){
+		IsSceneChange = true;
+	}
 
 	if(frame % 60 == 0) second += 1;
 	//エリアデータ
