@@ -45,7 +45,11 @@ private:
 	//アウトエリアPOP
 	void OutAreaPop(Vector3 position);
 
+	//タイトルロゴ
 	void TitleLogoMove();
+
+	//スタートアニメーション
+	void StartAnim();
 
 private:
 	float GameSpeed = 6.f;
@@ -67,6 +71,9 @@ private:
 	Vector2 LogoPos = LogoStartPos;
 	Vector2 LogoSize = {600,300};
 	float LogoTime = 0.f;
+
+	bool IsStart = false;
+	float startTime = 0.f;
 
 #ifdef _DEBUG
 	Vector3 target;

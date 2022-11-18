@@ -63,6 +63,17 @@ void Title::Update()
 	BaseScene::Update();
 
 #pragma region 入力
+	
+	//シーン遷移
+	if(input->Push(DIK_Z)){
+		IsStart = true;
+	}
+
+	/// <summary>
+	/// スタートアニメーション開始
+	/// </summary>
+	StartAnim();
+
 #ifdef _DEBUG
 	//target
 	if(input->Push(DIK_D)) target.y += 1.f;
@@ -75,6 +86,16 @@ void Title::Update()
 	else if(input->Push(DIK_LEFT)) eye.y -= 1.f;
 	if(input->Push(DIK_DOWN)) eye.z -= 1.f;
 	else if(input->Push(DIK_UP)) eye.z += 1.f;
+
+	//player
+	Vector3 pos = playerObj->GetPosition();
+	if(input->Push(DIK_Z)){
+		pos.z += 1.f;
+	}
+	else if(input->Push(DIK_C)){
+		pos.z -= 1.f;
+	}
+	playerObj->SetVector3(pos);
 
 	camera->SetTarget(target);
 	camera->SetEye(eye);
@@ -140,6 +161,8 @@ void Title::Draw()
 	debugText->Printf(0, 176, 1.f, "Target X:%f, Y:%f,Z:%f", target.x, target.y, target.z);
 	debugText->Printf(0, 192, 1.f, "CameraEye X:%f, Y:%f,Z:%f", camera->GetEye().x, camera->GetEye().y, camera->GetEye().z);
 	debugText->Printf(0, 208, 1.f, "Eye X:%f, Y:%f,Z:%f", eye.x, eye.y, eye.z);
+
+	debugText->Printf(0, 224, 1.f, "PlayerPos X:%f, Y:%f,Z:%f", playerObj->GetPosition().x, playerObj->GetPosition().y, playerObj->GetPosition().z);
 #endif // _DEBUG
 #pragma endregion
 
@@ -199,4 +222,25 @@ void Title::TitleLogoMove()
 	LogoPos.y = ((1.f-ease)*(1.f-ease) * LogoStartPos.y) + (2 * (1.f-ease) * ease * LogoEndPos.y) + (ease*ease * LogoStartPos.y);
 
 	titleLogo->SetVector2(LogoPos);
+}
+
+void Title::StartAnim()
+{
+	if(!IsStart) return;
+
+	//プレイヤー移動
+	startTime = (startTime < 1.f) ? startTime += 1.f/120 : startTime = 1.f;
+
+	Vector3 pos = playerObj->GetPosition();
+
+	float c1 = 1.70158f;
+	float c3 = c1 + 1.f;
+	float ease = c3 * startTime * startTime * startTime - c1 * startTime * startTime;
+
+	pos.z = (1.f - ease) * 199.f + ease * 270.f;
+
+
+	playerObj->SetVector3(pos);
+
+	if(playerObj->GetPosition().z == 270.f) IsSceneChange = true;
 }
