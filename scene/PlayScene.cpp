@@ -65,6 +65,10 @@ void PlayScene::Initialize()
 	//天球
 	skyDome = make_unique<SkyDome>();
 	skyDome->Initialize("skydome");
+
+	//ゴール
+	InitGoalPop();
+
 #pragma endregion
 
 #pragma region 汎用機能初期化
@@ -88,7 +92,7 @@ void PlayScene::Update()
 	BaseScene::Update();
 
 	//リザルト
-	result->Update(player->GetIsDead(),false);
+	result->Update(player->GetIsDead(),goal->GetIsGoal());
 	if(result->GetIsEnd() && input->Trigger(DIK_Z)){
 		IsSceneChange = true;
 	}
@@ -189,12 +193,17 @@ void PlayScene::Update()
 		obj->SetDepthSp(GameSpeed);
 	}
 
+	//ゴール
+	goal->Update(camera);
+	goal->SetDepthSp(GameSpeed);
+
 #pragma endregion
 
 #pragma region 汎用機能更新
 	//衝突判定リスト追加
 	if(!player->GetIsDead()){
 		collisionManager->SetCollision(player.get());
+		collisionManager->SetCollision(goal.get());
 		for(const std::unique_ptr<Coins>& obj : coin)
 		{
 			collisionManager->SetCollision(obj.get());
@@ -207,6 +216,7 @@ void PlayScene::Update()
 		{
 			collisionManager->SetCollision(obj.get());
 		}
+		
 	}
 #pragma endregion
 
@@ -254,6 +264,9 @@ void PlayScene::Draw()
 	for(unique_ptr<Wall02>& obj : wall02){
 		obj->Draw();
 	}
+
+	//ゴール
+	goal->Draw();
 
 #pragma endregion
 
@@ -353,6 +366,9 @@ void PlayScene::Finalize()
 		obj->Finalize();
 	}
 
+	//ゴール
+	goal->Finalize();
+
 #pragma endregion
 
 #pragma region 2D後処理
@@ -420,18 +436,24 @@ void PlayScene::PopCommands()
 			float l = (float)atof(word.c_str());
 			if(l == 1) CoinPop({-50, -135, 1000});
 			else if(l == 2) Wall01Pop({-50, -150, 1000});
+			else if(l == 3){}
+			else if(l == 4){}
 
 			//真ん中POP
 			getline(line_stream, word, ',');
 			float c = (float)atof(word.c_str());
 			if(c == 1) CoinPop({0, -135, 1000});
 			else if(c == 2) Wall01Pop({0, -150, 1000});
+			else if(c == 3){}
+			else if(c == 4) GoalPop({0,-131,1000});
 
 			//右POP
 			getline(line_stream, word, ',');
 			float r = (float)atof(word.c_str());
 			if(r == 1) CoinPop({50, -135, 1000});
 			else if(r == 2) Wall01Pop({50, -150, 1000});
+			else if(r == 3){}
+			else if(r == 4){}
 
 			//待機開始
 			IsWait = true;
@@ -453,6 +475,7 @@ void PlayScene::PopCommands()
 		}
 	}
 }
+
 
 void PlayScene::InitCoinPop()
 {
@@ -536,6 +559,22 @@ void PlayScene::Wall02Pop(Vector3 position)
 			obj->SetVector3(position);
 			break;
 		}
+	}
+}
+
+
+void PlayScene::InitGoalPop()
+{
+	goal = make_unique<Goal>();
+	goal->Initialize("Player");
+	goal->SetIsDead(true);
+}
+
+void PlayScene::GoalPop(Vector3 position)
+{
+	if(goal->GetIsDead()){
+		goal->SetIsDead(false);
+		goal->SetVector3(position);
 	}
 }
 

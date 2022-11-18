@@ -17,6 +17,7 @@
 #include "3D/SkyDome/SkyDome.h"
 #include "3D/Wall01/Wall01.h"
 #include "3D/Wall02/Wall02.h"
+#include "3D/Goal/Goal.h"
 
 #include "2D/Score/ScoreSprite.h"
 #include "2D/ScoreText/ScoreText.h"
@@ -81,6 +82,10 @@ private:
 	void InitWall02Pop();
 	void Wall02Pop(Vector3 position);
 
+	//ゴール
+	void InitGoalPop();
+	void GoalPop(Vector3 position);
+
 	//スコアPOP
 	void ScoreUp100Pop();
 	void ScoreDown100Pop();
@@ -102,6 +107,9 @@ private:
 	//壁
 	std::list<std::unique_ptr<Wall01>> wall01;
 	std::list<std::unique_ptr<Wall02>> wall02;
+
+	//ゴール
+	std::unique_ptr<Goal> goal;
 
 	//スコア
 	std::list<std::unique_ptr<ScoreSprite>> score;

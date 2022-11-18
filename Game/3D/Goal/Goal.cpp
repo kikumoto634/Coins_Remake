@@ -7,7 +7,7 @@ Goal::~Goal()
 
 void Goal::Initialize(std::string filePath)
 {
-	//BaseObjects::Initialize(filePath);
+	BaseObjects::Initialize(filePath);
 	//Õ“Ë‘®«İ’è
 	SetCollisionAttribute(kCollisionAttributeThier);
 	//Õ“Ë‘ÎÛ‚ğ©•ª‚Ì‘®«ˆÈŠO‚Éİ’è
@@ -20,12 +20,12 @@ void Goal::Update(Camera *camera)
 	if(world.translation.z <= 0) IsDead = true;
 	world.translation.z -= DepthSp;
 
-	//BaseObjects::Update(camera);
+	BaseObjects::Update(camera);
 }
 
 void Goal::Draw()
 {
-	//BaseObjects::Draw();
+	BaseObjects::Draw();
 }
 
 void Goal::Finalize()
@@ -36,6 +36,6 @@ void Goal::Finalize()
 void Goal::OnCollision(Collider *TouchCollision)
 {
 	if(TouchCollision->GetName() == "Player"){
-		
+		IsGoal = true;
 	}
 }

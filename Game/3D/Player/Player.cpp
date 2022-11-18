@@ -82,6 +82,9 @@ void Player::OnCollision(Collider *TouchCollision)
 		IsDamage = true;
 		return ;
 	}
+	else if(TouchCollision->GetName() == "Goal"){
+		IsGoal = true;
+	}
 }
 
 #pragma region _2Dˆ—
@@ -166,6 +169,10 @@ void Player::Finalize3D()
 void Player::InputMovement()
 {
 	if(!input) return;
+	if(IsGoal) {
+		acceleratorGage = AcceleratorGageMax;
+		return;
+	}
 
 	//ˆÚ“®§ŒÀ
 	world.translation.x = max(world.translation.x, -90.f);

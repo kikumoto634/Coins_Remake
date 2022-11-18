@@ -173,6 +173,9 @@ private:
 	bool IsDead = false;
 	float time = 0.f;
 
+	//ÉSÅ[Éã
+	bool IsGoal = false;
+
 	//â¡ë¨
 	bool IsAccelerator = false;
 	//â¡ë¨ÉQÅ[ÉW
