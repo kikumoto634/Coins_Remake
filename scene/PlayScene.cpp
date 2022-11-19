@@ -569,7 +569,7 @@ void PlayScene::Wall02Pop(Vector3 position)
 void PlayScene::InitGoalPop()
 {
 	goal = make_unique<Goal>();
-	goal->Initialize("Player");
+	goal->Initialize("Goal");
 	goal->SetIsDead(true);
 }
 void PlayScene::GoalPop(Vector3 position)
