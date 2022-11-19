@@ -23,6 +23,12 @@ void Title::Initialize()
 	titleLogo->Initialize(7);
 	titleLogo->SetVector2(LogoPos);
 	titleLogo->SetSize(LogoSize);
+
+	pressText = make_unique<BaseSprite>();
+	pressText->Initialize(22);
+	pressText->SetVector2(pressTextPos);
+	pressText->SetSize(pressTextSize);
+
 #pragma endregion
 
 #pragma region _3Dモデル初期化
@@ -105,6 +111,8 @@ void Title::Update()
 #pragma region _2Dモデル更新
 	TitleLogoMove();
 	titleLogo->Update();
+
+	pressText->Update();
 #pragma endregion
 
 #pragma region _3Dモデル更新
@@ -154,6 +162,8 @@ void Title::Draw()
 	//タイトルロゴ
 	titleLogo->Draw();
 
+	pressText->Draw();
+
 #ifdef _DEBUG
 	debugText->Print("Title",0, 0, 3.f);
 
@@ -175,6 +185,7 @@ void Title::Finalize()
 
 #pragma region _2D後処理
 	titleLogo->Finalize();
+	pressText->Finalize();
 #pragma endregion
 
 #pragma region _3Dモデル後処理

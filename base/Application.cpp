@@ -92,6 +92,7 @@ void Application::Initialize()
 
 	TextureManager::Load(20, "Score/ScoreGageEmpty.png");
 	TextureManager::Load(21, "Score/ScoreGageFull.png");
+	TextureManager::Load(22, "Button/Press Z.png");
 
 	Sprite::StaticInitialize(dxCommon, window->GetWindowWidth(), window->GetWindowHeight());
 

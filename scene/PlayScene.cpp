@@ -92,7 +92,7 @@ void PlayScene::Update()
 	BaseScene::Update();
 
 	//リザルト
-	result->Update(player->GetIsDead(),goal->GetIsGoal());
+	result->Update(player->GetIsDead(),goal->GetIsGoal(), player->GetScoreCount());
 	if(result->GetIsEnd() && input->Trigger(DIK_Z)){
 		IsSceneChange = true;
 	}
@@ -315,6 +315,7 @@ void PlayScene::Draw()
 	debugText->Printf(0, 664, 1.f, "PlayerHp : %d", player->GetHp());
 	debugText->Printf(0, 680, 1.f, "PlayerIsAccelerator : %d", player->GetIsAccelerator());
 	debugText->Printf(0, 696, 1.f, "PlayerIsAcceleratorGage : %f", player->GetAcceleratorGage());
+	debugText->Printf(0, 712, 1.f, "Score : %d", player->GetScoreCount());
 
 	//デバックボタン
 	debugText->Print("DIK_1 : Coin Appearance",1000,0,1.f);

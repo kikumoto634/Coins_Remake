@@ -14,7 +14,7 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update(bool IsGameOver, bool IsGameClear);
+	void Update(bool IsGameOver, bool IsGameClear, int scoreValue);
 
 	/// <summary>
 	/// 描画
@@ -42,9 +42,15 @@ private:
 
 	//スコアフォント
 	static const int Num = 9;
-	Sprite* scoreNumber[Num] = {};
-	Vector2 fontNumberPosition[Num] = {};
-	Vector2 fontNumberSize[Num] = {};
+	Sprite* scoreNumber[Num];
+	Vector2 fontNumberPosition[Num];
+	Vector2 fontNumberSize[Num];
+	int score = 0;
+
+	//pressZ
+	Sprite* pressFont = nullptr;
+	Vector2 pressFontPosition = {0,0};
+	Vector2 pressFontSize = {100,100};
 
 	bool IsEnd = false;
 

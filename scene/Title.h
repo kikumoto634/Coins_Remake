@@ -72,6 +72,11 @@ private:
 	Vector2 LogoSize = {600,300};
 	float LogoTime = 0.f;
 
+	//Press Z
+	std::unique_ptr<BaseSprite> pressText;
+	Vector2 pressTextPos = {800, 500};
+	Vector2 pressTextSize = {225, 50};
+
 	bool IsStart = false;
 	float startTime = 0.f;
 
