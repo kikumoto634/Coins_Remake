@@ -22,5 +22,19 @@ public:
 	void Draw() override;
 
 	void Finalize() override;
+
+	//Settter
+	void SetGageCurrent(float value)	{current = value;}
+	void SetGageMax(float value)	{Max = value;}
+
+private:
+	//ÉQÅ[ÉW
+	Sprite* empty = nullptr;
+	Sprite* full = nullptr;
+
+	float Max = 1.f;
+	float current = 0.f;
+
+	float gageSize = 512.f;
 };
 

@@ -18,7 +18,7 @@ void Result::Initialize(int BackTexNumber, int fonrtexNumber)
 	fontSize = {240, 90};
 
 	//”š
-	for(int i = 0; )
+	//for(int i = 0; )
 }
 
 void Result::Update(bool IsGameOver, bool IsGameClear)

@@ -89,6 +89,10 @@ void Application::Initialize()
 	TextureManager::Load(17, "Result/text/7.png");
 	TextureManager::Load(18, "Result/text/8.png");
 	TextureManager::Load(19, "Result/text/9.png");
+
+	TextureManager::Load(20, "Score/ScoreGageEmpty.png");
+	TextureManager::Load(21, "Score/ScoreGageFull.png");
+
 	Sprite::StaticInitialize(dxCommon, window->GetWindowWidth(), window->GetWindowHeight());
 
 	//Geometry

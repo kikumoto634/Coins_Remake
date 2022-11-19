@@ -34,8 +34,6 @@ void Player::Update(Camera* camera, Input* input)
 	}
 #endif // _DEBUG
 
-	acceleratorGage = min(acceleratorGage, AcceleratorGageMax);
-
 	BaseObjects::Update(camera);
 }
 
@@ -66,6 +64,7 @@ void Player::OnCollision(Collider *TouchCollision)
 		CoinCount = CoinCount + 1;
 		ScoreCount += 100;
 		acceleratorGage += 0.5f;
+		acceleratorGage = min(acceleratorGage, AcceleratorGageMax);
 		IsScoreUp = true;
 		return ;
 	}
@@ -73,6 +72,7 @@ void Player::OnCollision(Collider *TouchCollision)
 		if(IsAccelerator) {
 			ScoreCount += 100;
 			acceleratorGage += 0.5f;
+			acceleratorGage = min(acceleratorGage, AcceleratorGageMax);
 			IsScoreUp = true;
 			return;
 		}

@@ -55,6 +55,8 @@ public:
 	bool GetIsDead() const {return IsDead;}
 	bool GetIsAccelerator()const {return IsAccelerator;}
 	float GetDeadAnimSp() {return (DeadAnimSp/AnimNormalSp);}
+
+	float GetMaxAcceleratorGage()	{return AcceleratorGageMax;}
 	float GetAcceleratorGage()	{return acceleratorGage;}
 
 	int GetCoinCount() const {return CoinCount;}

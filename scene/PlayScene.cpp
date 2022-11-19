@@ -154,6 +154,9 @@ void PlayScene::Update()
 	//スコアボード
 	scoreBoard->Update();
 	//スコアゲージ
+	//ゲージ
+	scoreGage->SetGageCurrent(player->GetAcceleratorGage());
+	scoreGage->SetGageMax(player->GetMaxAcceleratorGage());
 	scoreGage->Update();
 #pragma endregion
 
