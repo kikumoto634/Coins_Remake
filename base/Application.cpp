@@ -78,6 +78,17 @@ void Application::Initialize()
 	TextureManager::Load(7, "Title/Title.png");
 	TextureManager::Load(8, "Result/ResultBack.png");
 	TextureManager::Load(9, "Result/RESULT_TextFont.png");
+
+	TextureManager::Load(10, "Result/text/0.png");
+	TextureManager::Load(11, "Result/text/1.png");
+	TextureManager::Load(12, "Result/text/2.png");
+	TextureManager::Load(13, "Result/text/3.png");
+	TextureManager::Load(14, "Result/text/4.png");
+	TextureManager::Load(15, "Result/text/5.png");
+	TextureManager::Load(16, "Result/text/6.png");
+	TextureManager::Load(17, "Result/text/7.png");
+	TextureManager::Load(18, "Result/text/8.png");
+	TextureManager::Load(19, "Result/text/9.png");
 	Sprite::StaticInitialize(dxCommon, window->GetWindowWidth(), window->GetWindowHeight());
 
 	//Geometry

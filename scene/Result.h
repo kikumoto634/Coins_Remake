@@ -40,6 +40,12 @@ private:
 	Vector2 fontPosition = {0,0};
 	Vector2 fontSize = {100,100};
 
+	//スコアフォント
+	static const int Num = 9;
+	Sprite* scoreNumber[Num] = {};
+	Vector2 fontNumberPosition[Num] = {};
+	Vector2 fontNumberSize[Num] = {};
+
 	bool IsEnd = false;
 
 	float alpha = 0.f;

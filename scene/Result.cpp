@@ -16,6 +16,9 @@ void Result::Initialize(int BackTexNumber, int fonrtexNumber)
 	font = Sprite::Create(fonrtexNumber, fontPosition);
 	fontPosition = {520, 200};
 	fontSize = {240, 90};
+
+	//êîéö
+	for(int i = 0; )
 }
 
 void Result::Update(bool IsGameOver, bool IsGameClear)

@@ -569,7 +569,6 @@ void PlayScene::InitGoalPop()
 	goal->Initialize("Player");
 	goal->SetIsDead(true);
 }
-
 void PlayScene::GoalPop(Vector3 position)
 {
 	if(goal->GetIsDead()){
