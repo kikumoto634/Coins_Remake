@@ -44,7 +44,7 @@ public:
 	void SetDepthSp(float Sp)	{DepthSp = Sp;}
 
 private:
-	float width = 50;
+	float width = 200;
 	float height = 50;
 	float depth = 10;
 	std::string name = "Goal";

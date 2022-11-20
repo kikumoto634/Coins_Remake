@@ -85,9 +85,6 @@
     <Filter Include="ソース ファイル\Engine\math">
       <UniqueIdentifier>{a249e385-bd10-49d9-acbc-3e9402d6505a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Engine\loader">
-      <UniqueIdentifier>{54ab1b9e-db1d-4f1a-aac9-6cd15a7b005e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Engine">
       <UniqueIdentifier>{716f7638-5036-4bbb-8f89-a6106f7f6d81}</UniqueIdentifier>
     </Filter>
@@ -111,6 +108,9 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\game\System">
       <UniqueIdentifier>{bf3e1e5b-7fc0-4a94-8d5e-ea2778155df6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\loader">
+      <UniqueIdentifier>{54ab1b9e-db1d-4f1a-aac9-6cd15a7b005e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -163,7 +163,7 @@
       <Filter>ソース ファイル\debug</Filter>
     </ClCompile>
     <ClCompile Include="loader\FbxLoader.cpp">
-      <Filter>ソース ファイル\Engine\loader</Filter>
+      <Filter>ソース ファイル\loader</Filter>
     </ClCompile>
     <ClCompile Include="math\Vector4.cpp">
       <Filter>ソース ファイル\Engine\math</Filter>

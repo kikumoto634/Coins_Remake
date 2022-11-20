@@ -63,7 +63,8 @@ void Player::OnCollision(Collider *TouchCollision)
 	if(TouchCollision->GetName() == "Coin"){
 		CoinCount = CoinCount + 1;
 		ScoreCount += 100;
-		acceleratorGage += 0.5f;
+		if(!IsAccelerator)		acceleratorGage += 0.3f;
+		else if(IsAccelerator)  acceleratorGage += 0.1f;
 		acceleratorGage = min(acceleratorGage, AcceleratorGageMax);
 		IsScoreUp = true;
 		return ;
@@ -71,7 +72,7 @@ void Player::OnCollision(Collider *TouchCollision)
 	else if(TouchCollision->GetName() == "Wall01"){
 		if(IsAccelerator) {
 			ScoreCount += 100;
-			acceleratorGage += 0.5f;
+			acceleratorGage += 0.1f;
 			acceleratorGage = min(acceleratorGage, AcceleratorGageMax);
 			IsScoreUp = true;
 			return;
@@ -303,7 +304,7 @@ void Player::InputAccelerator()
 	if(!IsAccelerator) return;
 
 	camera->AngleMove(AcceleratorCameraAngle);
-	acceleratorGage -= 1.f/45;
+	acceleratorGage -= 1.f/60;
 	AnimSp = AnimMaxSp;
 	MoveSp = MaxMoveSp;
 	RotSp = MaxRotSp;

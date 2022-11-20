@@ -80,7 +80,7 @@ private:
 	void InitWall01Pop();
 	void Wall01Pop(Vector3 position);
 	void InitWall02Pop();
-	void Wall02Pop(Vector3 position);
+	void Wall02Pop(Vector3 position, bool IsLRFlag);
 
 	//ゴール
 	void InitGoalPop();
@@ -125,8 +125,8 @@ private:
 
 	//ゲーム進行速度
 	float GameSpeed = 0.f;
-	const float GameNormalSpeed = 6.f;
-	const float GameAcceleratorSpeed = 18.f;
+	const float GameNormalSpeed = 8.f;
+	const float GameAcceleratorSpeed = 15.f;
 
 	int frame = 0;
 	int second = 0;

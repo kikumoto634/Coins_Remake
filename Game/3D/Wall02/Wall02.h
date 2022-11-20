@@ -43,6 +43,7 @@ public:
 	//Setter
 	void SetVector3(Vector3 position)	{world.translation = position;}
 	void SetDepthSp(float Sp)	{DepthSp = Sp;}
+	void SetIsLRFlag(bool IsFlag)	{IsLRFlag = IsFlag;}
 
 private:
 	/// <summary>

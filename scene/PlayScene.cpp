@@ -107,14 +107,13 @@ void PlayScene::Update()
 	if(input->Trigger(DIK_1)){
 		CoinPop({-50,-135,1000});
 		CoinPop({-0,-135,1000});
-		//popCommands = {};
-		//CSVLoadPopData();
 	}
 	else if(input->Trigger(DIK_2)){
 		Wall01Pop({50,-150,1000});
 	}
 	else if(input->Trigger(DIK_3)){
-		Wall02Pop({350,-70,1000});
+		Wall02Pop({350,-70,1000}, false);
+		Wall02Pop({-350,-70,1000}, true);
 	}
 	else if(input->Trigger(DIK_4)){
 		hitStop->SetStopFrame(3.f);
@@ -440,7 +439,7 @@ void PlayScene::PopCommands()
 			float l = (float)atof(word.c_str());
 			if(l == 1) CoinPop({-50, -135, 1000});
 			else if(l == 2) Wall01Pop({-50, -150, 1000});
-			else if(l == 3){}
+			else if(l == 3) Wall02Pop({-350, -70, 1000}, true);
 			else if(l == 4){}
 
 			//真ん中POP
@@ -456,7 +455,7 @@ void PlayScene::PopCommands()
 			float r = (float)atof(word.c_str());
 			if(r == 1) CoinPop({50, -135, 1000});
 			else if(r == 2) Wall01Pop({50, -150, 1000});
-			else if(r == 3){}
+			else if(r == 3) Wall02Pop({350, -70, 1000}, false);
 			else if(r == 4){}
 
 			//待機開始
@@ -555,12 +554,13 @@ void PlayScene::InitWall02Pop()
 		obj->SetIsDead(true);
 	}
 }
-void PlayScene::Wall02Pop(Vector3 position)
+void PlayScene::Wall02Pop(Vector3 position, bool IsLRFlag)
 {
 	for(unique_ptr<Wall02>& obj : wall02){
 		if(obj->GetIsDead()){
 			obj->SetIsDead(false);
 			obj->SetVector3(position);
+			obj->SetIsLRFlag(IsLRFlag);
 			break;
 		}
 	}

@@ -126,7 +126,7 @@ private:
 
 	//ˆÚ“®‰ñ“]
 	const float NormalRotSp = DirectX::XMConvertToRadians(1.f);
-	const float MaxRotSp = DirectX::XMConvertToRadians(3.f);
+	const float MaxRotSp = DirectX::XMConvertToRadians(2.5f);
 
 	//‰Á‘¬
 	//ƒQ[ƒW

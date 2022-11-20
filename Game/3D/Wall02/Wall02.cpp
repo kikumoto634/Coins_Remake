@@ -58,10 +58,6 @@ void Wall02::OnCollision(Collider *TouchCollision)
 void Wall02::Movement()
 {
 	fallTime += 1.f/60;
-	if(fallTime <= FallTime) {
-		if(world.translation.x < 0) IsLRFlag = true;
-		return;
-	}
 
 	if(world.translation.y >= -120.f) world.translation.y -= MoveSp;
 
