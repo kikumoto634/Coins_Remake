@@ -10,6 +10,10 @@ Coins::~Coins()
 void Coins::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);
+
+	world.scale = Vector3(1.5f,1.5f,1.5f);
+	world.UpdateMatrix();
+
 	//Õ“Ë‘®«İ’è
 	SetCollisionAttribute(kCollisionAttributeThier);
 	//Õ“Ë‘ÎÛ‚ğ©•ª‚Ì‘®«ˆÈŠO‚Éİ’è

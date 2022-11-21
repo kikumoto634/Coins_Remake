@@ -47,9 +47,9 @@ public:
 
 //ƒƒ“ƒo•Ï”
 private:
-	float width = 15;
-	float height = 15;
-	float depth = 15;
+	float width = 17;
+	float height = 17;
+	float depth = 17;
 	std::string name = "Wall01";
 
 	float DepthSp = 0.f;

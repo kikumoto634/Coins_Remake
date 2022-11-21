@@ -266,7 +266,7 @@ void Player::Damage()
 
 void Player::Dead()
 {
-	if(Hp == 0) IsDead = true;
+	if(Hp <= 0) IsDead = true;
 
 #ifdef _DEBUG
 

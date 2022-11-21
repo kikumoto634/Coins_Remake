@@ -9,7 +9,7 @@ void Wall01::Initialize(std::string filePath)
 {
 	BaseObjects::Initialize(filePath);
 
-	world.scale = Vector3(0.2f,0.2f,0.2f);
+	world.scale = Vector3(0.3f,0.3f,0.3f);
 	world.UpdateMatrix();
 
 	//Õ“Ë‘®«İ’è
